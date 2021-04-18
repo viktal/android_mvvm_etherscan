@@ -13,5 +13,4 @@ class LoginActivity : AppCompatActivity() {
         binding.viewmodel = viewModel
         viewModel.authListener = this
     }
-
 }
