@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Etherscan</string>
+    <string name="app_info" translatable="false">It is a free client interface to
+        help you interact with the Ethereum blockchain</string>
+    <string name="swipe_info" translatable="false">Swipe to select  a type of authorization</string>
+    <string name="mnemonic_default" translatable="false">crop truly stuff sing course hour six rescue mass
+        aunt invest dose will local empower</string>
+    <string name="address_default" translatable="false">0xF33ddB3EB90a88E1ebE3f0994A02EF2db4EfE397</string>
+    <string name="login_screen_btn_name" translatable="false">Submit</string>
 </resources>
