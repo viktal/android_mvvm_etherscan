@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainActivity">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="main.src.etherscan.ui.activity.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="main.src.etherscan.ui.activity.LoginActivity"
+        android:label="LoginActivity" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="main.src.etherscan.ui.fragments.WalletFragment"
+        android:label="WalletFragment" >
+        <action
+            android:id="@+id/action_walletFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_walletFragment_to_placeholder"
+            app:destination="@id/transactions" />
+        <action
+            android:id="@+id/action_walletFragment_to_graph"
+            app:destination="@id/graph" />
+    </fragment>
+    <fragment android:id="@+id/transactions" >
+        <action
+            android:id="@+id/action_transactions_to_walletFragment"
+            app:destination="@id/walletFragment" />
+    </fragment>
+    <fragment android:id="@+id/graph" >
+        <action
+            android:id="@+id/action_graph_to_walletFragment"
+            app:destination="@id/walletFragment" />
+    </fragment>
+</navigation>
