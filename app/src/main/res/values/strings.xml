@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Etherscan</string>
+    <string name="app_name">YourWallet</string>
     <string name="total_wallet">TOTAL WALLET</string>
     <string name="app_info" translatable="false">It is a free client interface to
         help you interact with the Ethereum blockchain</string>
