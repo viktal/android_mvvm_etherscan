@@ -15,6 +15,5 @@ data class TokenInfoModel(
     val holdersCount: Int,
     val issuancesCount: Int,
     val lastUpdated: Int,
-    // @Json(ignored = true)
     val image: String = ""
 )

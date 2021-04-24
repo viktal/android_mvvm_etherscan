@@ -1,3 +1,5 @@
 package main.src.etherscan.api
 
-interface WalletListener
+interface WalletListener {
+    fun pressToken(address: String)
+}
