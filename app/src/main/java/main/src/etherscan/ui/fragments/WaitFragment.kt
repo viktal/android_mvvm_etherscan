@@ -1,12 +1,10 @@
 package main.src.etherscan.ui.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import main.src.etherscan.R
@@ -29,7 +27,6 @@ class WaitFragment : Fragment() {
             if (model != null) {
                 val walletFragment = WalletFragment()
 
-
                 // if (parentFragmentManager.findFragmentById(R.id.base_fragment) == null) {
                 (context as MainActivity).supportFragmentManager
                     .beginTransaction()
@@ -43,7 +40,4 @@ class WaitFragment : Fragment() {
 
         return view
     }
-
-
-
 }

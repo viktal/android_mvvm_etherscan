@@ -36,10 +36,10 @@ class WalletAdapter(
         val model = mData[position]
         holder.mTokenTitle.text = model.tokenInfo.name
         holder.mTokenDescription.text = model.tokenInfo.price?.rate.toString()
-        Picasso.get().load("https://ethplorer.io"+model.tokenInfo.image).into(holder.mTokenImage)
+        Picasso.get().load("https://ethplorer.io" + model.tokenInfo.image).into(holder.mTokenImage)
     }
 
     override fun getItemCount(): Int {
-       return mData.size
+        return mData.size
     }
 }

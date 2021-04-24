@@ -2,14 +2,8 @@ package main.src.etherscan.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import main.src.etherscan.R
-import main.src.etherscan.data.repositories.EthplorerRepository
 import main.src.etherscan.ui.fragments.WaitFragment
-import main.src.etherscan.ui.fragments.WalletFragment
-import main.src.etherscan.viewmodels.WalletViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

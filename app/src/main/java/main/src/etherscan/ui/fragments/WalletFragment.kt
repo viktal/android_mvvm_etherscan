@@ -5,17 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import main.src.etherscan.R
 import main.src.etherscan.adapters.WalletAdapter
-import main.src.etherscan.data.models.AddressInfoModel
-import main.src.etherscan.data.repositories.EthplorerRepository
 import main.src.etherscan.databinding.MainScreenBinding
 import main.src.etherscan.viewmodels.WalletViewModel
 
@@ -36,7 +30,6 @@ class WalletFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
         binding.walletViewModel = viewModel
-
 
         val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
         recyclerView.adapter = WalletAdapter(viewModel.model.value!!.tokens)

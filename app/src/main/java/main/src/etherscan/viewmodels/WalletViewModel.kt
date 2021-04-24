@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.AddressInfoModel
-import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 
 class WalletViewModel : ViewModel() {
@@ -15,7 +14,6 @@ class WalletViewModel : ViewModel() {
 //     адаптер на него подпишется
 //     и обновится, когда придут данные в модель
 //     через Трансормацию отдать список токенов
-
 
     private var _model = MutableLiveData<AddressInfoModel>()
     val model: LiveData<AddressInfoModel>
@@ -32,8 +30,4 @@ class WalletViewModel : ViewModel() {
             )
         }
     }
-
-
-
-
 }

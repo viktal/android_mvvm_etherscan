@@ -1,7 +1,5 @@
 package main.src.etherscan.data.models
 
-import com.beust.klaxon.Json
-
 data class AddressInfoModel(
     val address: String,
     val ETH: ETHModel,

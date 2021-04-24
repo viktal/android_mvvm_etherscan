@@ -10,8 +10,7 @@ class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
     private val client = OkHttpClient()
 
-
-    suspend fun getAddressInfo(address: String) : AddressInfoModel? {
+    suspend fun getAddressInfo(address: String): AddressInfoModel? {
         val methodURL = "$url/getAddressInfo/$address"
 
         val request = Request.Builder()
@@ -24,4 +23,3 @@ class EthplorerRemoteStorage {
             .parse<AddressInfoModel>(result.body!!.string())
     }
 }
-
