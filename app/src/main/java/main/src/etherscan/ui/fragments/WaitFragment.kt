@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import main.src.etherscan.R
 import main.src.etherscan.ui.activity.MainActivity
 import main.src.etherscan.viewmodels.WalletViewModel
@@ -25,14 +26,7 @@ class WaitFragment : Fragment() {
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
-                val walletFragment = WalletFragment()
-
-                // if (parentFragmentManager.findFragmentById(R.id.base_fragment) == null) {
-                (context as MainActivity).supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.base_fragment, walletFragment)
-                    .commit()
-                // }
+                findNavController().navigate(R.id.walletFragment, null)
             }
         })
 
