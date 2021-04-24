@@ -30,6 +30,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -46,6 +52,30 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+
+    def nav_version = "2.3.5"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha10"
+
+    // Kotlin coroutines await extension for OkHttp3
+    implementation "ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0"
+
+    // Klaxon is a library to parse JSON in Kotlin
+    implementation 'com.beust:klaxon:5.5'
+
+    // image downloading and caching library
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }
 
 allprojects {

@@ -1,36 +1,40 @@
 package main.src.etherscan.ui.fragments
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import main.src.etherscan.R
 import main.src.etherscan.adapters.WalletAdapter
-import main.src.etherscan.ui.activity.MainActivity
+import main.src.etherscan.databinding.MainScreenBinding
+import main.src.etherscan.viewmodels.WalletViewModel
 
 class WalletFragment : Fragment() {
+    private lateinit var binding: MainScreenBinding
+    private lateinit var viewModel: WalletViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        val view: View = inflater.inflate(R.layout.main_screen, container, false)
-        val recyclerView: RecyclerView = view.findViewById(R.id.list_tokens)
 
-        val grid = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.layoutManager = grid
+        binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = WalletAdapter()
+        viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
+        binding.walletViewModel = viewModel
 
-        recyclerView.adapter = adapter
-        val button = view.findViewById<Button>(R.id.button)
+        val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
+        recyclerView.adapter = WalletAdapter(viewModel.model.value!!.tokens)
+        recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
-        return view
+        return binding.root
     }
 }
