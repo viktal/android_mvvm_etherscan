@@ -30,6 +30,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -66,6 +72,9 @@ dependencies {
 
     // Klaxon is a library to parse JSON in Kotlin
     implementation 'com.beust:klaxon:5.5'
+
+    // image downloading and caching library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
 
