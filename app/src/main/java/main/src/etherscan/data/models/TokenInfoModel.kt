@@ -8,7 +8,7 @@ data class TokenInfoModel(
     val symbol: String,
     val decimals: String,
     @Json(ignored = true)
-    val price: PriceModel,
+    val price: PriceModel? = null,
     val owner: String,
     val countOps: Int? = null,
     val transfersCount: Int? = null,

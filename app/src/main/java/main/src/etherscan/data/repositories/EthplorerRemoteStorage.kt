@@ -1,12 +1,18 @@
 package main.src.etherscan.data.repositories
 
+import android.util.JsonReader
 import android.util.Log
 import com.beust.klaxon.Klaxon
+import com.beust.klaxon.PathMatcher
 import main.src.etherscan.data.models.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 import ru.gildor.coroutines.okhttp.await
+import java.io.StringReader
+import java.util.regex.Pattern
 import kotlin.math.pow
+
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
@@ -20,8 +26,26 @@ class EthplorerRemoteStorage {
             .build()
 
         val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
         val clearResult = Klaxon()
-                .parse<AddressInfoModel>(result.body!!.string())
+                .parse<AddressInfoModel>(json)
+
+        val pathMatcher = object : PathMatcher {
+            override fun pathMatches(path: String) = Pattern.matches("$.tokens[*].tokenInfo.price.*", path)
+
+            override fun onMatch(path: String, value: Any) {
+                if (value != false)
+                    println(value)
+            }
+        }
+
+        val price = Klaxon()
+                .pathMatcher(pathMatcher)
+                .parse<PriceModel>(json)
+
+
+
 
         return normalizeTokens(clearResult!!)
     }
