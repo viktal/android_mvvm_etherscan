@@ -20,7 +20,6 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mTokenDescription: TextView = itemView.findViewById(R.id.description)
     var mTokenMoneyCountDollar: TextView = itemView.findViewById(R.id.money_count_dollar)
     var mTokenImage: ImageView = itemView.findViewById(R.id.image)
-
     var mTokenItem: LinearLayout = itemView.findViewById(R.id.token_item)
 }
 
@@ -41,10 +40,13 @@ class WalletAdapter(
     override fun onBindViewHolder(holder: WalletHolder, position: Int) {
 
         val model = mData
+//        val profit = model!!.dailyMoney.toDouble()*100/model.totalSum.toDouble()
+
         holder.mTokenTitle.text = model!!.tokens[position].name
         holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
         holder.mTokenMoneyCount.text =  model.tokens[position].balance + " " + model.tokens[position].symbol
         holder.mTokenMoneyCountDollar.text ='$' + model.tokens[position].price
+//        holder.mDailyProfit.text = model.dailyMoney.toString() + "(" + profit + "%)"
         Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
         holder.mTokenItem.setOnClickListener{
             var typeTrans = TypeTrans.TOKEN

@@ -16,20 +16,19 @@ import main.src.etherscan.data.models.EtherTransModel
 
 import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel
+import main.src.etherscan.data.models.*
 
 class TransactionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    // var mTokenTitle: TextView = itemView.findViewById(R.id.token_title)
-    // var mTokenMoneyCount: TextView = itemView.findViewById(R.id.money_count)
-    // var mTokenDescription: TextView = itemView.findViewById(R.id.description)
-    // var mTokenMoneyCountDollar: TextView = itemView.findViewById(R.id.money_count_dollar)
-    // var mTokenImage: ImageView = itemView.findViewById(R.id.image)
-    //
-    // var mTokenItem: LinearLayout = itemView.findViewById(R.id.token_item)
+    val mTransDate: TextView = itemView.findViewById(R.id.date)
+    val mTransAddress: TextView = itemView.findViewById(R.id.address)
+    val mTransDollars: TextView = itemView.findViewById(R.id.money_count_dollar)
+    val mTransCoins: TextView = itemView.findViewById(R.id.money_count)
 }
 
 class TransactionAdapter(
-    private var mData: List<EtherTransModel>?,
-    private val listener: TransactionListener
+        private var mData:
+        TransactionListModel?,
+        private val listener: TransactionListener
 ) : RecyclerView.Adapter<TransactionHolder>() {
 
     private val imageAddress = "https://ethplorer.io"
@@ -42,19 +41,18 @@ class TransactionAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TransactionHolder, position: Int) {
 
-        // val model = mData
-        // holder.mTokenTitle.text = model!!.tokens[position].name
-        // holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
-        // holder.mTokenMoneyCount.text =  model.tokens[position].balance + " " + model.tokens[position].symbol
-        // holder.mTokenMoneyCountDollar.text ='$' + model.tokens[position].price
-        // Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
-        // holder.mTokenItem.setOnClickListener{
-        //     listener.pressTrans(model.tokens[position].address)
-        // }
+        val model = mData
+
+        val from = model!!.transaction[position].to
+        val fromLen = from.length
+
+        holder.mTransDate.text = model.transaction[position].date
+        holder.mTransAddress.text = "to: " + from.subSequence(0,5).toString() + ".." + from.subSequence(fromLen-5, fromLen-1)
+        holder.mTransDollars.text = "$" + model.transaction[position].dollars
+        holder.mTransCoins.text = model.transaction[position].coins
     }
 
     override fun getItemCount(): Int {
-        return 1
-        // return mData!!.tokens.size
+        return mData!!.transaction.size
     }
 }

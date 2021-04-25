@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_bg_blue"
                     android:layout_gravity="center"
+                    android:text="@{String.valueOf(walletViewModel.model.dailyMoney)}"
                     tools:text=" -$268.65 (-0.74%) "
                     android:background="@drawable/daily_profit"
                     android:id="@+id/daily_profit"

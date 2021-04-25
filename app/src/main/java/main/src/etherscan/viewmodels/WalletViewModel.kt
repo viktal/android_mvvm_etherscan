@@ -15,7 +15,7 @@ import main.src.etherscan.data.repositories.UserRepository
 class WalletViewModel() : ViewModel() {
 
     private var _model = MutableLiveData<TokensListModel>()
-    val model: LiveData<TokensListModel>
+    val model: LiveData<TokensListModel?>
         get() = _model
 
     private val repo = EthplorerRepository()
