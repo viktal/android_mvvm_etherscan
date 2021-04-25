@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import main.src.etherscan.TypeTrans
 import main.src.etherscan.data.models.EtherTransModel
-import main.src.etherscan.data.models.ListEtherTransModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 
 class TransactionViewModel : ViewModel() {
@@ -17,13 +17,11 @@ class TransactionViewModel : ViewModel() {
 
     private val repo = EthplorerRepository()
 
-    fun clickEther(str: String) {
+    fun clickEther(address: String, typeTrans: TypeTrans) {
         _model.value = null
         viewModelScope.launch(Dispatchers.IO) {
-            val value = str.let { repo.getEtherTrans(it) }
-            _model.postValue(
-                value
-            )
+            val value = repo.getTrans(address, typeTrans)
+            _model.postValue(value)
         }
     }
 

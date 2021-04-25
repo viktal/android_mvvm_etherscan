@@ -16,6 +16,7 @@ import kotlin.math.pow
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
+    val apiLimit = "&limit=10"
     private val client = OkHttpClient()
 
     suspend fun getAddressInfo(address: String): TokensListModel {
@@ -38,7 +39,6 @@ class EthplorerRemoteStorage {
     }
 
     suspend fun getEtherTrans(address: String): List<EtherTransModel>? {
-        val apiLimit = "&limit=10"
         val methodURL = "$url/getAddressTransactions/$address$apiLimit"
 
         val request = Request.Builder()
@@ -52,6 +52,24 @@ class EthplorerRemoteStorage {
             .parseArray<EtherTransModel>(json)
 
         return clearResult!!
+    }
+
+    suspend fun getTokenTrans(address: String): List<EtherTransModel>? {
+        val methodURL = "$url/getAddressHistory/$address$apiLimit"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val clearResult = Klaxon()
+            .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
+            .parse<ListTokenTransModel>(json)
+
+        print (clearResult)
+        return getEtherTrans(address)
     }
 
 

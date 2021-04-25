@@ -10,23 +10,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.adapters.TransactionAdapter
-import main.src.etherscan.adapters.WalletAdapter
 import main.src.etherscan.api.TransactionListener
-import main.src.etherscan.api.WalletListener
-import main.src.etherscan.databinding.MainScreenBinding
 import main.src.etherscan.databinding.TransactionsBinding
 import main.src.etherscan.viewmodels.TransactionViewModel
-import main.src.etherscan.viewmodels.WalletViewModel
+
+
+
 
 class TransactionFragment : Fragment() {
     private lateinit var binding: TransactionsBinding
     private lateinit var viewModel: TransactionViewModel
     private lateinit var mProgressBar: ProgressBar
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +36,15 @@ class TransactionFragment : Fragment() {
     ): View {
 
         super.onCreateView(inflater, container, savedInstanceState)
+
+        var address = ""
+        var typeTrans = ""
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            address = bundle.getString(BundleConstants.ADDRESS, "")
+            typeTrans = bundle.getString(BundleConstants.TYPETRANS, "")
+        }
 
         val view = inflater
             .inflate(R.layout.transactions, container, false)
@@ -45,30 +55,25 @@ class TransactionFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel = ViewModelProvider(requireActivity()).get(TransactionViewModel::class.java)
-        // binding.walletViewModel = viewModel
+        binding.transViewModel = viewModel
 
         val recyclerView: RecyclerView = view.findViewById(R.id.list_transactions)
-        recyclerView.adapter = TransactionAdapter(viewModel.model.value, activity as TransactionListener)
+        recyclerView.adapter = TransactionAdapter(
+            viewModel.model.value,
+            activity as TransactionListener
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
                 mProgressBar.visibility = View.GONE
-                val layout : CoordinatorLayout = view.findViewById(R.id.trans_coord_layout)
+                val layout: CoordinatorLayout = view.findViewById(R.id.trans_coord_layout)
                 layout.visibility = View.VISIBLE
             }
         })
 
 
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-
     }
 }
