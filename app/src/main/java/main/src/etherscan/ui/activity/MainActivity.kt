@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
+import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.TransactionListener
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.viewmodels.TransactionViewModel
@@ -37,12 +39,13 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         navController.navigate(R.id.waitFragment)
     }
 
-    override fun pressToken(address: String) {
-        // val bundle = Bundle()
-        // bundle.putString("address", address)
+    override fun pressToken(address: String, typeTrans: TypeTrans) {
+        val bundle = Bundle()
+        bundle.putString(BundleConstants.ADDRESS, address)
+        bundle.putString(BundleConstants.TYPETRANS, typeTrans.toString())
 
         val viewModelTrans = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        viewModelTrans.clickEther(address)
+        viewModelTrans.clickEther(address, typeTrans)
         navController.navigate(R.id.transactionFragment2)
     }
 

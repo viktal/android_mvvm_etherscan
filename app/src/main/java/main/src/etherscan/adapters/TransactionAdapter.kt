@@ -13,7 +13,6 @@ import main.src.etherscan.R
 import main.src.etherscan.api.TransactionListener
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.models.EtherTransModel
-import main.src.etherscan.data.models.ListEtherTransModel
 
 import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel

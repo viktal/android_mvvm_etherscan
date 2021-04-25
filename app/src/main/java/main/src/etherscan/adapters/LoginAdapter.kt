@@ -40,9 +40,9 @@ class LoginAdapter(
         holder.mTokenDescription.text = model.tokenInfo.price?.rate.toString()
         Picasso.get().load(imageAddress + model.tokenInfo.image).into(holder.mTokenImage)
 
-        holder.mTokenItem.setOnClickListener{
-            listener.pressToken(model.tokenInfo.address)
-        }
+        // holder.mTokenItem.setOnClickListener{
+        //     listener.pressToken(model.tokenInfo.address)
+        // }
     }
 
     override fun getItemCount(): Int {

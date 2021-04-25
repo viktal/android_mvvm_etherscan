@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import main.src.etherscan.R
+import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.WalletListener
-
-import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel
 
 class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,7 +27,7 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 class WalletAdapter(
     private var mData: TokensListModel?,
     private val listener: WalletListener
-        // private val imageAddress = ""
+    // private val imageAddress = ""
 ) : RecyclerView.Adapter<WalletHolder>() {
 
     private val imageAddress = "https://ethplorer.io"
@@ -48,7 +47,10 @@ class WalletAdapter(
         holder.mTokenMoneyCountDollar.text ='$' + model.tokens[position].price
         Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
         holder.mTokenItem.setOnClickListener{
-            listener.pressToken(model.tokens[position].address)
+            var typeTrans = TypeTrans.TOKEN
+            if (position == 0)
+                typeTrans = TypeTrans.ETHER
+            listener.pressToken(model.tokens[position].address, typeTrans)
         }
     }
 
