@@ -9,5 +9,6 @@ data class TransactionModel (
     val date: String,
     val to: String,
     val dollars: String,
-    val coins: String
+    val coins: String,
+    val symbol: String
 )
