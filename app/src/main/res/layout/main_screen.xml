@@ -48,8 +48,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_bg_white"
                         android:layout_gravity="center"
-                        android:text="@{String.valueOf(walletViewModel.model.ETH.balance)}"
-                        tools:text="$ 36,168.48 USD"
+                        android:text="@{String.valueOf(walletViewModel.model.totalSum)}"
+                        tools:text="123 345 USD"
                         android:id="@+id/main_info_cash" />
 
                     <TextView

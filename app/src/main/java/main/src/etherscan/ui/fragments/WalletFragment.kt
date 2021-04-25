@@ -33,7 +33,8 @@ class WalletFragment : Fragment() {
         binding.walletViewModel = viewModel
 
         val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
-        recyclerView.adapter = WalletAdapter(viewModel.model.value!!.tokens, context as WalletListener)
+        recyclerView.adapter = WalletAdapter(viewModel.model.value, context as WalletListener)
+
         recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
         return binding.root
