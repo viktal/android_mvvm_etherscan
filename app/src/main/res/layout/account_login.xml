@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="10dp"
 
                 android:text="@string/swipe_info"
                 android:textColor="@color/black"/>
@@ -70,13 +70,13 @@
                  android:orientation="horizontal"
                   app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-                 android:paddingTop="10sp">
+                 android:paddingTop="30sp">
                   <TextView
                       android:layout_marginTop="3dp"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="@string/"
-                      android:textColor="@color/color_bg_white"
+                      android:text="@string/address_info"
+                      android:textColor="@color/black"
 
                       android:layout_gravity="center"
                       android:id="@+id/textInfo"
@@ -85,13 +85,18 @@
                       android:id="@+id/input_field"
                       android:layout_width="match_parent"
                       android:layout_height="100dp"
+                      android:text="@{String.valueOf(AuthViewModel.model.address)}"
+                      android:textColor="@color/black"
                       app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                  <com.google.android.material.button.MaterialButton
-                      android:id="@+id/submit_button"
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
                </LinearLayout>
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/submit_button"
+                   android:layout_width="100dp"
+                   android:layout_height= "50dp"
+                   android:layout_gravity="center"
+                   android:layout_margin="30dp"
+                   android:text="@string/login_screen_btn_name"/>
 
          </LinearLayout>
 
