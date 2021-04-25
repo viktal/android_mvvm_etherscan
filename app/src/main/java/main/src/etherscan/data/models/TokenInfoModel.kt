@@ -1,5 +1,4 @@
 package main.src.etherscan.data.models
-import com.beust.klaxon.Json
 
 import com.beust.klaxon.Converter
 import com.beust.klaxon.JsonValue
@@ -7,6 +6,7 @@ import com.beust.klaxon.Klaxon
 
 @Target(AnnotationTarget.FIELD)
 annotation class PriceModelOrFalse
+
 
 data class TokenInfoModel(
     val address: String,
@@ -25,9 +25,10 @@ data class TokenInfoModel(
     val image: String = ""
 )
 
+
 class PriceModelOrFalseConverter: Converter {
     override fun canConvert(cls: Class<*>): Boolean
-            = cls == PriceModel::class.java
+        = cls == PriceModel::class.java
 
     override fun fromJson(jv: JsonValue): PriceModel? {
         if (jv.boolean == null) {

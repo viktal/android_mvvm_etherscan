@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="main.src.etherscan.ui.activity.MainActivity">
+    tools:context="main.src.etherscan.ui.activity.MainActivity"
+    android:orientation="vertical">
 
-    <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/HeaderBar"
+            app:menu="@menu/top_app_bar"
+            app:popupTheme="@style/Theme.Etherscan"
+            app:theme="@style/ToolbarColorIcons"/>
+
+    <fragment
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/base_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"/>
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:menu="@menu/top_app_bar" />-->
+</LinearLayout>
 
-        <fragment
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:id="@+id/base_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"/>
-
-    </LinearLayout>
-
-</androidx.drawerlayout.widget.DrawerLayout>
