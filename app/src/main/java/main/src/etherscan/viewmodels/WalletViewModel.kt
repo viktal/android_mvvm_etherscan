@@ -10,14 +10,16 @@ import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.repositories.EthplorerRepository
+import main.src.etherscan.data.repositories.UserRepository
 
-class WalletViewModel : ViewModel() {
+class WalletViewModel() : ViewModel() {
 
     private var _model = MutableLiveData<TokensListModel>()
     val model: LiveData<TokensListModel>
         get() = _model
 
     private val repo = EthplorerRepository()
+
 
     fun ClickOnSubmitBtn(str: String) {
         _model.value = null

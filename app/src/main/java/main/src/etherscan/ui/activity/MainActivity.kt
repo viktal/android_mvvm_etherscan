@@ -1,16 +1,16 @@
 package main.src.etherscan.ui.activity
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import main.src.etherscan.R
 import main.src.etherscan.api.WalletListener
-import main.src.etherscan.ui.fragments.TransactionFragment
-import main.src.etherscan.ui.fragments.WaitFragment
+import main.src.etherscan.data.models.UserModel
+import main.src.etherscan.viewmodels.AuthViewModel
+import main.src.etherscan.viewmodels.WalletViewModel
+
 
 class MainActivity : AppCompatActivity(), WalletListener {
     private lateinit var navController: NavController
@@ -18,6 +18,17 @@ class MainActivity : AppCompatActivity(), WalletListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val extras = intent.extras
+        var address:String = ""
+
+        if (extras != null) {
+            address = extras.getString("address").toString()
+        }
+
+
+        val viewModelWallet = ViewModelProvider(this).get(WalletViewModel::class.java)
+        viewModelWallet.ClickOnSubmitBtn(address)
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return

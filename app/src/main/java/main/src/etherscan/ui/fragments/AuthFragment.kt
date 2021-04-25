@@ -49,9 +49,11 @@ class AuthFragment : Fragment(), AuthListener {
     }
 
     override fun pressSubmit(address: String) {
+
         val walViewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
         walViewModel.ClickOnSubmitBtn(address)
         val intent = Intent(context,MainActivity::class.java)
+        intent.putExtra("address",address)
         startActivity(intent)
     }
 }

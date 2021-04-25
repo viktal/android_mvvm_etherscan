@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import main.src.etherscan.api.AuthListener
 import main.src.etherscan.data.Constants
-import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.UserModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 import main.src.etherscan.data.repositories.UserRepository
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel() : ViewModel() {
 
     private var _model = MutableLiveData<UserModel>()
     val model: LiveData<UserModel>
