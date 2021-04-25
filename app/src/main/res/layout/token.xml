@@ -35,7 +35,7 @@
                     tools:text="Ethereum" />
 
                 <TextView
-                    android:id="@+id/money_count"
+                    android:id="@+id/money_count_dollar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
@@ -62,13 +62,13 @@
                     tools:text="$ 35,925.56 (+7.23%)" />
 
                 <TextView
-                    android:id="@+id/money_count_dollar"
+                    android:id="@+id/money_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:gravity="right"
                     android:textStyle="italic"
-                    tools:text="$ 35,925.56"
+                    tools:text="ETH 123"
                     android:layout_weight="1" />
             </LinearLayout>
         </TableRow>

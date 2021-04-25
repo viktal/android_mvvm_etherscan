@@ -1,5 +1,6 @@
 package main.src.etherscan.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,13 +38,14 @@ class WalletAdapter(
         return WalletHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: WalletHolder, position: Int) {
 
         val model = mData
-        holder.mTokenTitle.text = model!!.tokens[position].symbol
-        holder.mTokenDescription.text = model.tokens[position].name
-        holder.mTokenMoneyCount.text = model.tokens[position].balance
-        holder.mTokenMoneyCountDollar.text = model.tokens[position].price
+        holder.mTokenTitle.text = model!!.tokens[position].name
+        holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
+        holder.mTokenMoneyCount.text =  model.tokens[position].balance + " " + model.tokens[position].symbol
+        holder.mTokenMoneyCountDollar.text ='$' + model.tokens[position].price
         Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
         holder.mTokenItem.setOnClickListener{
             listener.pressToken(model.tokens[position].address)

@@ -29,22 +29,8 @@ class EthplorerRemoteStorage {
         val json = result.body!!.string()
 
         val clearResult = Klaxon()
+                .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
                 .parse<AddressInfoModel>(json)
-
-        val pathMatcher = object : PathMatcher {
-            override fun pathMatches(path: String) = Pattern.matches("$.tokens[*].tokenInfo.price.*", path)
-
-            override fun onMatch(path: String, value: Any) {
-                if (value != false)
-                    println(value)
-            }
-        }
-
-        val price = Klaxon()
-                .pathMatcher(pathMatcher)
-                .parse<PriceModel>(json)
-
-
 
 
         return normalizeTokens(clearResult!!)
@@ -56,19 +42,20 @@ class EthplorerRemoteStorage {
 
     fun createSingleToken(item: TokenBalanceModel): MainPageTokenModel {
         val itemInfo = item.tokenInfo;
-        val itemBalance = item.balance / itemInfo.decimals.toDouble().pow(10)
+
+        val itemBalance = item.balance / 10.0.pow(itemInfo.decimals.toDouble())
         var returningToken: MainPageTokenModel
         if (item.tokenInfo.price != null) {
-            var itemPrice = itemInfo.price
+            val itemPrice = itemInfo.price
 
             val tmpPrice = itemBalance * itemPrice!!.rate
             returningToken = MainPageTokenModel(
                     address = itemInfo.address,
                     symbol = itemInfo.symbol,
                     name = itemInfo.name,
-                    balance = itemBalance.roundTo(7),
+                    balance = itemBalance.roundTo(2),
                     price = tmpPrice.roundTo(2),
-                    logo = "https://ethplorer.io" + itemInfo.image,
+                    logo = itemInfo.image,
                     rate = itemPrice.rate.roundTo(2),
                     dif = itemPrice.diff.roundTo(2)
             )
@@ -77,9 +64,9 @@ class EthplorerRemoteStorage {
                     address = itemInfo.address,
                     symbol = itemInfo.symbol,
                     name = itemInfo.name,
-                    balance = itemBalance.roundTo(7),
+                    balance = itemBalance.roundTo(2),
                     price = "0",
-                    logo = "https://ethplorer.io" + itemInfo.image,
+                    logo = itemInfo.image,
                     rate = "0",
                     dif = "0,00"
             )
@@ -97,7 +84,7 @@ class EthplorerRemoteStorage {
                 address = someTokens.address,
                 symbol = "ETH",
                 name = "Ethereum",
-                balance = someTokens.ETH.balance.roundTo(7),
+                balance = someTokens.ETH.balance.roundTo(2),
                 price = ethBalance.roundTo(2),
                 logo = "",
                 rate = someTokens.ETH.price.rate.roundTo(2),
@@ -110,7 +97,7 @@ class EthplorerRemoteStorage {
 
         someTokens.tokens.forEach {
             if (it.tokenInfo.price != null) {
-                val itemBalance = it.balance / it.tokenInfo.decimals.toDouble().pow(10)
+                val itemBalance = it.balance / 10.0.pow(it.tokenInfo.decimals.toDouble())
                 val ItemBalanceDol = itemBalance * it.tokenInfo.price.rate
                 totalSum += ItemBalanceDol
                 dailyMoney += ItemBalanceDol * it.tokenInfo.price.diff / (100 + it.tokenInfo.price.diff)
