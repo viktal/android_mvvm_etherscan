@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
 
+
+
+
         navController = host.navController
         navController.navigate(R.id.waitFragment)
     }
