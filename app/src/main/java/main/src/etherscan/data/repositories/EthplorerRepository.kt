@@ -3,6 +3,7 @@ package main.src.etherscan.data.repositories
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.data.models.EtherTransModel
 import main.src.etherscan.data.models.TokensListModel
+import main.src.etherscan.data.models.*
 
 class EthplorerRepository {
     val network = EthplorerRemoteStorage()
@@ -12,11 +13,12 @@ class EthplorerRepository {
         return network.getAddressInfo(address + apiKey)
     }
 
-    suspend fun getTrans(address: String, typeTrans: TypeTrans): List<EtherTransModel> {
+    suspend fun getTrans(address: String, typeTrans: TypeTrans): TransactionListModel {
         if (typeTrans == TypeTrans.ETHER) {
             return network.getEtherTrans(address + apiKey)!!
         } else {
             return network.getTokenTrans(address + apiKey)!!
         }
+
     }
 }

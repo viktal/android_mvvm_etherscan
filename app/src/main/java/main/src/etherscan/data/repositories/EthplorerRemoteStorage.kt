@@ -10,7 +10,10 @@ import okhttp3.Request
 import org.json.JSONObject
 import ru.gildor.coroutines.okhttp.await
 import java.io.StringReader
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 import kotlin.math.pow
 
 
@@ -38,7 +41,9 @@ class EthplorerRemoteStorage {
         return normalizeTokens(clearResult!!)
     }
 
-    suspend fun getEtherTrans(address: String): List<EtherTransModel>? {
+
+    suspend fun getEtherTrans(address: String): TransactionListModel {
+        val apiLimit = "&limit=10"
         val methodURL = "$url/getAddressTransactions/$address$apiLimit"
 
         val request = Request.Builder()
@@ -51,10 +56,10 @@ class EthplorerRemoteStorage {
         val clearResult = Klaxon()
             .parseArray<EtherTransModel>(json)
 
-        return clearResult!!
+        return normalizeEthTrans(clearResult!!)
     }
 
-    suspend fun getTokenTrans(address: String): List<EtherTransModel>? {
+    suspend fun getTokenTrans(address: String): TransactionListModel {
         val methodURL = "$url/getAddressHistory/$address$apiLimit"
 
         val request = Request.Builder()
@@ -75,6 +80,33 @@ class EthplorerRemoteStorage {
 
     fun Double.roundTo(n : Int) : String {
         return "%.${n}f".format(this)
+    }
+
+    fun normalizeEthTrans(transactions: List<EtherTransModel>): TransactionListModel {
+        var newArr: MutableList<TransactionModel> = ArrayList()
+
+
+        transactions.forEach{
+            val singleTrans = TransactionModel(
+                    from = it.from,
+                    to = it.to,
+                    date = convertDate(it.timestamp),
+                    //TODO
+                    dollars = "123",
+                    coins = it.value.roundTo(2)
+            )
+            newArr.add(singleTrans)
+        }
+
+        return TransactionListModel(
+                transaction = newArr
+        )
+    }
+
+    fun convertDate(timestamp: Number): String {
+        val sdf = SimpleDateFormat("MM/dd/yyyy")
+        val netDate = Date (timestamp.toLong () * 1000)
+        return sdf.format(netDate)
     }
 
     fun createSingleToken(item: TokenBalanceModel): MainPageTokenModel {

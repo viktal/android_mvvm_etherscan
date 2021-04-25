@@ -47,7 +47,7 @@ class TransactionFragment : Fragment() {
         }
 
         val view = inflater
-            .inflate(R.layout.transactions, container, false)
+                .inflate(R.layout.transactions, container, false)
 
         mProgressBar = view.findViewById(R.id.trans_progress_bar)
 
@@ -63,16 +63,23 @@ class TransactionFragment : Fragment() {
             activity as TransactionListener
         )
 
-        recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
+                binding.transViewModel = viewModel
                 mProgressBar.visibility = View.GONE
                 val layout: CoordinatorLayout = view.findViewById(R.id.trans_coord_layout)
                 layout.visibility = View.VISIBLE
+
+                val recyclerView: RecyclerView = view.findViewById(R.id.list_transactions)
+                recyclerView.adapter = TransactionAdapter(
+                        viewModel.model.value,
+                        activity as TransactionListener
+                )
+                recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
             }
         })
-
 
         return view
     }

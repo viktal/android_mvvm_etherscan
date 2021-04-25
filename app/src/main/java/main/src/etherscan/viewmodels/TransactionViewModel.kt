@@ -8,11 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.data.models.EtherTransModel
+import main.src.etherscan.data.models.TransactionListModel
+import main.src.etherscan.data.models.TransactionModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 
 class TransactionViewModel : ViewModel() {
-    private var _model = MutableLiveData<List<EtherTransModel>?>()
-    val model: LiveData<List<EtherTransModel>?>
+    private var _model = MutableLiveData<TransactionListModel?>()
+    val model: LiveData<TransactionListModel?>
         get() = _model
 
     private val repo = EthplorerRepository()
@@ -22,6 +24,7 @@ class TransactionViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val value = repo.getTrans(address, typeTrans)
             _model.postValue(value)
+
         }
     }
 
