@@ -1,62 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="AuthViewModel"
+            type="main.src.etherscan.viewmodels.AuthViewModel" />
+    </data>
 
-    <LinearLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_bg_blue"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="384dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ProjectName"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:text="@string/app_name" />
+            app:menu="@menu/top_app_bar">
 
-        <TextView
-            android:id="@+id/ProjectDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:text="@string/app_info" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/color_bg_blue"
 
-        <TextView
-            android:id="@+id/SwipeInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:text="@string/swipe_info" />
+                style="@style/Widget.MaterialComponents.Toolbar.Primary">
 
-        <TextView
-            android:id="@+id/TypeInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingTop="10sp">
 
-        <EditText
-            android:id="@+id/mainInput"
-            android:layout_width="match_parent"
-            android:layout_height="226dp"
-            android:text="TextView" />
+                    <TextView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info"
+                        android:textColor="@color/color_bg_white"
 
-        <Button
-            android:id="@+id/Submit_btn"
+                        android:layout_gravity="center"
+                        android:id="@+id/app_info"
+                        />
+                </LinearLayout>
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+            android:paddingTop="10sp">
+
+            <TextView
+                android:id="@+id/swipe_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+
+                android:text="@string/swipe_info"
+                android:textColor="@color/black"/>
+              <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                  app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+                 android:paddingTop="30sp">
+                  <TextView
+                      android:layout_marginTop="3dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/address_info"
+                      android:textColor="@color/black"
+
+                      android:layout_gravity="center"
+                      android:id="@+id/textInfo"
+                      />
+                  <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                      android:id="@+id/input_field"
+                      android:layout_width="match_parent"
+                      android:layout_height="100dp"
+                      android:text="@{String.valueOf(AuthViewModel.model.address)}"
+                      android:textColor="@color/black"
+                      app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+               </LinearLayout>
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/submit_button"
+                   android:layout_width="100dp"
+                   android:layout_height= "50dp"
+                   android:layout_gravity="center"
+                   android:layout_margin="30dp"
+                   android:text="@string/login_screen_btn_name"/>
+
+         </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

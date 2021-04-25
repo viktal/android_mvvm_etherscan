@@ -28,4 +28,12 @@
             android:id="@+id/action_transactionFragment2_to_walletFragment"
             app:destination="@id/walletFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="main.src.etherscan.ui.fragments.AuthFragment"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_waitFragment"
+            app:destination="@id/waitFragment" />
+    </fragment>
 </navigation>
