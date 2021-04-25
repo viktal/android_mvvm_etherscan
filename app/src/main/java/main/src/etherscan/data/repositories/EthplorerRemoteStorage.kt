@@ -19,7 +19,8 @@ class EthplorerRemoteStorage {
     private val client = OkHttpClient()
 
     suspend fun getAddressInfo(address: String): TokensListModel {
-        val methodURL = "$url/getAddressInfo/$address"
+        val apiShow = "&showETHTotals=true"
+        val methodURL = "$url/getAddressInfo/$address$apiShow"
 
         val request = Request.Builder()
             .url(methodURL)
@@ -36,15 +37,33 @@ class EthplorerRemoteStorage {
         return normalizeTokens(clearResult!!)
     }
 
+    suspend fun getEtherTrans(address: String): List<EtherTransModel>? {
+        val apiLimit = "&limit=10"
+        val methodURL = "$url/getAddressTransactions/$address$apiLimit"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val clearResult = Klaxon()
+            .parseArray<EtherTransModel>(json)
+
+        return clearResult!!
+    }
+
+
     fun Double.roundTo(n : Int) : String {
         return "%.${n}f".format(this)
     }
 
     fun createSingleToken(item: TokenBalanceModel): MainPageTokenModel {
-        val itemInfo = item.tokenInfo;
+        val itemInfo = item.tokenInfo
 
         val itemBalance = item.balance / 10.0.pow(itemInfo.decimals.toDouble())
-        var returningToken: MainPageTokenModel
+        val returningToken: MainPageTokenModel
         if (item.tokenInfo.price != null) {
             val itemPrice = itemInfo.price
 
@@ -78,7 +97,7 @@ class EthplorerRemoteStorage {
         var totalSum = 0.0
         var dailyMoney = 0.0
         val tokensForRender: MutableList<MainPageTokenModel> = ArrayList()
-        val ethBalance = someTokens.ETH.balance * someTokens.ETH.price.rate;
+        val ethBalance = someTokens.ETH.balance * someTokens.ETH.price.rate
 
         val ethData: MainPageTokenModel = MainPageTokenModel(
                 address = someTokens.address,

@@ -1,6 +1,6 @@
 package main.src.etherscan.data.models
 
-data class PriceModel(
+data class PriceModel (
     val rate: Double,
     val diff: Double,
     val diff7d: Double,

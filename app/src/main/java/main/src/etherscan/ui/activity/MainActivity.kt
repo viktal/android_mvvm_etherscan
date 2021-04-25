@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import main.src.etherscan.R
+import main.src.etherscan.api.TransactionListener
 import main.src.etherscan.api.WalletListener
-import main.src.etherscan.data.models.UserModel
-import main.src.etherscan.viewmodels.AuthViewModel
+import main.src.etherscan.viewmodels.TransactionViewModel
 import main.src.etherscan.viewmodels.WalletViewModel
 
 
-class MainActivity : AppCompatActivity(), WalletListener {
+class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), WalletListener {
 
 
         val viewModelWallet = ViewModelProvider(this).get(WalletViewModel::class.java)
-        viewModelWallet.ClickOnSubmitBtn(address)
+        viewModelWallet.clickOnSubmitBtn(address)
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
@@ -40,6 +40,13 @@ class MainActivity : AppCompatActivity(), WalletListener {
     override fun pressToken(address: String) {
         // val bundle = Bundle()
         // bundle.putString("address", address)
+
+        val viewModelTrans = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModelTrans.clickEther(address)
         navController.navigate(R.id.transactionFragment2)
+    }
+
+    override fun pressTrans(address: String) {
+        TODO("Not yet implemented")
     }
 }

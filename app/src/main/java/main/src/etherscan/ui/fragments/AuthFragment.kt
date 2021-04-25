@@ -42,7 +42,7 @@ class AuthFragment : Fragment(), AuthListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val button = view?.findViewById<Button>(R.id.submit_button)
+        val button = view.findViewById<Button>(R.id.submit_button)
         button?.setOnClickListener {
             viewModel.model.value?.address?.let { it1 -> pressSubmit(it1) }
         }
@@ -51,7 +51,7 @@ class AuthFragment : Fragment(), AuthListener {
     override fun pressSubmit(address: String) {
 
         val walViewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
-        walViewModel.ClickOnSubmitBtn(address)
+        walViewModel.clickOnSubmitBtn(address)
         val intent = Intent(context,MainActivity::class.java)
         intent.putExtra("address",address)
         startActivity(intent)
