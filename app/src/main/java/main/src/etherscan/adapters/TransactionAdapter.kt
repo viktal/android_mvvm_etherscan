@@ -49,7 +49,7 @@ class TransactionAdapter(
         holder.mTransDate.text = model.transaction[position].date
         holder.mTransAddress.text = "to: " + from.subSequence(0,5).toString() + ".." + from.subSequence(fromLen-5, fromLen-1)
         holder.mTransDollars.text = "$" + model.transaction[position].dollars
-        holder.mTransCoins.text = model.transaction[position].coins
+        holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
     }
 
     override fun getItemCount(): Int {

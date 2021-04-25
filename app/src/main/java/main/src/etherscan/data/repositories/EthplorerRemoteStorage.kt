@@ -73,13 +73,35 @@ class EthplorerRemoteStorage {
             .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
             .parse<ListTokenTransModel>(json)
 
-        print (clearResult)
-        return getEtherTrans(address)
+        val a = clearResult
+        return normalizeTokenTrans(clearResult!!)
     }
 
 
     fun Double.roundTo(n : Int) : String {
         return "%.${n}f".format(this)
+    }
+
+    fun normalizeTokenTrans(transactions: ListTokenTransModel): TransactionListModel {
+        var newArr: MutableList<TransactionModel> = ArrayList()
+
+        transactions.operations.forEach{
+            val dollars = it.value.toDouble()/10.0.pow(it.tokenInfo.decimals.toDouble())
+            if (it.tokenInfo.price != null) {
+                val singleTrans = TransactionModel(
+                        from = it.from,
+                        to = it.to,
+                        date = convertDate(it.timestamp),
+                        dollars = (dollars).roundTo(2),
+                        coins = (dollars*it.tokenInfo.price.rate).roundTo(2),
+                        symbol = it.tokenInfo.symbol
+                )
+                newArr.add(singleTrans)
+            }
+        }
+        return TransactionListModel(
+                transaction = newArr
+        )
     }
 
     fun normalizeEthTrans(transactions: List<EtherTransModel>): TransactionListModel {
@@ -93,7 +115,8 @@ class EthplorerRemoteStorage {
                     date = convertDate(it.timestamp),
                     //TODO
                     dollars = "123",
-                    coins = it.value.roundTo(2)
+                    coins = it.value.roundTo(2),
+                    symbol = "ETH"
             )
             newArr.add(singleTrans)
         }
