@@ -44,10 +44,10 @@ class WalletViewModel() : ViewModel() {
 
             val value = str?.let { repo.getAddressInfo(it) }!!
 
-            storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = str, dailyMoney = value.dailyMoney.toLong(), totalSum = value.totalSum.toLong()))
-            value.tokens.forEach {
-                storage?.insertToken(TokensDataBaseModel(it.address, it.symbol, it.logo, it.rate, it.price, it.balance, it.name, it.dif))
-            }
+//            storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = str, dailyMoney = value.dailyMoney.toLong(), totalSum = value.totalSum.toLong()))
+//            value.tokens.forEach {
+//                storage?.insertToken(TokensDataBaseModel(it.address, it.symbol, it.logo, it.rate, it.price, it.balance, it.name, it.dif))
+//            }
 
             _model.postValue(
                 value

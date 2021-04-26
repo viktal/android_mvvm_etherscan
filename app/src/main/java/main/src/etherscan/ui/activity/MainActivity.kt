@@ -1,6 +1,7 @@
 package main.src.etherscan.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -14,6 +15,7 @@ import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.repositories.database.TokensDataBase
 import main.src.etherscan.viewmodels.TransactionViewModel
 import main.src.etherscan.viewmodels.WalletViewModel
+
 
 
 class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        db = Room.databaseBuilder(applicationContext, TokensDataBase::class.java,"ether_database1").allowMainThreadQueries().build()
+        db = TokensDataBase.getInstance(applicationContext)
 
         val extras = intent.extras
         var address:String = ""
@@ -38,8 +40,6 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         if (extras != null) {
             address = extras.getString("address").toString()
         }
-
-
 
         val viewModelWallet = ViewModelProvider(this).get(WalletViewModel::class.java)
         viewModelWallet.clickOnSubmitBtn(address)
