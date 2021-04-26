@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_font">10sp</dimen>
-    <dimen name="fs_token_name">30sp</dimen>
-    <dimen name="fs_token_mon_d">28sp</dimen>
-    <dimen name="fs_token_one_d">28sp</dimen>
+    <dimen name="default_font">15sp</dimen>
+    <dimen name="app_title">20sp</dimen>
+    <dimen name="fs_token_name">17sp</dimen>
+    <dimen name="fs_token_mon_d">14sp</dimen>
+    <dimen name="fs_token_one_d">13sp</dimen>
     <dimen name="fs_token_mon_t">25sp</dimen>
     <dimen name="fs_token_info_small">31sp</dimen>
     <dimen name="fs_main_sum_usd">50sp</dimen>

@@ -1,9 +1,6 @@
 package main.src.etherscan.data.repositories
 
 class UserRepository() {
-    fun loginByMnemonic(mnemonic: String) {
-    }
-
-    fun loginByAddress(address: String) {
-    }
+    val network = EthplorerRemoteStorage()
+    private val apiParams = "?apiKey=EK-3HTzj-zcxPo7d-qCssY&showETHTotals=true"
 }

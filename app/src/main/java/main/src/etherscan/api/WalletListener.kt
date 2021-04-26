@@ -1,3 +1,7 @@
 package main.src.etherscan.api
 
-interface WalletListener
+import main.src.etherscan.TypeTrans
+
+interface WalletListener {
+    fun pressToken(address: String, typeTrans: TypeTrans, transAddress: String)
+}
