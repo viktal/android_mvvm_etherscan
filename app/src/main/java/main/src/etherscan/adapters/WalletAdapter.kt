@@ -26,7 +26,6 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 class WalletAdapter(
     private var mData: TokensListModel?,
     private val listener: WalletListener
-    // private val imageAddress = ""
 ) : RecyclerView.Adapter<WalletHolder>() {
 
     private val imageAddress = "https://ethplorer.io"
@@ -50,9 +49,13 @@ class WalletAdapter(
         Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
         holder.mTokenItem.setOnClickListener{
             var typeTrans = TypeTrans.TOKEN
-            if (position == 0)
+            if (position == 0) {
                 typeTrans = TypeTrans.ETHER
-            listener.pressToken(model.tokens[position].address, typeTrans)
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address)
+            } else {
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address)
+            }
+
         }
     }
 

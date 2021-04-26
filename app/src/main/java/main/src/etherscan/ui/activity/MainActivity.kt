@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         navController.navigate(R.id.waitFragment)
     }
 
-    override fun pressToken(address: String, typeTrans: TypeTrans) {
+    override fun pressToken(address: String, typeTrans: TypeTrans, transAddress: String) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, address)
         bundle.putString(BundleConstants.TYPETRANS, typeTrans.toString())
 
         val viewModelTrans = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        viewModelTrans.clickEther(address, typeTrans)
+        viewModelTrans.clickEther(address, typeTrans, transAddress)
         navController.navigate(R.id.transactionFragment2)
     }
 
