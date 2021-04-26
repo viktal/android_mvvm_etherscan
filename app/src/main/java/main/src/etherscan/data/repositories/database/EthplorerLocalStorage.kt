@@ -2,7 +2,6 @@ package main.src.etherscan.data.repositories.database
 
 import androidx.room.*
 
-
 @Entity(tableName = "wallets")
 data class WalletsDataBaseModel(
     @PrimaryKey

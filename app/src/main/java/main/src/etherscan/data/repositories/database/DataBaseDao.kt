@@ -5,21 +5,26 @@ import androidx.room.*
 
 @Dao
 interface TokensDatabaseDao {
-    @Insert
-    suspend fun insert(wallet: WalletsDataBaseModel)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertWallet(wallet: WalletsDataBaseModel)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertToken(token: TokensDataBaseModel)
+
+    //fun insertWalletWithTokens(wallet: WalletWithTokens)
 
     @Update
-    suspend  fun update(wallet: WalletsDataBaseModel)
+    fun update(wallet: WalletsDataBaseModel)
 
     @Transaction
     @Query("SELECT * from wallets WHERE walletAddress = :key")
-    suspend fun getWallet(key: String): WalletWithTokens?
+    fun getWallet(key: String): WalletWithTokens
 
     @Query("SELECT * from tokens WHERE tokenAddress = :key")
-    suspend fun getToken(key: String): TokensDataBaseModel?
+    fun getToken(key: String): TokensDataBaseModel
 
     @Query("DELETE FROM wallets")
-    suspend fun clear()
+    fun clear()
 
 //    @Query("SELECT * FROM tokens ORDER BY save_timestamp DESC")
 //    fun getAllTokensLists(): LiveData<List<TokensDataBaseModel>>
