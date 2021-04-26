@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 import main.src.etherscan.data.repositories.database.TokensDataBaseModel
-import main.src.etherscan.data.repositories.database.WalletWithTokens
 import main.src.etherscan.data.repositories.database.WalletsDataBaseModel
 import main.src.etherscan.ui.activity.MainActivity
 
@@ -31,10 +30,12 @@ class WalletViewModel() : ViewModel() {
 
 //        val tokensList = repo.getAddressInfo(str).tokens
 //
-//        storage?.insertWalletWithTokens(wallet = WalletWithTokens(WalletsDataBaseModel(str, 0,0), List(TokensDataBaseModel()))
+        storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = str))
 //        val wallet2: WalletWithTokens? = storage?.getWallet("str")
 //        storage?.clear()
 
+        val oldWalletWithTokens = storage?.getWalletWithTokens(walletAddress = str)
+        val oldWallet = storage?.getWallet(walletAddress = str)
 
         _model.value = null
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,6 +44,10 @@ class WalletViewModel() : ViewModel() {
 
             val value = str?.let { repo.getAddressInfo(it) }!!
 
+            storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = str, dailyMoney = value.dailyMoney.toLong(), totalSum = value.totalSum.toLong()))
+            value.tokens.forEach {
+                storage?.insertToken(TokensDataBaseModel(it.address, it.symbol, it.logo, it.rate, it.price, it.balance, it.name, it.dif))
+            }
 
             _model.postValue(
                 value

@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        db = Room.databaseBuilder(applicationContext, TokensDataBase::class.java,"ether_database").allowMainThreadQueries().build()
+        db = Room.databaseBuilder(applicationContext, TokensDataBase::class.java,"ether_database1").allowMainThreadQueries().build()
 
         val extras = intent.extras
         var address:String = ""

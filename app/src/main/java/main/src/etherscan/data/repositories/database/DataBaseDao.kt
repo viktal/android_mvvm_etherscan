@@ -17,11 +17,14 @@ interface TokensDatabaseDao {
     fun update(wallet: WalletsDataBaseModel)
 
     @Transaction
-    @Query("SELECT * from wallets WHERE walletAddress = :key")
-    fun getWallet(key: String): WalletWithTokens
+    @Query("SELECT * from wallets WHERE walletAddress = :walletAddress")
+    fun getWalletWithTokens(walletAddress: String): WalletWithTokens
 
-    @Query("SELECT * from tokens WHERE tokenAddress = :key")
-    fun getToken(key: String): TokensDataBaseModel
+    @Query("SELECT * from wallets WHERE walletAddress = :walletAddress")
+    fun getWallet(walletAddress: String): WalletsDataBaseModel
+
+    @Query("SELECT * from tokens WHERE tokenAddress = :tokenAddress")
+    fun getToken(tokenAddress: String): TokensDataBaseModel
 
     @Query("DELETE FROM wallets")
     fun clear()
