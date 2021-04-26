@@ -1,16 +1,13 @@
 package main.src.etherscan.data.repositories.database
 
 import android.content.Context
-import androidx.databinding.adapters.Converters
 import androidx.room.*
-import main.src.etherscan.data.repositories.TokensListDataBaseModel
 
 /**
- * A database that stores TokensListDataBaseModel information.
+ * A database that stores WalletsDataBaseModel information.
  * And a global method to get access to the database.
  */
-@Database(entities = [TokensListDataBaseModel::class], version = 1, exportSchema = false)
-@TypeConverters({ ListConverters})
+@Database(entities = [WalletsDataBaseModel::class, TokensDataBaseModel::class], version = 1, exportSchema = false)
 abstract class TokensListDataBase : RoomDatabase() {
 
     /**
@@ -85,20 +82,5 @@ abstract class TokensListDataBase : RoomDatabase() {
                 return instance
             }
         }
-    }
-}
-
-class ListConverters {
-    @TypeConverter
-    public static ArrayList<String> fromString(String value) {
-        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-        return new Gson().fromJson(value, listType);
-    }
-
-    @TypeConverter
-    public static String fromArrayList(ArrayList<String> list) {
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
     }
 }

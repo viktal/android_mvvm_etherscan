@@ -1,18 +1,12 @@
-package main.src.etherscan.data.repositories
+package main.src.etherscan.data.repositories.database
 
 import androidx.room.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import main.src.etherscan.data.models.MainPageTokenModel
 
 
-@Entity(tableName = "tokens")
-data class TokensListDataBaseModel(
+@Entity(tableName = "wallets")
+data class WalletsDataBaseModel(
     @PrimaryKey
     val walletAddress: String = "",
-
-    @ColumnInfo(name = "all_tokens")
-    val allTokens: MutableList<MainPageTokenModel>,
 
     @ColumnInfo(name = "total_sum")
     val totalSum: Long = 0,
@@ -24,20 +18,42 @@ data class TokensListDataBaseModel(
     val startTimeMilli: Long = System.currentTimeMillis()
 )
 
-private const val SEPARATOR = ","
+@Entity(tableName = "tokens")
+data class TokensDataBaseModel(
+    @PrimaryKey
+    val tokenAddress: String = "",
 
-class DayOfWeekConverter {
-    companion object {
+    @ColumnInfo(name = "symbol")
+    val symbol: String = "",
 
-        @TypeConverter
-        @JvmStatic
-        fun allTokensToString(tokens: MutableList<MainPageTokenModel>?): String? =
-            tokens?.joinToString(separator = SEPARATOR) { Gson().toJson(it) }
+    @ColumnInfo(name = "logo")
+    val logo: String = "",
 
-        @TypeConverter
-        @JvmStatic
-        fun stringToAllTokensList(tokensInStr: String?): MutableList<MainPageTokenModel>? =
-            tokensInStr?.split(SEPARATOR)?.map { MainPageTokenModel(Gson().fromJson(it, MainPageTokenModel)) }?.toMutableList()
-    }
-}
+    @ColumnInfo(name = "rate")
+    val rate: String = "",
 
+    @ColumnInfo(name = "price")
+    val price: String = "",
+
+    @ColumnInfo(name = "balance")
+    val balance: String = "",
+
+    @ColumnInfo(name = "name")
+    val name: String = "",
+
+    @ColumnInfo(name = "dif")
+    val dif: String = "",
+
+    @ColumnInfo(name = "save_timestamp")
+    val startTimeMilli: Long = System.currentTimeMillis()
+)
+
+
+data class WalletWithTokens(
+    @Embedded val wallet: WalletsDataBaseModel,
+    @Relation(
+        parentColumn = "walletAddress",
+        entityColumn = "tokenAddress"
+    )
+    val tokensList: List<TokensDataBaseModel>
+)
