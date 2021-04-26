@@ -1,5 +1,7 @@
 package main.src.etherscan.viewmodels
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,4 +33,18 @@ class AuthViewModel() : ViewModel() {
             )
         }
     }
+
+
+    fun getAddress(): String? {
+        return model.value?.address
+    }
+
+    fun setAddress(value: String) {
+
+        if (model.value?.address != value) {
+            model.value?.address = value
+
+        }
+    }
 }
+

@@ -62,7 +62,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
 
-                android:text="@string/swipe_info"
+                android:text=""
                 android:textColor="@color/black"/>
               <LinearLayout
                  android:layout_width="match_parent"
@@ -85,7 +85,8 @@
                       android:id="@+id/input_field"
                       android:layout_width="match_parent"
                       android:layout_height="100dp"
-                      android:text="@{String.valueOf(AuthViewModel.model.address)}"
+                      android:text="@={AuthViewModel.model.address}"
+                      android:textSize="16dp"
                       android:textColor="@color/black"
                       app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
