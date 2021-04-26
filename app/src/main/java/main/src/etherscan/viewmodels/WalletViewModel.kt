@@ -22,12 +22,15 @@ class WalletViewModel() : ViewModel() {
 
 
     fun clickOnSubmitBtn(str: String) {
-        _model.value = null
-        viewModelScope.launch(Dispatchers.IO) {
-            val value = str?.let { repo.getAddressInfo(it) }!!
-            _model.postValue(
-                value
-            )
-        }
+
+
+//        _model.value = null
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val value = str?.let { repo.getAddressInfo(it) }!!
+//            _model.postValue(
+//                value
+//            )
+//        }
+
     }
 }
