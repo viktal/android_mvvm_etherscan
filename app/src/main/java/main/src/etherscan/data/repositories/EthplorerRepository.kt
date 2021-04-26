@@ -13,11 +13,11 @@ class EthplorerRepository {
         return network.getAddressInfo(address + apiKey)
     }
 
-    suspend fun getTrans(address: String, typeTrans: TypeTrans): TransactionListModel {
+    suspend fun getTrans(address: String, typeTrans: TypeTrans, transAddress: String): TransactionListModel {
         if (typeTrans == TypeTrans.ETHER) {
             return network.getEtherTrans(address + apiKey)!!
         } else {
-            return network.getTokenTrans(address + apiKey)!!
+            return network.getTokenTrans(address + apiKey, transAddress)!!
         }
 
     }

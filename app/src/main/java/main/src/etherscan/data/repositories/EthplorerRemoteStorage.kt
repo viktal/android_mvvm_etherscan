@@ -19,6 +19,7 @@ import kotlin.math.pow
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
+    val apiType = "&type=transfer"
     val apiLimit = "&limit=10"
     private val client = OkHttpClient()
 
@@ -59,8 +60,9 @@ class EthplorerRemoteStorage {
         return normalizeEthTrans(clearResult!!)
     }
 
-    suspend fun getTokenTrans(address: String): TransactionListModel {
-        val methodURL = "$url/getAddressHistory/$address$apiLimit"
+    suspend fun getTokenTrans(address: String, transAddress: String): TransactionListModel {
+
+        val methodURL = "$url/getAddressHistory/$address&token=$transAddress$apiType$apiLimit"
 
         val request = Request.Builder()
             .url(methodURL)
