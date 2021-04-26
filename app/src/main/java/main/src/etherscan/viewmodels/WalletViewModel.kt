@@ -1,5 +1,6 @@
 package main.src.etherscan.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.repositories.EthplorerRepository
-import main.src.etherscan.data.repositories.database.TokensDataBaseModel
 import main.src.etherscan.data.repositories.database.WalletsDataBaseModel
 import main.src.etherscan.ui.activity.MainActivity
 
@@ -23,7 +23,7 @@ class WalletViewModel() : ViewModel() {
 
 
     fun clickOnSubmitBtn(str: String) {
-        val storage = MainActivity.getDatabase()?.tokensDatabaseDao
+        val storage = MainActivity.getDatabase()
 
 
         val value = str

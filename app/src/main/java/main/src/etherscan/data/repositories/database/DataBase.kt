@@ -19,7 +19,7 @@ abstract class TokensDataBase : RoomDatabase() {
         @Volatile
         private var INSTANCE: TokensDataBase? = null
 
-        fun getInstance(context: Context): TokensDataBase {
+        fun getInstance(context: Context): TokensDatabaseDao {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
@@ -32,7 +32,7 @@ abstract class TokensDataBase : RoomDatabase() {
                         .build()
                     INSTANCE = instance
                 }
-                return instance
+                return instance.tokensDatabaseDao
             }
         }
     }

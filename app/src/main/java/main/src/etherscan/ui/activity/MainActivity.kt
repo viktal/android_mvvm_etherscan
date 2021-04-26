@@ -1,18 +1,17 @@
 package main.src.etherscan.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.room.Room
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.TransactionListener
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.repositories.database.TokensDataBase
+import main.src.etherscan.data.repositories.database.TokensDatabaseDao
 import main.src.etherscan.viewmodels.TransactionViewModel
 import main.src.etherscan.viewmodels.WalletViewModel
 
@@ -22,8 +21,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
     private lateinit var navController: NavController
 
     companion object {
-        var db: TokensDataBase? = null
-        fun getDatabase(): TokensDataBase? {
+        var db: TokensDatabaseDao? = null
+        fun getDatabase(): TokensDatabaseDao? {
             return db
         }
     }
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        db = TokensDataBase.getInstance(applicationContext)
+        //db = TokensDataBase.getInstance(applicationContext)
 
         val extras = intent.extras
         var address:String = ""
@@ -46,8 +45,6 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
-
-
 
 
         navController = host.navController
