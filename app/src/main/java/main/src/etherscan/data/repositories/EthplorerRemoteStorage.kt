@@ -1,21 +1,23 @@
 package main.src.etherscan.data.repositories
 
-import android.util.JsonReader
-import android.util.Log
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.PathMatcher
-import main.src.etherscan.data.models.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONObject
-import ru.gildor.coroutines.okhttp.await
-import java.io.StringReader
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.regex.Pattern
+import java.util.Date
 import kotlin.collections.ArrayList
 import kotlin.math.pow
-
+import main.src.etherscan.data.models.AddressInfoModel
+import main.src.etherscan.data.models.EtherTransModel
+import main.src.etherscan.data.models.ListTokenTransModel
+import main.src.etherscan.data.models.MainPageTokenModel
+import main.src.etherscan.data.models.PriceModelOrFalse
+import main.src.etherscan.data.models.PriceModelOrFalseConverter
+import main.src.etherscan.data.models.TokenBalanceModel
+import main.src.etherscan.data.models.TokensListModel
+import main.src.etherscan.data.models.TransactionListModel
+import main.src.etherscan.data.models.TransactionModel
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import ru.gildor.coroutines.okhttp.await
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
@@ -38,10 +40,8 @@ class EthplorerRemoteStorage {
                 .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
                 .parse<AddressInfoModel>(json)
 
-
         return normalizeTokens(clearResult!!)
     }
-
 
     suspend fun getEtherTrans(address: String): TransactionListModel {
         val apiLimit = "&limit=10"
@@ -79,23 +79,22 @@ class EthplorerRemoteStorage {
         return normalizeTokenTrans(clearResult!!)
     }
 
-
-    fun Double.roundTo(n : Int) : String {
+    fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
     }
 
     fun normalizeTokenTrans(transactions: ListTokenTransModel): TransactionListModel {
         var newArr: MutableList<TransactionModel> = ArrayList()
 
-        transactions.operations.forEach{
-            val dollars = it.value.toDouble()/10.0.pow(it.tokenInfo.decimals.toDouble())
+        transactions.operations.forEach {
+            val dollars = it.value.toDouble() / 10.0.pow(it.tokenInfo.decimals.toDouble())
             if (it.tokenInfo.price != null) {
                 val singleTrans = TransactionModel(
                         from = it.from,
                         to = it.to,
                         date = convertDate(it.timestamp),
                         dollars = (dollars).roundTo(2),
-                        coins = (dollars*it.tokenInfo.price.rate).roundTo(2),
+                        coins = (dollars * it.tokenInfo.price.rate).roundTo(2),
                         symbol = it.tokenInfo.symbol
                 )
                 newArr.add(singleTrans)
@@ -109,13 +108,12 @@ class EthplorerRemoteStorage {
     fun normalizeEthTrans(transactions: List<EtherTransModel>): TransactionListModel {
         var newArr: MutableList<TransactionModel> = ArrayList()
 
-
-        transactions.forEach{
+        transactions.forEach {
             val singleTrans = TransactionModel(
                     from = it.from,
                     to = it.to,
                     date = convertDate(it.timestamp),
-                    //TODO
+                    // TODO
                     dollars = "123",
                     coins = it.value.roundTo(2),
                     symbol = "ETH"
@@ -130,7 +128,7 @@ class EthplorerRemoteStorage {
 
     fun convertDate(timestamp: Number): String {
         val sdf = SimpleDateFormat("MM/dd/yyyy")
-        val netDate = Date (timestamp.toLong () * 1000)
+        val netDate = Date(timestamp.toLong() * 1000)
         return sdf.format(netDate)
     }
 
@@ -168,7 +166,7 @@ class EthplorerRemoteStorage {
         return returningToken
     }
 
-    fun normalizeTokens(someTokens:  AddressInfoModel): TokensListModel {
+    fun normalizeTokens(someTokens: AddressInfoModel): TokensListModel {
         var totalSum = 0.0
         var dailyMoney = 0.0
         val tokensForRender: MutableList<MainPageTokenModel> = ArrayList()

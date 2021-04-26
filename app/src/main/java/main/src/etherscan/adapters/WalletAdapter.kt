@@ -43,11 +43,11 @@ class WalletAdapter(
 
         holder.mTokenTitle.text = model!!.tokens[position].name
         holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
-        holder.mTokenMoneyCount.text =  model.tokens[position].balance + " " + model.tokens[position].symbol
-        holder.mTokenMoneyCountDollar.text ='$' + model.tokens[position].price
+        holder.mTokenMoneyCount.text = model.tokens[position].balance + " " + model.tokens[position].symbol
+        holder.mTokenMoneyCountDollar.text = '$' + model.tokens[position].price
 //        holder.mDailyProfit.text = model.dailyMoney.toString() + "(" + profit + "%)"
         Picasso.get().load(imageAddress + model.tokens[position].logo).into(holder.mTokenImage)
-        holder.mTokenItem.setOnClickListener{
+        holder.mTokenItem.setOnClickListener {
             var typeTrans = TypeTrans.TOKEN
             if (position == 0) {
                 typeTrans = TypeTrans.ETHER
@@ -55,7 +55,6 @@ class WalletAdapter(
             } else {
                 listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address)
             }
-
         }
     }
 

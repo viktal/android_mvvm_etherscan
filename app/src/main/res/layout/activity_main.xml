@@ -9,13 +9,27 @@
     tools:context="main.src.etherscan.ui.activity.MainActivity"
     android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/HeaderBar"
-            app:menu="@menu/top_app_bar"
-            app:popupTheme="@style/Theme.Etherscan"
-            app:theme="@style/ToolbarColorIcons"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/HeaderBar"
+        app:menu="@menu/top_app_bar"
+        app:popupTheme="@style/Theme.Etherscan"
+        app:theme="@style/ToolbarColorIcons">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/app_title"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <fragment
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -26,4 +40,3 @@
         app:navGraph="@navigation/nav_graph"/>
 
 </LinearLayout>
-

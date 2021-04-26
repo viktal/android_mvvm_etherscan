@@ -1,6 +1,6 @@
 package main.src.etherscan.data.models
 
-data class EtherTransModel (
+data class EtherTransModel(
     val timestamp: Int,
     val from: String,
     val to: String,

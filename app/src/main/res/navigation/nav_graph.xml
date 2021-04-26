@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/waitFragment">
+    app:startDestination="@id/authFragment">
     <fragment
         android:id="@+id/walletFragment"
         android:name="main.src.etherscan.ui.fragments.WalletFragment"
@@ -10,14 +10,6 @@
         <action
             android:id="@+id/action_walletFragment_to_transactionFragment2"
             app:destination="@id/transactionFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/waitFragment"
-        android:name="main.src.etherscan.ui.fragments.WaitFragment"
-        android:label="WaitFragment" >
-        <action
-            android:id="@+id/action_waitFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
     </fragment>
     <fragment
         android:id="@+id/transactionFragment2"
@@ -33,7 +25,7 @@
         android:name="main.src.etherscan.ui.fragments.AuthFragment"
         android:label="AuthFragment" >
         <action
-            android:id="@+id/action_authFragment_to_waitFragment"
-            app:destination="@id/waitFragment" />
+            android:id="@+id/action_authFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
     </fragment>
 </navigation>

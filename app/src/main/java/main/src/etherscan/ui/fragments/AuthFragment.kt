@@ -9,14 +9,12 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.api.AuthListener
 import main.src.etherscan.databinding.AccountLoginBinding
 import main.src.etherscan.ui.activity.MainActivity
 import main.src.etherscan.viewmodels.AuthViewModel
-import main.src.etherscan.viewmodels.WalletViewModel
-
-
 
 class AuthFragment : Fragment(), AuthListener {
     private lateinit var binding: AccountLoginBinding
@@ -30,12 +28,11 @@ class AuthFragment : Fragment(), AuthListener {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.account_login ,container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.account_login, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel = ViewModelProvider(requireActivity()).get(AuthViewModel::class.java)
         binding.authViewModel = viewModel
-
 
         return binding.root
     }
@@ -49,11 +46,10 @@ class AuthFragment : Fragment(), AuthListener {
     }
 
     override fun pressSubmit(address: String) {
-
-        val walViewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
-        walViewModel.clickOnSubmitBtn(address)
-        val intent = Intent(context,MainActivity::class.java)
-        intent.putExtra("address",address)
+        // val walViewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
+        // walViewModel.clickOnSubmitBtn(address)
+        val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra(BundleConstants.ADDRESS, address)
         startActivity(intent)
     }
 }
