@@ -4,19 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import main.src.etherscan.R
 import main.src.etherscan.api.TransactionListener
-import main.src.etherscan.api.WalletListener
-import main.src.etherscan.data.models.EtherTransModel
-
-import main.src.etherscan.data.models.TokenBalanceModel
-import main.src.etherscan.data.models.TokensListModel
-import main.src.etherscan.data.models.*
+import main.src.etherscan.data.models.TransactionListModel
 
 class TransactionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val mTransDate: TextView = itemView.findViewById(R.id.date)
@@ -26,9 +18,9 @@ class TransactionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 }
 
 class TransactionAdapter(
-        private var mData:
-        TransactionListModel?,
-        private val listener: TransactionListener
+    private var mData:
+    TransactionListModel?,
+    private val listener: TransactionListener
 ) : RecyclerView.Adapter<TransactionHolder>() {
 
     private val imageAddress = "https://ethplorer.io"
@@ -47,7 +39,7 @@ class TransactionAdapter(
         val fromLen = from.length
 
         holder.mTransDate.text = model.transaction[position].date
-        holder.mTransAddress.text = "to: " + from.subSequence(0,5).toString() + ".." + from.subSequence(fromLen-5, fromLen-1)
+        holder.mTransAddress.text = "to: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(fromLen - 5, fromLen - 1)
         holder.mTransDollars.text = "$" + model.transaction[position].dollars
         holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
     }

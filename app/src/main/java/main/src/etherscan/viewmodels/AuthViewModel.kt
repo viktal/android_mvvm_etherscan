@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import main.src.etherscan.data.Constants
 import main.src.etherscan.data.models.UserModel
-import main.src.etherscan.data.repositories.EthplorerRepository
 import main.src.etherscan.data.repositories.UserRepository
 
 class AuthViewModel() : ViewModel() {

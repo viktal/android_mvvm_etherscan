@@ -1,6 +1,6 @@
 package main.src.etherscan.data.models
 
-data class TokenTransModel (
+data class TokenTransModel(
     val timestamp: Int,
     val transactionHash: String,
     val tokenInfo: TokenInfoModel,
@@ -10,6 +10,6 @@ data class TokenTransModel (
     val value: String
 )
 
-data class ListTokenTransModel (
+data class ListTokenTransModel(
     val operations: MutableList<TokenTransModel>
 )
