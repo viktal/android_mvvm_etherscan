@@ -8,10 +8,10 @@ data class WalletsDataBaseModel(
     val walletAddress: String = "",
 
     @ColumnInfo(name = "total_sum")
-    val totalSum: Long = 0,
+    val totalSum: Double = 0.0,
 
     @ColumnInfo(name = "daily_money")
-    val dailyMoney: Long = 0,
+    val dailyMoney: Double = 0.0,
 
     @ColumnInfo(name = "save_timestamp")
     val startTimeMilli: Long = System.currentTimeMillis()

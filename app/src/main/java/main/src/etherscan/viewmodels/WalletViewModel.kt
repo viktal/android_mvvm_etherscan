@@ -32,25 +32,27 @@ class WalletViewModel() : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             Log.d("tag_wallet", "storage2" + storage.toString())
-            //storage?.clear()
+                //storage?.clear()
             val oldWalletWithTokens = storage?.getWalletWithTokens(walletAddress = walletAddress)
             if (oldWalletWithTokens == null) {
                 walletTokens = walletAddress.let { repo.getAddressInfo(it) }
-                storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = walletAddress, totalSum = walletTokens!!.totalSum.toLong(), dailyMoney = walletTokens!!.dailyMoney.toLong()))
-                walletTokens!!.tokens.forEach {
-                    storage?.insertToken(
-                        TokensDataBaseModel(
-                            it.address,
-                            walletAddress,
-                            it.symbol,
-                            it.logo,
-                            it.rate,
-                            it.price,
-                            it.balance,
-                            it.name,
-                            it.dif
+                if (walletTokens != null) {
+                    storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = walletAddress, totalSum = walletTokens!!.totalSum as Double, dailyMoney = walletTokens!!.dailyMoney as Double))
+                    walletTokens!!.tokens.forEach {
+                        storage?.insertToken(
+                            TokensDataBaseModel(
+                                it.address,
+                                walletAddress,
+                                it.symbol,
+                                it.logo,
+                                it.rate,
+                                it.price,
+                                it.balance,
+                                it.name,
+                                it.dif
+                            )
                         )
-                    )
+                    }
                 }
             } else {
                 val tokensInDatabase: MutableList<MainPageTokenModel> = mutableListOf()

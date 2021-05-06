@@ -7,8 +7,10 @@ import com.beust.klaxon.PathMatcher
 import main.src.etherscan.data.models.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONObject
 import ru.gildor.coroutines.okhttp.await
+import java.io.IOException
 import java.io.StringReader
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +24,7 @@ class EthplorerRemoteStorage {
     val apiLimit = "&limit=10"
     private val client = OkHttpClient()
 
-    suspend fun getAddressInfo(address: String): TokensListModel {
+    suspend fun getAddressInfo(address: String): TokensListModel? {
         val apiShow = "&showETHTotals=true"
         val methodURL = "$url/getAddressInfo/$address$apiShow"
 
@@ -30,7 +32,13 @@ class EthplorerRemoteStorage {
             .url(methodURL)
             .build()
 
-        val result = client.newCall(request).await()
+        val result : Response?
+        try {
+            result = client.newCall(request).await()
+        } catch (e: IOException) {
+            Log.e("internet", "no internet")
+            return null
+        }
         val json = result.body!!.string()
 
         val clearResult = Klaxon()

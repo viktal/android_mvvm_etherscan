@@ -9,7 +9,7 @@ class EthplorerRepository {
     val network = EthplorerRemoteStorage()
     private val apiKey = "?apiKey=EK-3HTzj-zcxPo7d-qCssY"
 
-    suspend fun getAddressInfo(address: String): TokensListModel {
+    suspend fun getAddressInfo(address: String): TokensListModel? {
         return network.getAddressInfo(address + apiKey)
     }
 
