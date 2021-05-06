@@ -22,6 +22,9 @@ data class TokensDataBaseModel(
     @PrimaryKey
     val tokenAddress: String = "",
 
+    @ColumnInfo(name="tokenWalletAddress")
+    val walletAddress: String = "",
+
     @ColumnInfo(name = "symbol")
     val symbol: String = "",
 
@@ -52,7 +55,7 @@ data class WalletWithTokens(
     @Embedded val wallet: WalletsDataBaseModel,
     @Relation(
         parentColumn = "walletAddress",
-        entityColumn = "tokenAddress"
+        entityColumn = "tokenWalletAddress"
     )
     val tokensList: List<TokensDataBaseModel>
 )

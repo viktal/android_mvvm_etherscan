@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //db = TokensDataBase.getInstance(applicationContext)
+        db = TokensDataBase.getInstance(applicationContext)
 
         val extras = intent.extras
         var address:String = ""
