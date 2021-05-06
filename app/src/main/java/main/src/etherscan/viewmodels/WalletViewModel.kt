@@ -33,10 +33,10 @@ class WalletViewModel() : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d("tag_wallet", "storage2" + storage.toString())
             //storage?.clear()
-            walletTokens = walletAddress.let { repo.getAddressInfo(it) }
             val oldWalletWithTokens = storage?.getWalletWithTokens(walletAddress = walletAddress)
             if (oldWalletWithTokens == null) {
-                storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = walletAddress))
+                walletTokens = walletAddress.let { repo.getAddressInfo(it) }
+                storage?.insertWallet(wallet = WalletsDataBaseModel(walletAddress = walletAddress, totalSum = walletTokens!!.totalSum.toLong(), dailyMoney = walletTokens!!.dailyMoney.toLong()))
                 walletTokens!!.tokens.forEach {
                     storage?.insertToken(
                         TokensDataBaseModel(
