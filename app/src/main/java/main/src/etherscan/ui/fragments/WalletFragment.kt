@@ -31,6 +31,11 @@ class WalletFragment : Fragment() {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
+        // val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
+
+        // viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        // viewModel.fetchAddressData(address)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 

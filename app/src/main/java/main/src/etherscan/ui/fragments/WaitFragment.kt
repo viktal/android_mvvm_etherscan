@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.viewmodels.WalletViewModel
 
@@ -18,7 +19,7 @@ class WaitFragment : Fragment() {
 
     //View animation deprecated
 
-    private val ANIMATION_DURATION = 500L
+    private val ANIMATION_DURATION = 400L
 
     var upper_left_triangle: View? = null
     var upper_right_triangle: View? = null
@@ -26,9 +27,6 @@ class WaitFragment : Fragment() {
     var middle_right_triangle: View? = null
     var bottom_left_triangle: View? = null
     var bottom_right_triangle: View? = null
-
-    var distanceX = 0
-    var distanceY = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +36,14 @@ class WaitFragment : Fragment() {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
+        val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
+        val bundle = Bundle()
+        bundle.putString(BundleConstants.ADDRESS, address)
+
         val viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
-                findNavController().navigate(R.id.walletFragment, null)
+                findNavController().navigate(R.id.walletFragment, bundle)
             }
         })
 

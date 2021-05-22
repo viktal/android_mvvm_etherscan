@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener {
         setContentView(R.layout.activity_main)
 
         val extras = intent.extras
-        var address: String = ""
+        var address = ""
 
         if (extras != null) {
             address = extras.getString("address").toString()

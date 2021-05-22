@@ -11,53 +11,10 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/top_app_bar">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@color/color_bg_blue"
-
-                style="@style/Widget.MaterialComponents.Toolbar.Primary">
+        android:layout_height="match_parent"
+        >
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:paddingTop="10sp">
-
-                    <TextView
-                        android:id="@+id/toolbar_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/app_name"
-                        android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/app_title"
-                        android:textStyle="bold"
-                        android:paddingBottom="20dp"/>
-
-                    <TextView
-                        android:layout_marginTop="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_info"
-                        android:textColor="@color/color_bg_white"
-
-                        android:layout_gravity="center"
-                        android:id="@+id/app_info"
-                        />
-                </LinearLayout>
-            </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,32 +33,68 @@
 
                 android:text="@string/swipe_info"
                 android:textColor="@color/black"/>
-              <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal"
-                  app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-                 android:paddingTop="30sp">
-                  <TextView
-                      android:layout_marginTop="3dp"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/address_info"
-                      android:textColor="@color/black"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                      android:layout_gravity="center"
-                      android:id="@+id/textInfo"
-                      />
-                  <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                      android:id="@+id/input_field"
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:text="@{String.valueOf(AuthViewModel.model.address)}"
-                      android:textColor="@color/black"
-                      app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                <LinearLayout
+                    android:visibility="visible"
+                    android:id="@+id/input_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:paddingTop="30sp">
+                    <TextView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_info"
+                        android:textColor="@color/black"
 
-               </LinearLayout>
+                        android:layout_gravity="center"
+                        android:id="@+id/textInfoAddress"
+                        />
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/input_field_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="@{String.valueOf(AuthViewModel.model.address)}"
+                        android:textColor="@color/black"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/input_mnemonic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:paddingTop="30sp">
+                    <TextView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mnemonic_info"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:id="@+id/textInfoMnemonic"
+                        />
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/input_field_mnemonic"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="@{String.valueOf(AuthViewModel.model.mnemonic)}"
+                        android:textColor="@color/black"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </LinearLayout>
+            </FrameLayout>
+
+
+
+
                <com.google.android.material.button.MaterialButton
                    android:id="@+id/submit_button"
                    android:layout_width="100dp"

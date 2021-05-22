@@ -1,5 +1,6 @@
 package main.src.etherscan.data.repositories
 
+import android.util.Log
 import com.beust.klaxon.Klaxon
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -187,15 +188,19 @@ class EthplorerRemoteStorage {
         dailyMoney += (ethBalance * someTokens.ETH.price.diff) / (100 + someTokens.ETH.price.diff)
         totalSum += ethBalance
 
-        someTokens.tokens.forEach {
-            if (it.tokenInfo.price != null) {
-                val itemBalance = it.balance / 10.0.pow(it.tokenInfo.decimals.toDouble())
-                val ItemBalanceDol = itemBalance * it.tokenInfo.price.rate
-                totalSum += ItemBalanceDol
-                dailyMoney += ItemBalanceDol * it.tokenInfo.price.diff / (100 + it.tokenInfo.price.diff)
-                tokensForRender.add(createSingleToken(it))
+
+        if (someTokens.tokens != null) {
+            someTokens.tokens!!.forEach {
+                if (it.tokenInfo.price != null) {
+                    val itemBalance = it.balance / 10.0.pow(it.tokenInfo.decimals.toDouble())
+                    val ItemBalanceDol = itemBalance * it.tokenInfo.price.rate
+                    totalSum += ItemBalanceDol
+                    dailyMoney += ItemBalanceDol * it.tokenInfo.price.diff / (100 + it.tokenInfo.price.diff)
+                    tokensForRender.add(createSingleToken(it))
+                }
             }
         }
+
 
         return TokensListModel(
                 tokens = tokensForRender,
