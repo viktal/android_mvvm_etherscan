@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
@@ -54,8 +60,8 @@ class TransactionFragment : Fragment() {
                 val layout: CoordinatorLayout = binding.root.findViewById(R.id.trans_coord_layout)
                 val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_transactions)
                 recyclerView.adapter = TransactionAdapter(
-                        viewModel.model.value,
-                        activity as TransactionListener
+                    viewModel.model.value,
+                    activity as TransactionListener
                 )
                 recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
                 layout.visibility = View.VISIBLE

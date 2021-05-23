@@ -10,6 +10,7 @@
         aunt invest dose will local empower</string>
     <string name="address_default" translatable="false">0xF33ddB3EB90a88E1ebE3f0994A02EF2db4EfE397</string>
     <string name="login_screen_btn_name" translatable="false">Submit</string>
+    <string name="chart">Chart Ethereum</string>
     <string name="qr_code">QR code</string>
     <string name="logout">Logout</string>
 </resources>

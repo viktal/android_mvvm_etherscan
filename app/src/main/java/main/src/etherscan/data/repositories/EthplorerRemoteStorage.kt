@@ -1,24 +1,30 @@
 package main.src.etherscan.data.repositories
 
-import android.util.Log
 import com.beust.klaxon.Klaxon
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.collections.ArrayList
 import kotlin.math.pow
 import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.EtherTransModel
+import main.src.etherscan.data.models.HistoryGroupEth
 import main.src.etherscan.data.models.ListTokenTransModel
 import main.src.etherscan.data.models.MainPageTokenModel
+import main.src.etherscan.data.models.PriceModelHistory
 import main.src.etherscan.data.models.PriceModelOrFalse
 import main.src.etherscan.data.models.PriceModelOrFalseConverter
 import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel
+import main.src.etherscan.data.models.Totals
 import main.src.etherscan.data.models.TransactionListModel
 import main.src.etherscan.data.models.TransactionModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import ru.gildor.coroutines.okhttp.await
+import java.io.StringReader
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
@@ -76,9 +82,30 @@ class EthplorerRemoteStorage {
             .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
             .parse<ListTokenTransModel>(json)
 
-        val a = clearResult
         return normalizeTokenTrans(clearResult!!)
     }
+
+    suspend fun getHistoryGroupedEth() : HistoryGroupEth {
+        val methodURL = "$url/getTokenHistoryGrouped?apiKey=ethplorer.widget&cap=true"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val klaxon = Klaxon()
+        val parsed = klaxon.parseJsonObject(StringReader(json))
+        val dataArray = parsed.array<Any>("prices")
+        val prices = dataArray?.let { klaxon.parseFromJsonArray<PriceModelHistory>(it) }
+
+        val tmp = parsed.obj("totals")
+        val totals = tmp?.let { klaxon.parseFromJsonObject<Totals>(it) }
+
+        return HistoryGroupEth(prices = prices as MutableList<PriceModelHistory>, totals = totals!!)
+    }
+
 
     fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
@@ -102,7 +129,8 @@ class EthplorerRemoteStorage {
             }
         }
         return TransactionListModel(
-                transaction = newArr
+                transaction = newArr,
+                prices = null
         )
     }
 
@@ -123,7 +151,8 @@ class EthplorerRemoteStorage {
         }
 
         return TransactionListModel(
-                transaction = newArr
+                transaction = newArr,
+                prices = null
         )
     }
 

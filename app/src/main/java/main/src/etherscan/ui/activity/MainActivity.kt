@@ -66,6 +66,10 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item!!.itemId) {
+            R.id.chart -> {
+                navController.navigate(R.id.chartFragment, null)
+                return true
+            }
             R.id.logout -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

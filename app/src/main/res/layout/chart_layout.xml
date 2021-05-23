@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="transViewModel"
-            type="main.src.etherscan.viewmodels.TransactionViewModel" />
+            name="chartViewModel"
+            type="main.src.etherscan.viewmodels.ChartViewModel" />
     </data>
 
     <FrameLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.TransactionFragment">
+        tools:context=".ui.fragments.ChartFragment">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/trans_coord_layout"
-            android:visibility="gone">
+            android:id="@+id/chart_layout"
+            android:visibility="gone"
+            android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -48,9 +49,9 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
-                                tools:background="@color/color_bg_blue"
-                                />
+                                tools:background="@color/color_bg_blue" />
                         </LinearLayout>
+
                         <TextView
                             android:id="@+id/main_info_cash"
                             android:layout_width="wrap_content"
@@ -72,26 +73,23 @@
                             android:textColor="@color/color_light_white"
                             tools:text="$268.65" />
 
-                        <com.github.mikephil.charting.charts.LineChart
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:id="@+id/lineChart"/>
-
                     </LinearLayout>
                 </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_transactions"
+            <com.github.mikephil.charting.charts.LineChart
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="9dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listitem="@layout/single_transaction" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:layout_height="300dp"
+                android:id="@+id/lineChart" />
+
+        </LinearLayout>
 
         <ProgressBar
             android:layout_gravity="center"
-            android:id="@+id/trans_progress_bar"
+            android:id="@+id/chart_progress_bar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

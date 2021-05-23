@@ -36,4 +36,8 @@
             android:id="@+id/action_waitFragment_to_walletFragment"
             app:destination="@id/walletFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="main.src.etherscan.ui.fragments.ChartFragment"
+        android:label="ChartFragment" />
 </navigation>

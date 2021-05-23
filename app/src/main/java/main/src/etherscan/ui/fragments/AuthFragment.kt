@@ -79,9 +79,6 @@ class AuthFragment : Fragment(), AuthListener {
                 viewModel.model.value?.address?.let { it1 -> pressSubmit(it1) }
             }
         }
-
-
-
     }
 
     override fun pressSubmit(address: String) {

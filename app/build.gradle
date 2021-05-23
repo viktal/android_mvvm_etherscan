@@ -91,11 +91,20 @@ dependencies {
 
     implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
     compile ('org.web3j:core:4.6.0-android')
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 
 allprojects {
     repositories {
         google()
         jcenter()
+        maven{
+            url "https://maven.pkg.jetbrains.space/data2viz/p/maven/dev"
+        }
+        maven{
+            url "https://maven.pkg.jetbrains.space/data2viz/p/maven/public"
+        }
+        maven { url 'https://jitpack.io' }
     }
 }
