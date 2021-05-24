@@ -17,6 +17,7 @@ import main.src.etherscan.data.models.PriceModelHistory
 import main.src.etherscan.data.models.PriceModelOrFalse
 import main.src.etherscan.data.models.PriceModelOrFalseConverter
 import main.src.etherscan.data.models.TokenBalanceModel
+import main.src.etherscan.data.models.TokenDetailsModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.models.Totals
 import main.src.etherscan.data.models.TransactionListModel
@@ -107,6 +108,23 @@ class EthplorerRemoteStorage {
     }
 
 
+    suspend fun getTxInfo(transHash: String): TokenDetailsModel {
+        val methodURL = "$url/getTxInfo/$transHash"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val clearResult = Klaxon()
+            .parse<TokenDetailsModel>(json)
+
+        return clearResult!!
+    }
+
+
     fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
     }
@@ -123,7 +141,8 @@ class EthplorerRemoteStorage {
                         date = convertDate(it.timestamp),
                         dollars = (dollars).roundTo(2),
                         coins = (dollars * it.tokenInfo.price.rate).roundTo(2),
-                        symbol = it.tokenInfo.symbol
+                        symbol = it.tokenInfo.symbol,
+                        hash = it.transactionHash
                 )
                 newArr.add(singleTrans)
             }
@@ -145,7 +164,8 @@ class EthplorerRemoteStorage {
                     // TODO
                     dollars = "123",
                     coins = it.value.roundTo(2),
-                    symbol = "ETH"
+                    symbol = "ETH",
+                    hash = it.hash
             )
             newArr.add(singleTrans)
         }

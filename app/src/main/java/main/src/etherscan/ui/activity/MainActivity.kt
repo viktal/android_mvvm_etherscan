@@ -71,8 +71,10 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         navController.navigate(R.id.transactionFragment2, bundle)
     }
 
-    override fun pressTrans(address: String) {
-        TODO("Not yet implemented")
+    override fun pressTrans(hash: String) {
+        val bundle = Bundle()
+        bundle.putString(BundleConstants.ADDRESS, hash)
+        navController.navigate(R.id.transDetailsFragment, bundle)
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {

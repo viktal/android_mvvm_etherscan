@@ -2,6 +2,7 @@ package main.src.etherscan.data.repositories
 
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.data.models.HistoryGroupEth
+import main.src.etherscan.data.models.TokenDetailsModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.models.TransactionListModel
 
@@ -23,10 +24,9 @@ class EthplorerRepository {
 
     suspend fun getHistoryGrouped(): HistoryGroupEth {
         return network.getHistoryGroupedEth()
-        // return if (typeTrans == TypeTrans.ETHER) {
-        //     network.getHistoryGroupedEth()
-        // } else {
-        //     // network.getTokenTrans(address + apiKey, transAddress)
-        // }
+    }
+
+    suspend fun getTransDetails(trans_hash: String): TokenDetailsModel {
+        return network.getTxInfo(trans_hash + apiKey)
     }
 }

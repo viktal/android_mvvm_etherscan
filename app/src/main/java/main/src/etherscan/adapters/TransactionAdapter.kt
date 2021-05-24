@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import main.src.etherscan.R
@@ -15,15 +16,15 @@ class TransactionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val mTransAddress: TextView = itemView.findViewById(R.id.address)
     val mTransDollars: TextView = itemView.findViewById(R.id.money_count_dollar)
     val mTransCoins: TextView = itemView.findViewById(R.id.money_count)
+    var mTokenItem: LinearLayout = itemView.findViewById(R.id.transaction_item)
 }
 
 class TransactionAdapter(
     private var mData:
     TransactionListModel?,
-    private val listener: TransactionListener
+    private val listener: TransactionListener,
+    address : String
 ) : RecyclerView.Adapter<TransactionHolder>() {
-
-    private val imageAddress = "https://ethplorer.io"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.single_transaction, parent, false)
@@ -42,6 +43,10 @@ class TransactionAdapter(
         holder.mTransAddress.text = "to: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(fromLen - 5, fromLen - 1)
         holder.mTransDollars.text = "$" + model.transaction[position].dollars
         holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
+
+        holder.mTokenItem.setOnClickListener {
+            listener.pressTrans(hash = model.transaction[position].hash)
+        }
     }
 
     override fun getItemCount(): Int {

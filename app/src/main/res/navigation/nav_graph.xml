@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_transactionFragment2_to_walletFragment"
             app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_transactionFragment2_to_transDetailsFragment"
+            app:destination="@id/transDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -40,4 +43,12 @@
         android:id="@+id/chartFragment"
         android:name="main.src.etherscan.ui.fragments.ChartFragment"
         android:label="ChartFragment" />
+    <fragment
+        android:id="@+id/transDetailsFragment"
+        android:name="main.src.etherscan.ui.fragments.TransDetailsFragment"
+        android:label="TransDetailsFragment" >
+        <action
+            android:id="@+id/action_transDetailsFragment_to_transactionFragment2"
+            app:destination="@id/transactionFragment2" />
+    </fragment>
 </navigation>

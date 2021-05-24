@@ -11,5 +11,6 @@ data class TransactionModel(
     val to: String,
     val dollars: String,
     val coins: String,
-    val symbol: String
+    val symbol: String,
+    val hash: String
 )

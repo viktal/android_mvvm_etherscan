@@ -13,4 +13,6 @@
     <string name="chart">Chart Ethereum</string>
     <string name="qr_code">QR code</string>
     <string name="logout">Logout</string>
+    <string name="transaction_details">Transaction Details</string>
+    <string name="block">%s (%s Block Confirmations)</string>
 </resources>

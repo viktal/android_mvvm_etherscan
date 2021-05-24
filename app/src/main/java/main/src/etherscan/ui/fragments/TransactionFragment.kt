@@ -78,7 +78,8 @@ class TransactionFragment : Fragment() {
                 val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_transactions)
                 recyclerView.adapter = TransactionAdapter(
                     viewModel.model.value,
-                    activity as TransactionListener
+                    activity as TransactionListener,
+                    address
                 )
                 recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
                 layout.visibility = View.VISIBLE
