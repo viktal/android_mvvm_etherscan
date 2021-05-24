@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
@@ -18,11 +20,13 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.squareup.picasso.Picasso
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.adapters.TransactionAdapter
 import main.src.etherscan.api.TransactionListener
+import main.src.etherscan.data.Constants
 import main.src.etherscan.databinding.TransactionsBinding
 import main.src.etherscan.viewmodels.TransactionViewModel
 
@@ -48,6 +52,19 @@ class TransactionFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.transactions, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         mProgressBar = binding.root.findViewById(R.id.trans_progress_bar)
+
+        val moneyCount = binding.root.findViewById<TextView>(R.id.main_info_dollars)
+        moneyCount.text = bundle.getString(BundleConstants.MONEYCOUNT, "")
+
+        val moneyCountDollar = binding.root.findViewById<TextView>(R.id.main_info_cash)
+        moneyCountDollar.text = bundle.getString(BundleConstants.MONEYCOUNTDOLLAR, "")
+
+        val image = binding.root.findViewById<ImageView>(R.id.image)
+        if (typeTrans == TypeTrans.ETHER.toString()) {
+            image.setImageResource(R.drawable.ethereum)
+        } else {
+            Picasso.get().load(bundle.getString(BundleConstants.IMAGEPATH, "")).into(image)
+        }
 
         viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         viewModel.clickEther(address, TypeTrans.valueOf(typeTrans), transAddress)

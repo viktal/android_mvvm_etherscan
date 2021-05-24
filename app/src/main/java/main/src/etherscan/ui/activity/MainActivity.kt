@@ -51,11 +51,22 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         navController.navigate(R.id.waitFragment, bundle)
     }
 
-    override fun pressToken(address: String, typeTrans: TypeTrans, transAddress: String) {
+    override fun pressToken(
+        address: String,
+        typeTrans: TypeTrans,
+        transAddress: String,
+        moneyCount: String,
+        moneyCountDollar: String,
+        imagePath: String
+    ) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, address)
         bundle.putString(BundleConstants.TYPETRANS, typeTrans.toString())
         bundle.putString(BundleConstants.TRANSADDRESS, transAddress)
+
+        bundle.putString(BundleConstants.MONEYCOUNT, moneyCount)
+        bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
+        bundle.putString(BundleConstants.IMAGEPATH, imagePath)
 
         navController.navigate(R.id.transactionFragment2, bundle)
     }

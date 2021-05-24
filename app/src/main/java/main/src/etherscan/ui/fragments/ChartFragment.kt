@@ -1,12 +1,13 @@
 package main.src.etherscan.ui.fragments
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,7 +23,7 @@ import main.src.etherscan.R
 import main.src.etherscan.databinding.ChartLayoutBinding
 import main.src.etherscan.viewmodels.ChartViewModel
 import java.text.SimpleDateFormat
-import java.util.concurrent.TimeUnit
+import kotlin.math.round
 
 class ChartFragment : Fragment() {
     private lateinit var binding: ChartLayoutBinding
@@ -30,6 +31,7 @@ class ChartFragment : Fragment() {
     private lateinit var mProgressBar: ProgressBar
     private lateinit var lineChart: LineChart
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +47,8 @@ class ChartFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ChartViewModel::class.java)
         viewModel.fetchChartData()
 
+
+
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
                 binding.chartViewModel = viewModel
@@ -54,6 +58,13 @@ class ChartFragment : Fragment() {
                 lineChart = binding.root.findViewById(R.id.lineChart)
                 setLineChartData(model.xLabel, model.yArray)
                 layout.visibility = View.VISIBLE
+
+                val tokensCap = binding.root.findViewById<TextView>(R.id.tokens_cap)
+                val model = viewModel.model.value!!
+                val cap = round(model.totals.cap/1000000)
+                tokensCap.text = "Token capitalization\n$$cap billion"
+                val tokensTotal = binding.root.findViewById<TextView>(R.id.total_tokens)
+                tokensTotal.text = """Total tokens: ${model.totals.tokensWithPrice}"""
             }
         })
 
@@ -75,66 +86,18 @@ class ChartFragment : Fragment() {
             }
         }
 
-        val set1 = LineDataSet(yArray, "ETH price")
-        set1 .color = Color.BLUE
-        set1 .setDrawCircles(false)
-        set1 .setDrawValues(false)
-        val data = LineData(set1)
+        val lineDataSet = LineDataSet(yArray, "ETH price")
+        lineDataSet.color = R.color.color_bg_blue
+        lineDataSet.setDrawCircles(false)
+        val data = LineData(lineDataSet)
         lineChart.data = data
         lineChart.setVisibleXRangeMaximum(365f)
         lineChart.moveViewToX(yArray.last().x)
+        lineChart.description.text = ""
+        lineChart.setTouchEnabled(true)
+        lineChart.setPinchZoom(true)
         lineChart.animateX(1800, Easing.EaseInExpo)
-
-
-
-
-
-        //Part1
-//         val entries = ArrayList<Entry>()
-//
-//
-//
-// //Part2
-//         entries.add(Entry(1f, 10f))
-//         entries.add(Entry(2f, 2f))
-//         entries.add(Entry(3f, 7f))
-//         entries.add(Entry(4f, 20f))
-//         entries.add(Entry(5f, 16f))
-
-
-
-
-//Part3
-//         val vl = LineDataSet(entries, "My Type")
-//
-// //Part4
-//         vl.setDrawValues(false)
-//         vl.setDrawFilled(true)
-//         vl.lineWidth = 3f
-//         vl.fillColor = R.color.color_bg_blue
-//         vl.fillAlpha = R.color.black
-//
-// //Part5
-//         lineChart.xAxis.labelRotationAngle = 0f
-//
-// //Part6
-//         lineChart.data = LineData(vl)
-//
-// // //Part7
-//         lineChart.axisRight.isEnabled = false
-//         lineChart.xAxis.axisMaximum = j +0.1f
-//
-// //Part8
-//         lineChart.setTouchEnabled(true)
-//         lineChart.setPinchZoom(true)
-//
-// //Part9
-//         lineChart.description.text = "Days"
-//         lineChart.setNoDataText("No forex yet!")
-//
-// //Part10
-//         lineChart.animateX(1800, Easing.EaseInExpo)
-
-//Part11
     }
 }
+
+

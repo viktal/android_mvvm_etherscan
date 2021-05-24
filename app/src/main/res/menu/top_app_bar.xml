@@ -8,11 +8,11 @@
         android:title="@string/chart"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/qr_code"
-        android:icon="@drawable/baseline_qr_code_2_24"
-        android:title="@string/qr_code"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/qr_code"-->
+<!--        android:icon="@drawable/baseline_qr_code_2_24"-->
+<!--        android:title="@string/qr_code"-->
+<!--        app:showAsAction="ifRoom" />-->
 
     <item
         android:id="@+id/logout"
