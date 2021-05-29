@@ -2,12 +2,14 @@ package main.src.etherscan.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,6 +25,7 @@ import main.src.etherscan.R
 import main.src.etherscan.databinding.ChartLayoutBinding
 import main.src.etherscan.viewmodels.ChartViewModel
 import java.text.SimpleDateFormat
+import java.util.Date
 import kotlin.math.round
 
 class ChartFragment : Fragment() {
@@ -48,7 +51,6 @@ class ChartFragment : Fragment() {
         viewModel.fetchChartData()
 
 
-
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
                 binding.chartViewModel = viewModel
@@ -61,7 +63,7 @@ class ChartFragment : Fragment() {
 
                 val tokensCap = binding.root.findViewById<TextView>(R.id.tokens_cap)
                 val model = viewModel.model.value!!
-                val cap = round(model.totals.cap/1000000)
+                val cap = round(model.totals.cap / 1000000)
                 tokensCap.text = "Token capitalization\n$$cap billion"
                 val tokensTotal = binding.root.findViewById<TextView>(R.id.total_tokens)
                 tokensTotal.text = """Total tokens: ${model.totals.tokensWithPrice}"""
@@ -87,7 +89,7 @@ class ChartFragment : Fragment() {
         }
 
         val lineDataSet = LineDataSet(yArray, "ETH price")
-        lineDataSet.color = R.color.color_bg_blue
+        lineDataSet.color = resources.getColor(R.color.color_bg_blue);
         lineDataSet.setDrawCircles(false)
         val data = LineData(lineDataSet)
         lineChart.data = data
@@ -95,8 +97,16 @@ class ChartFragment : Fragment() {
         lineChart.moveViewToX(yArray.last().x)
         lineChart.description.text = ""
         lineChart.setTouchEnabled(true)
+        lineChart.setScaleEnabled(true)
         lineChart.setPinchZoom(true)
         lineChart.animateX(1800, Easing.EaseInExpo)
+
+        val mv = CustomMarkerView(requireContext(), R.layout.custom_marker_view_layout)
+
+// set the marker to the chart
+
+// set the marker to the chart
+        lineChart.marker = mv
     }
 }
 

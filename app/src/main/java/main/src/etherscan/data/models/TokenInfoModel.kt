@@ -1,11 +1,14 @@
 package main.src.etherscan.data.models
 
+import android.util.Log
 import com.beust.klaxon.Converter
 import com.beust.klaxon.JsonValue
 import com.beust.klaxon.Klaxon
-
-@Target(AnnotationTarget.FIELD)
-annotation class PriceModelOrFalse
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlin.math.log
 
 data class TokenInfoModel(
     val address: String,
@@ -13,7 +16,6 @@ data class TokenInfoModel(
     val name: String,
     val symbol: String,
     val decimals: String,
-    @PriceModelOrFalse
     val price: PriceModel?,
     val owner: String,
     val countOps: Int? = null,

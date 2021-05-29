@@ -1,6 +1,7 @@
 package main.src.etherscan.viewmodels
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import main.src.etherscan.data.models.HistoryGroupEth
 import main.src.etherscan.data.models.ParsedHistoryGroupEth
 import main.src.etherscan.data.repositories.EthplorerRepository
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class ChartViewModel : ViewModel() {
@@ -26,6 +28,7 @@ class ChartViewModel : ViewModel() {
         get() = _model
 
     private val repo = EthplorerRepository()
+
 
     fun fetchChartData() {
         _model.value = null

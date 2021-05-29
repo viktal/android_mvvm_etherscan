@@ -1,7 +1,9 @@
 package main.src.etherscan.data.models
 
 import com.beust.klaxon.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class AddressInfoModel(
     val address: String,
     val ETH: ETHModel,

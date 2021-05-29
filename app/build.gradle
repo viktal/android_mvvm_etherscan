@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id "org.jetbrains.kotlin.kapt"
 }
 
 android {
@@ -45,8 +46,6 @@ android {
                 }
         }
     }
-
-
 }
 
 dependencies {
@@ -81,18 +80,19 @@ dependencies {
     // Kotlin coroutines await extension for OkHttp3
     implementation "ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0"
 
-    // Klaxon is a library to parse JSON in Kotlin
-    implementation 'com.beust:klaxon:5.5'
-
     // image downloading and caching library
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
-    compile ('org.web3j:core:4.6.0-android')
+    implementation ('org.web3j:core:4.6.0-android')
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation("com.squareup.moshi:moshi:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
 }
 
 allprojects {

@@ -1,5 +1,8 @@
 package main.src.etherscan.data.models
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class TokenDetailsModel (
     val hash: String,
     val timestamp: Int,
