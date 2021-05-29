@@ -46,7 +46,7 @@ class AuthFragment : Fragment(), AuthListener {
         val arguments = arguments
         if (arguments != null) {
             typeLogin = arguments.getString(BundleConstants.TYPELOGIN).toString()
-            when (typeLogin){
+            when (typeLogin) {
                 TypeLogin.ADDRESS.toString() -> {
                     inputAddress.visibility = View.VISIBLE
                     inputMnemonic.visibility = View.GONE

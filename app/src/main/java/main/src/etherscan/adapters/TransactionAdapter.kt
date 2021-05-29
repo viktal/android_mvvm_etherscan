@@ -23,7 +23,7 @@ class TransactionAdapter(
     private var mData:
     TransactionListModel?,
     private val listener: TransactionListener,
-    address : String
+    address: String
 ) : RecyclerView.Adapter<TransactionHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionHolder {

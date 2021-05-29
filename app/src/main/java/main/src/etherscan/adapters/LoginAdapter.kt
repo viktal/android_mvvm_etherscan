@@ -1,12 +1,8 @@
 package main.src.etherscan.adapters
 
 import android.os.Bundle
-import android.util.Log
-import androidx.constraintlayout.solver.state.State
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.TypeLogin
@@ -28,4 +24,3 @@ class LoginAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         return authFragment
     }
 }
-

@@ -1,7 +1,6 @@
 package main.src.etherscan.ui.fragments
 
 import android.content.Context
-import android.view.View
 import android.widget.TextView
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.highlight.Highlight

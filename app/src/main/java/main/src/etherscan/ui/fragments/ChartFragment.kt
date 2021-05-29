@@ -2,14 +2,12 @@ package main.src.etherscan.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.compose.ui.graphics.Color
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,12 +19,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
+import kotlin.math.round
 import main.src.etherscan.R
 import main.src.etherscan.databinding.ChartLayoutBinding
 import main.src.etherscan.viewmodels.ChartViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import kotlin.math.round
 
 class ChartFragment : Fragment() {
     private lateinit var binding: ChartLayoutBinding
@@ -49,7 +46,6 @@ class ChartFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(ChartViewModel::class.java)
         viewModel.fetchChartData()
-
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
@@ -76,9 +72,9 @@ class ChartFragment : Fragment() {
     private fun setLineChartData(xLabel: ArrayList<String>, yArray: ArrayList<Entry>) {
         lineChart.isDragEnabled = true
         lineChart.setScaleEnabled(false)
-        lineChart.axisRight.isEnabled=false
-        val xaxis:XAxis = lineChart.xAxis
-        xaxis.granularity=1f
+        lineChart.axisRight.isEnabled = false
+        val xaxis: XAxis = lineChart.xAxis
+        xaxis.granularity = 1f
         xaxis.valueFormatter = object : ValueFormatter() {
             val pattern = "dd MMM yy"
             private val mFormat = SimpleDateFormat(pattern)
@@ -89,7 +85,7 @@ class ChartFragment : Fragment() {
         }
 
         val lineDataSet = LineDataSet(yArray, "ETH price")
-        lineDataSet.color = resources.getColor(R.color.color_bg_blue);
+        lineDataSet.color = resources.getColor(R.color.color_bg_blue)
         lineDataSet.setDrawCircles(false)
         val data = LineData(lineDataSet)
         lineChart.data = data
@@ -109,5 +105,3 @@ class ChartFragment : Fragment() {
         lineChart.marker = mv
     }
 }
-
-

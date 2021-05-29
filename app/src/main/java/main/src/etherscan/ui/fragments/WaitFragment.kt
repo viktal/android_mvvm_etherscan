@@ -17,7 +17,7 @@ import main.src.etherscan.viewmodels.WalletViewModel
 
 class WaitFragment : Fragment() {
 
-    //View animation deprecated
+    // View animation deprecated
 
     private val ANIMATION_DURATION = 400L
 
@@ -62,7 +62,7 @@ class WaitFragment : Fragment() {
         bottom_left_triangle = view.findViewById(R.id.bottom_left_triangle)
         bottom_right_triangle = view.findViewById(R.id.bottom_right_triangle)
 
-        val alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
+        val alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f)
 
         val moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 366f)
         val moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 825f)
@@ -94,7 +94,7 @@ class WaitFragment : Fragment() {
             alpha
         )
 
-        val animatorSet = AnimatorSet().setDuration(ANIMATION_DURATION);
+        val animatorSet = AnimatorSet().setDuration(ANIMATION_DURATION)
         animatorSet.playSequentially(
             UpperLeftAnim,
             UpperRightAnim,
@@ -102,8 +102,7 @@ class WaitFragment : Fragment() {
             MiddleLeftAnim,
             BottomRightAnim,
             BottomLeftAnim
-        );
+        )
         animatorSet.start()
     }
 }
-

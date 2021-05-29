@@ -9,24 +9,17 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.squareup.picasso.Picasso
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.adapters.TransactionAdapter
 import main.src.etherscan.api.TransactionListener
-import main.src.etherscan.data.Constants
 import main.src.etherscan.databinding.TransactionsBinding
 import main.src.etherscan.viewmodels.TransactionViewModel
 

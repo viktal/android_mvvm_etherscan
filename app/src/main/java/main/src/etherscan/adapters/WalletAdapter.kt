@@ -40,8 +40,6 @@ class WalletAdapter(
         val model = mData
 //        val profit = model!!.dailyMoney.toDouble()*100/model.totalSum.toDouble()
 
-
-
         holder.mTokenTitle.text = model!!.tokens[position].name
         holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
 

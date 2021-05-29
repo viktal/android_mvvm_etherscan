@@ -1,8 +1,8 @@
 package main.src.etherscan.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.pager)
         adapter = LoginAdapter(this)
         viewPager.adapter = adapter
-
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return

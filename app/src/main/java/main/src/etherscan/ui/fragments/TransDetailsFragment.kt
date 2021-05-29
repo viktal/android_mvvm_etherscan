@@ -4,30 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.play.core.internal.s
-import com.squareup.picasso.Picasso
-import main.src.etherscan.BundleConstants
-import main.src.etherscan.R
-import main.src.etherscan.TypeTrans
-import main.src.etherscan.adapters.TransactionAdapter
-import main.src.etherscan.api.TransactionListener
-import main.src.etherscan.databinding.TransDetailsFragmentBinding
-import main.src.etherscan.databinding.TransactionsBinding
-import main.src.etherscan.viewmodels.TransDetailsViewModel
-import main.src.etherscan.viewmodels.TransactionViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
+import main.src.etherscan.BundleConstants
+import main.src.etherscan.R
+import main.src.etherscan.databinding.TransDetailsFragmentBinding
+import main.src.etherscan.viewmodels.TransDetailsViewModel
 
 class TransDetailsFragment : Fragment() {
     private lateinit var binding: TransDetailsFragmentBinding

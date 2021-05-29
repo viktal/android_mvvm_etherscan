@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById<View>(R.id.toolbar_main) as Toolbar
-        toolbar.inflateMenu(R.menu.top_app_bar);
-        toolbar.setOnMenuItemClickListener(this);
+        toolbar.inflateMenu(R.menu.top_app_bar)
+        toolbar.setOnMenuItemClickListener(this)
 
         val extras = intent.extras
         var address = ""
@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
-
-
 
         navController = host.navController
         navController.navigate(R.id.waitFragment, bundle)
