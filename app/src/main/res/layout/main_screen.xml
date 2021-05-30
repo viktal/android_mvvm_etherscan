@@ -48,22 +48,36 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_bg_white"
                         android:layout_gravity="center"
-                        android:text="@{String.valueOf(walletViewModel.model.totalSum)}"
+                        android:text="@{@string/total_usd(String.valueOf(walletViewModel.model.totalSum))}"
                         tools:text="123 345 USD"
                         android:id="@+id/main_info_cash" />
 
-                    <TextView
-                        android:layout_marginTop="3dp"
+                    <LinearLayout
+                        android:layout_margin="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_bg_blue"
                         android:layout_gravity="center"
-                        android:text="@{String.valueOf(walletViewModel.model.dailyMoney)}"
-                        tools:text=" -$268.65 (-0.74%) "
-                        android:background="@drawable/daily_profit"
-                        android:id="@+id/daily_profit"
-                        android:textSize="@dimen/fs_token_one_d"
-                        app:drawableRightCompat="@drawable/baseline_arrow_upward_24" />
+                        android:background="@drawable/daily_profit">
+
+                        <TextView
+                            android:layout_margin="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_bg_blue"
+                            android:layout_gravity="center"
+                            android:text="@{@string/daily_usd(String.valueOf(walletViewModel.model.dailyMoney))}"
+                            tools:text=" -$268.65 (-0.74%) "
+                            android:id="@+id/daily_profit"
+                            android:textSize="@dimen/fs_token_one_d"/>
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:background="@drawable/baseline_arrow_upward_24"
+                            android:background="@{walletViewModel.model.growth ? @drawable/baseline_arrow_upward_24 : @drawable/baseline_arrow_downward_24}"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
 

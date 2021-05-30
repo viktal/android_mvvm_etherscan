@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +18,13 @@ class TransactionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val mTransDollars: TextView = itemView.findViewById(R.id.money_count_dollar)
     val mTransCoins: TextView = itemView.findViewById(R.id.money_count)
     var mTokenItem: LinearLayout = itemView.findViewById(R.id.transaction_item)
+    var mTokenArrow: ImageView = itemView.findViewById(R.id.arrow_image)
 }
 
 class TransactionAdapter(
-    private var mData:
-    TransactionListModel?,
+    private var mData: TransactionListModel?,
     private val listener: TransactionListener,
-    address: String
+    val address: String
 ) : RecyclerView.Adapter<TransactionHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionHolder {
@@ -36,11 +37,21 @@ class TransactionAdapter(
 
         val model = mData
 
-        val from = model!!.transaction[position].to
+        val to = model!!.transaction[position].to
+        val toLen = to.length
+        val from = model.transaction[position].from
         val fromLen = from.length
 
         holder.mTransDate.text = model.transaction[position].date
-        holder.mTransAddress.text = "to: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(fromLen - 5, fromLen - 1)
+
+        if (from == address) {
+            holder.mTransAddress.text = "to: " + to.subSequence(0, 5).toString() + ".." + to.subSequence(toLen - 5, toLen - 1)
+        } else {
+            holder.mTransAddress.text = "from: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(fromLen - 5, fromLen - 1)
+            model.transaction[position].incomming = true
+            holder.mTokenArrow.setBackgroundResource(R.drawable.baseline_south_west_24)
+        }
+
         holder.mTransDollars.text = "$" + model.transaction[position].dollars
         holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
 

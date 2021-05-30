@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/fs_token_name"
-            android:textStyle="bold"
+            android:textColor="@color/color_gray"
             tools:text="Ethereum">
         </TextView>
 
@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:textColor="@color/color_gray"
             android:textSize="@dimen/fs_token_mon_d"
             tools:text="$ 35,925.56">
         </TextView>
@@ -54,9 +55,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:paddingTop="11sp"
+            android:layout_marginStart="7dp"
             android:layout_toEndOf="@+id/description"
             android:textSize="@dimen/fs_token_one_d"
-            tools:text="(+7.23%)">
+            tools:text="(+7.23%)"
+            android:textColor="@color/color_green">
         </TextView>
 
 

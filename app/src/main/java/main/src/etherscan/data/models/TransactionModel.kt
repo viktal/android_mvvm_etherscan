@@ -6,6 +6,7 @@ data class TransactionListModel(
 )
 
 data class TransactionModel(
+    var incomming: Boolean = false,
     val from: String,
     val date: String,
     val to: String,

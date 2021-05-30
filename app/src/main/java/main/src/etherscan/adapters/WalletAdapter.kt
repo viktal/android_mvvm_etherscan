@@ -1,6 +1,8 @@
 package main.src.etherscan.adapters
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mTokenTitle: TextView = itemView.findViewById(R.id.token_title)
     var mTokenMoneyCount: TextView = itemView.findViewById(R.id.money_count)
     var mTokenDescription: TextView = itemView.findViewById(R.id.description)
+    var mTokenDescriptionPercent: TextView = itemView.findViewById(R.id.description_percent)
     var mTokenMoneyCountDollar: TextView = itemView.findViewById(R.id.money_count_dollar)
     var mTokenImage: ImageView = itemView.findViewById(R.id.image)
     var mTokenItem: LinearLayout = itemView.findViewById(R.id.token_item)
@@ -41,7 +44,11 @@ class WalletAdapter(
 //        val profit = model!!.dailyMoney.toDouble()*100/model.totalSum.toDouble()
 
         holder.mTokenTitle.text = model!!.tokens[position].name
-        holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
+        holder.mTokenDescription.text = "$" + model.tokens[position].rate
+        holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
+        if (model.tokens[position].dif.toDouble() < 0) {
+            holder.mTokenDescriptionPercent.setTextColor(Color.RED)
+        }
 
         val moneyCount = model.tokens[position].balance + " " + model.tokens[position].symbol
         holder.mTokenMoneyCount.text = moneyCount

@@ -1,5 +1,6 @@
 package main.src.etherscan.data.repositories
 
+import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.math.pow
@@ -11,10 +12,17 @@ import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.models.TransactionListModel
 import main.src.etherscan.data.models.TransactionModel
+import kotlin.math.round
 
 class NormalizeData {
     fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
+    }
+
+    fun Double.round(decimals: Int): Double {
+        var multiplier = 1.0
+        repeat(decimals) { multiplier *= 10 }
+        return round(this * multiplier) / multiplier
     }
 
     fun normalizeTokenTrans(transactions: ListTokenTransModel): TransactionListModel {
@@ -64,8 +72,9 @@ class NormalizeData {
         )
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun convertDate(timestamp: Number): String {
-        val sdf = SimpleDateFormat("MM/dd/yyyy")
+        val sdf = SimpleDateFormat("EEE, d MMM yyyy HH:mm")
         val netDate = Date(timestamp.toLong() * 1000)
         return sdf.format(netDate)
     }
@@ -86,6 +95,7 @@ class NormalizeData {
                 balance = itemBalance.roundTo(2),
                 price = tmpPrice.roundTo(2),
                 logo = itemInfo.image,
+                // go to trans
                 rate = itemPrice.rate.roundTo(2),
                 dif = itemPrice.diff.roundTo(2)
             )
@@ -136,11 +146,11 @@ class NormalizeData {
                 }
             }
         }
-
         return TokensListModel(
             tokens = tokensForRender,
-            totalSum = totalSum,
-            dailyMoney = dailyMoney
+            totalSum = totalSum.round(2),
+            dailyMoney = dailyMoney.round(2),
+            growth = dailyMoney > 0
         )
     }
 }
