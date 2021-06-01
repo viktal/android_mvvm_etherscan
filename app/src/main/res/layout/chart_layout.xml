@@ -69,7 +69,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="3dp"
                             android:drawableRight="@drawable/baseline_arrow_upward_24"
-                            android:textColor="@color/color_light_white"
+                            android:textColor="@color/color_gray"
                             tools:text="$268.65" />
 
                     </LinearLayout>

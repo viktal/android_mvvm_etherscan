@@ -41,6 +41,7 @@ class TransactionFragment : Fragment() {
         val address = bundle.getString(BundleConstants.ADDRESS, "")
         val typeTrans = bundle.getString(BundleConstants.TYPETRANS, "")
         val transAddress = bundle.getString(BundleConstants.TRANSADDRESS, "")
+        val rate = bundle.getString(BundleConstants.RATEETH, "")
 
         binding = DataBindingUtil.inflate(inflater, R.layout.transactions, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -60,7 +61,7 @@ class TransactionFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        viewModel.clickEther(address, TypeTrans.valueOf(typeTrans), transAddress)
+        viewModel.clickEther(address, TypeTrans.valueOf(typeTrans), transAddress, rate.toDouble())
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {

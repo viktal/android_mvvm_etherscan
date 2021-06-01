@@ -9,6 +9,8 @@ object BundleConstants {
     const val MONEYCOUNT: String = "moneyCount"
     const val MONEYCOUNTDOLLAR: String = "moneyCountDollar"
     const val IMAGEPATH: String = "imagePath"
+
+    const val RATEETH: String = "rate"
 }
 
 enum class TypeTrans {

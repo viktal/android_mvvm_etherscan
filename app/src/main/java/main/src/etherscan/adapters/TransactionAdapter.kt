@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import main.src.etherscan.R
 import main.src.etherscan.api.TransactionListener
@@ -32,7 +34,7 @@ class TransactionAdapter(
         return TransactionHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(holder: TransactionHolder, position: Int) {
 
         val model = mData
@@ -46,14 +48,18 @@ class TransactionAdapter(
 
         if (from == address) {
             holder.mTransAddress.text = "to: " + to.subSequence(0, 5).toString() + ".." + to.subSequence(toLen - 5, toLen - 1)
+            holder.mTransDollars.text = "-$" + model.transaction[position].dollars
+            holder.mTransCoins.text = "-" + model.transaction[position].coins + model.transaction[position].symbol
+
         } else {
             holder.mTransAddress.text = "from: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(fromLen - 5, fromLen - 1)
             model.transaction[position].incomming = true
             holder.mTokenArrow.setBackgroundResource(R.drawable.baseline_south_west_24)
+            holder.mTransDollars.text = "$" + model.transaction[position].dollars
+            holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
         }
 
-        holder.mTransDollars.text = "$" + model.transaction[position].dollars
-        holder.mTransCoins.text = model.transaction[position].coins + model.transaction[position].symbol
+
 
         holder.mTokenItem.setOnClickListener {
             listener.pressTrans(hash = model.transaction[position].hash)

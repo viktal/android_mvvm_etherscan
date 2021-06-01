@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         transAddress: String,
         moneyCount: String,
         moneyCountDollar: String,
-        imagePath: String
+        imagePath: String,
+        rate: String
     ) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, address)
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         bundle.putString(BundleConstants.MONEYCOUNT, moneyCount)
         bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
         bundle.putString(BundleConstants.IMAGEPATH, imagePath)
+
+        bundle.putString(BundleConstants.RATEETH, rate)
 
         navController.navigate(R.id.transactionFragment2, bundle)
     }

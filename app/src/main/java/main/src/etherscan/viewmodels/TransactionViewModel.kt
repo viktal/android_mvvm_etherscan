@@ -17,10 +17,10 @@ class TransactionViewModel : ViewModel() {
 
     private val repo = EthplorerRepository()
 
-    fun clickEther(address: String, typeTrans: TypeTrans, transAddress: String) {
+    fun clickEther(address: String, typeTrans: TypeTrans, transAddress: String, rate: Double) {
         _model.value = null
         viewModelScope.launch(Dispatchers.IO) {
-            val value = repo.getTrans(address, typeTrans, transAddress)
+            val value = repo.getTrans(address, typeTrans, transAddress, rate)
             _model.postValue(value)
         }
     }

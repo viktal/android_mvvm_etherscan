@@ -69,9 +69,11 @@ class WalletAdapter(
             var typeTrans = TypeTrans.TOKEN
             if (position == 0) {
                 typeTrans = TypeTrans.ETHER
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address, moneyCount, moneyCountDollar, "")
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address,
+                    moneyCount, moneyCountDollar, "", model.tokens[0].rate)
             } else {
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address, moneyCount, moneyCountDollar, imagePath)
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address,
+                    moneyCount, moneyCountDollar, imagePath)
             }
         }
     }

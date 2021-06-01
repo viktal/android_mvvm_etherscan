@@ -49,7 +49,7 @@ class NormalizeData {
         )
     }
 
-    fun normalizeEthTrans(transactions: List<EtherTransModel>): TransactionListModel {
+    fun normalizeEthTrans(transactions: List<EtherTransModel>, rate: Double): TransactionListModel {
         val newArr: MutableList<TransactionModel> = ArrayList()
 
         transactions.forEach {
@@ -58,7 +58,7 @@ class NormalizeData {
                 to = it.to,
                 date = convertDate(it.timestamp!!),
                 // TODO
-                dollars = "123",
+                dollars = (rate * it.value).roundTo(2),
                 coins = it.value.roundTo(2),
                 symbol = "ETH",
                 hash = it.hash

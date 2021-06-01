@@ -43,7 +43,7 @@ class EthplorerRemoteStorage {
         return normaliser.normalizeTokens(clearResult!!)
     }
 
-    suspend fun getEtherTrans(address: String): TransactionListModel {
+    suspend fun getEtherTrans(address: String, rate: Double): TransactionListModel {
         val apiLimit = "&limit=10"
         val methodURL = "$url/getAddressTransactions/$address$apiLimit"
 
@@ -62,7 +62,7 @@ class EthplorerRemoteStorage {
         val adapter = moshi.adapter<List<EtherTransModel>>(type)
         val clearResult = adapter.fromJson(json)
 
-        return normaliser.normalizeEthTrans(clearResult!!)
+        return normaliser.normalizeEthTrans(clearResult!!, rate)
     }
 
     suspend fun getTokenTrans(address: String, transAddress: String): TransactionListModel {

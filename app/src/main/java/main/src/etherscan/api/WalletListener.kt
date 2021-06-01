@@ -9,6 +9,7 @@ interface WalletListener {
         transAddress: String,
         moneyCount: String,
         moneyCountDollar: String,
-        imagePath: String
+        imagePath: String,
+        rate: String = "0"
     )
 }
