@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.delay
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.viewmodels.WalletViewModel
 
 class WaitFragment : Fragment() {
-
-    // View animation deprecated
 
     private val ANIMATION_DURATION = 400L
 
@@ -43,7 +43,9 @@ class WaitFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
-                findNavController().navigate(R.id.walletFragment, bundle)
+                Run.after(2000) {
+                    findNavController().navigate(R.id.walletFragment, bundle)
+                }
             }
         })
 
@@ -104,5 +106,15 @@ class WaitFragment : Fragment() {
             BottomLeftAnim
         )
         animatorSet.start()
+    }
+}
+
+class Run {
+    companion object {
+        fun after(delay: Long, process: () -> Unit) {
+            Handler().postDelayed({
+                process()
+            }, delay)
+        }
     }
 }

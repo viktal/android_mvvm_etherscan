@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_blue">
 
-    <View
-        android:layout_marginTop="-130dp"
-        android:id="@+id/upper_left_triangle"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_gravity="start"
-        android:background="@drawable/upper_left_triangle"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/curved_toolbar"
+        >
 
-    <View
-        android:layout_marginTop="-130dp"
-        android:id="@+id/upper_right_triangle"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:scaleX="-1"
-        android:background="@drawable/upper_left_triangle"/>
+        <View
+            android:layout_marginTop="-130dp"
+            android:id="@+id/upper_left_triangle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="start"
+            android:background="@drawable/upper_left_triangle"/>
 
-    <View
-        android:layout_marginStart="-100dp"
-        android:id="@+id/middle_left_triangle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/middle_left_triangle" />
+        <View
+            android:layout_marginTop="-130dp"
+            android:id="@+id/upper_right_triangle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:scaleX="-1"
+            android:background="@drawable/upper_left_triangle"/>
 
-    <View
-        android:layout_marginEnd="-100dp"
-        android:id="@+id/middle_right_triangle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleX="-1"
-        android:layout_centerInParent="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/middle_left_triangle"/>
+        <View
+            android:layout_marginStart="-100dp"
+            android:id="@+id/middle_left_triangle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/middle_left_triangle" />
 
-    <View
-        android:layout_marginBottom="-130dp"
-        android:id="@+id/bottom_left_triangle"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_left_triangle"/>
+        <View
+            android:layout_marginEnd="-100dp"
+            android:id="@+id/middle_right_triangle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleX="-1"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/middle_left_triangle"/>
 
-    <View
-        android:layout_marginBottom="-130dp"
-        android:id="@+id/bottom_right_triangle"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:scaleX="-1"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_left_triangle"/>
+        <View
+            android:layout_marginBottom="-130dp"
+            android:id="@+id/bottom_left_triangle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_left_triangle"/>
 
-</RelativeLayout>
+        <View
+            android:layout_marginBottom="-130dp"
+            android:id="@+id/bottom_right_triangle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:scaleX="-1"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_left_triangle"/>
+
+    </RelativeLayout>
+</FrameLayout>
+

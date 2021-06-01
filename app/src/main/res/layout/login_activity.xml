@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/top_app_bar">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backLayout"
+        app:menu="@menu/top_app_bar">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
@@ -26,12 +27,12 @@
                 android:background="@color/color_bg_blue"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:paddingTop="10sp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingTop="10sp">
 
                     <TextView
                         android:id="@+id/toolbar_title"
@@ -53,15 +54,15 @@
                         android:layout_gravity="center"
                         android:id="@+id/app_info" />
 
-                    <TextView
-                        android:id="@+id/swipe_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginBottom="25dp"
-                        android:text="@string/swipe_info"
-                        android:textColor="@color/color_bg_white"/>
+            <TextView
+                android:id="@+id/swipe_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/swipe_info"
+                android:textColor="@color/color_bg_white" />
 
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
@@ -70,12 +71,10 @@
         <include
             layout="@layout/toolbar_layout"/>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/pager"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pager">
 
 
         </androidx.viewpager2.widget.ViewPager2>
