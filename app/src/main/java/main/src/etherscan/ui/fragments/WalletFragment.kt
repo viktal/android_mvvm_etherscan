@@ -31,32 +31,52 @@ class WalletFragment : Fragment() {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
+        // val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
 
-        viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
-        viewModel.fetchAddressData(address)
+        // viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        // viewModel.fetchAddressData(address)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        mProgressBar = binding.root.findViewById(R.id.wallet_progress_bar)
+        viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
+        binding.walletViewModel = viewModel
 
-        viewModel.model.observe(viewLifecycleOwner, Observer { model ->
-            if (model != null) {
-                mProgressBar.visibility = View.GONE
+        val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
+        recyclerView.adapter = WalletAdapter(viewModel.model.value, context as WalletListener)
 
-                val layout: CoordinatorLayout = binding.root.findViewById(R.id.wallet_coord_layout)
-                val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
-                recyclerView.adapter = WalletAdapter(
-                    viewModel.model.value,
-                    activity as WalletListener
-                )
+        recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
-                recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
-                layout.visibility = View.VISIBLE
-                binding.walletViewModel = viewModel
-            }
-        })
         return binding.root
+
+        // super.onCreateView(inflater, container, savedInstanceState)
+        //
+        // val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
+        //
+        // viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        // viewModel.fetchAddressData(address)
+        //
+        // binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
+        // binding.lifecycleOwner = this
+        //
+        // mProgressBar = binding.root.findViewById(R.id.wallet_progress_bar)
+        //
+        // viewModel.model.observe(viewLifecycleOwner, Observer { model ->
+        //     if (model != null) {
+        //         mProgressBar.visibility = View.GONE
+        //
+        //         val layout: CoordinatorLayout = binding.root.findViewById(R.id.wallet_coord_layout)
+        //         val recyclerView: RecyclerView = binding.root.findViewById(R.id.list_tokens)
+        //         recyclerView.adapter = WalletAdapter(
+        //             viewModel.model.value,
+        //             activity as WalletListener
+        //         )
+        //
+        //         recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+        //         layout.visibility = View.VISIBLE
+        //         binding.walletViewModel = viewModel
+        //     }
+        // })
+        // return binding.root
     }
 }

@@ -1,7 +1,8 @@
 package main.src.etherscan.data.models
 
 data class TransactionListModel(
-    val transaction: MutableList<TransactionModel>
+    val transaction: MutableList<TransactionModel>,
+    var prices: HistoryGroupEth?
 )
 
 data class TransactionModel(
@@ -10,5 +11,6 @@ data class TransactionModel(
     val to: String,
     val dollars: String,
     val coins: String,
-    val symbol: String
+    val symbol: String,
+    val hash: String
 )

@@ -1,23 +1,31 @@
 package main.src.etherscan.data.repositories
 
+import android.util.Log
 import com.beust.klaxon.Klaxon
-import java.text.SimpleDateFormat
-import java.util.Date
-import kotlin.collections.ArrayList
-import kotlin.math.pow
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.EtherTransModel
+import main.src.etherscan.data.models.HistoryGroupEth
 import main.src.etherscan.data.models.ListTokenTransModel
 import main.src.etherscan.data.models.MainPageTokenModel
-import main.src.etherscan.data.models.PriceModelOrFalse
+import main.src.etherscan.data.models.PriceJsonAdapter
+import main.src.etherscan.data.models.PriceModelHistory
 import main.src.etherscan.data.models.PriceModelOrFalseConverter
 import main.src.etherscan.data.models.TokenBalanceModel
+import main.src.etherscan.data.models.TokenDetailsModel
 import main.src.etherscan.data.models.TokensListModel
+import main.src.etherscan.data.models.Totals
 import main.src.etherscan.data.models.TransactionListModel
 import main.src.etherscan.data.models.TransactionModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import ru.gildor.coroutines.okhttp.await
+import java.io.StringReader
+import java.text.SimpleDateFormat
+import java.util.Date
+import kotlin.math.pow
 
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
@@ -36,9 +44,12 @@ class EthplorerRemoteStorage {
         val result = client.newCall(request).await()
         val json = result.body!!.string()
 
-        val clearResult = Klaxon()
-                .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
-                .parse<AddressInfoModel>(json)
+        val moshi = Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .add(PriceJsonAdapter())
+            .build()
+        val adapter = moshi.adapter<AddressInfoModel>(AddressInfoModel::class.java)
+        val clearResult = adapter.fromJson(json)
 
         return normalizeTokens(clearResult!!)
     }
@@ -54,8 +65,13 @@ class EthplorerRemoteStorage {
         val result = client.newCall(request).await()
         val json = result.body!!.string()
 
-        val clearResult = Klaxon()
-            .parseArray<EtherTransModel>(json)
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val type = Types.newParameterizedType(
+            MutableList::class.java,
+            EtherTransModel::class.java
+        )
+        val adapter = moshi.adapter<List<EtherTransModel>>(type)
+        val clearResult = adapter.fromJson(json)
 
         return normalizeEthTrans(clearResult!!)
     }
@@ -71,58 +87,98 @@ class EthplorerRemoteStorage {
         val result = client.newCall(request).await()
         val json = result.body!!.string()
 
-        val clearResult = Klaxon()
-            .fieldConverter(PriceModelOrFalse::class, PriceModelOrFalseConverter())
-            .parse<ListTokenTransModel>(json)
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val adapter = moshi.adapter<ListTokenTransModel>(ListTokenTransModel::class.java)
+        val clearResult = adapter.fromJson(json)
 
-        val a = clearResult
         return normalizeTokenTrans(clearResult!!)
     }
+
+    suspend fun getHistoryGroupedEth() : HistoryGroupEth {
+
+        val methodURL = "$url/getTokenHistoryGrouped?apiKey=ethplorer.widget&cap=true"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val adapter = moshi.adapter<HistoryGroupEth>(HistoryGroupEth::class.java)
+        val clearResult = adapter.fromJson(json)
+
+        return clearResult!!
+    }
+
+
+    suspend fun getTxInfo(transHash: String): TokenDetailsModel {
+        val methodURL = "$url/getTxInfo/$transHash"
+
+        val request = Request.Builder()
+            .url(methodURL)
+            .build()
+
+        val result = client.newCall(request).await()
+        val json = result.body!!.string()
+
+        val clearResult = Moshi.Builder().build()
+            .adapter<TokenDetailsModel>(TokenDetailsModel::class.java)
+            .fromJson(json)
+
+        return clearResult!!
+    }
+
 
     fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
     }
 
     fun normalizeTokenTrans(transactions: ListTokenTransModel): TransactionListModel {
-        var newArr: MutableList<TransactionModel> = ArrayList()
+        val newArr: MutableList<TransactionModel> = ArrayList()
 
         transactions.operations.forEach {
             val dollars = it.value.toDouble() / 10.0.pow(it.tokenInfo.decimals.toDouble())
             if (it.tokenInfo.price != null) {
                 val singleTrans = TransactionModel(
-                        from = it.from,
-                        to = it.to,
-                        date = convertDate(it.timestamp),
-                        dollars = (dollars).roundTo(2),
-                        coins = (dollars * it.tokenInfo.price.rate).roundTo(2),
-                        symbol = it.tokenInfo.symbol
+                    from = it.from,
+                    to = it.to,
+                    date = convertDate(it.timestamp),
+                    dollars = (dollars).roundTo(2),
+                    coins = (dollars * it.tokenInfo.price.rate).roundTo(2),
+                    symbol = it.tokenInfo.symbol,
+                    hash = it.transactionHash
                 )
                 newArr.add(singleTrans)
             }
         }
         return TransactionListModel(
-                transaction = newArr
+            transaction = newArr,
+            prices = null
         )
     }
 
     fun normalizeEthTrans(transactions: List<EtherTransModel>): TransactionListModel {
-        var newArr: MutableList<TransactionModel> = ArrayList()
+        val newArr: MutableList<TransactionModel> = ArrayList()
 
         transactions.forEach {
             val singleTrans = TransactionModel(
-                    from = it.from,
-                    to = it.to,
-                    date = convertDate(it.timestamp),
-                    // TODO
-                    dollars = "123",
-                    coins = it.value.roundTo(2),
-                    symbol = "ETH"
+                from = it.from,
+                to = it.to,
+                date = convertDate(it.timestamp!!),
+                // TODO
+                dollars = "123",
+                coins = it.value.roundTo(2),
+                symbol = "ETH",
+                hash = it.hash
             )
             newArr.add(singleTrans)
         }
 
         return TransactionListModel(
-                transaction = newArr
+            transaction = newArr,
+            prices = null
         )
     }
 
@@ -142,25 +198,25 @@ class EthplorerRemoteStorage {
 
             val tmpPrice = itemBalance * itemPrice!!.rate
             returningToken = MainPageTokenModel(
-                    address = itemInfo.address,
-                    symbol = itemInfo.symbol,
-                    name = itemInfo.name,
-                    balance = itemBalance.roundTo(2),
-                    price = tmpPrice.roundTo(2),
-                    logo = itemInfo.image,
-                    rate = itemPrice.rate.roundTo(2),
-                    dif = itemPrice.diff.roundTo(2)
+                address = itemInfo.address,
+                symbol = itemInfo.symbol,
+                name = itemInfo.name,
+                balance = itemBalance.roundTo(2),
+                price = tmpPrice.roundTo(2),
+                logo = itemInfo.image,
+                rate = itemPrice.rate.roundTo(2),
+                dif = itemPrice.diff.roundTo(2)
             )
         } else {
             returningToken = MainPageTokenModel(
-                    address = itemInfo.address,
-                    symbol = itemInfo.symbol,
-                    name = itemInfo.name,
-                    balance = itemBalance.roundTo(2),
-                    price = "0",
-                    logo = itemInfo.image,
-                    rate = "0",
-                    dif = "0,00"
+                address = itemInfo.address,
+                symbol = itemInfo.symbol,
+                name = itemInfo.name,
+                balance = itemBalance.roundTo(2),
+                price = "0",
+                logo = itemInfo.image,
+                rate = "0",
+                dif = "0,00"
             )
         }
         return returningToken
@@ -173,34 +229,38 @@ class EthplorerRemoteStorage {
         val ethBalance = someTokens.ETH.balance * someTokens.ETH.price.rate
 
         val ethData: MainPageTokenModel = MainPageTokenModel(
-                address = someTokens.address,
-                symbol = "ETH",
-                name = "Ethereum",
-                balance = someTokens.ETH.balance.roundTo(2),
-                price = ethBalance.roundTo(2),
-                logo = "",
-                rate = someTokens.ETH.price.rate.roundTo(2),
-                dif = someTokens.ETH.price.diff.roundTo(2)
+            address = someTokens.address,
+            symbol = "ETH",
+            name = "Ethereum",
+            balance = someTokens.ETH.balance.roundTo(2),
+            price = ethBalance.roundTo(2),
+            logo = "",
+            rate = someTokens.ETH.price.rate.roundTo(2),
+            dif = someTokens.ETH.price.diff.roundTo(2)
         )
         tokensForRender.add(ethData)
 
         dailyMoney += (ethBalance * someTokens.ETH.price.diff) / (100 + someTokens.ETH.price.diff)
         totalSum += ethBalance
 
-        someTokens.tokens.forEach {
-            if (it.tokenInfo.price != null) {
-                val itemBalance = it.balance / 10.0.pow(it.tokenInfo.decimals.toDouble())
-                val ItemBalanceDol = itemBalance * it.tokenInfo.price.rate
-                totalSum += ItemBalanceDol
-                dailyMoney += ItemBalanceDol * it.tokenInfo.price.diff / (100 + it.tokenInfo.price.diff)
-                tokensForRender.add(createSingleToken(it))
+
+        if (someTokens.tokens != null) {
+            someTokens.tokens!!.forEach {
+                if (it.tokenInfo.price != null) {
+                    val itemBalance = it.balance / 10.0.pow(it.tokenInfo.decimals.toDouble())
+                    val ItemBalanceDol = itemBalance * it.tokenInfo.price.rate
+                    totalSum += ItemBalanceDol
+                    dailyMoney += ItemBalanceDol * it.tokenInfo.price.diff / (100 + it.tokenInfo.price.diff)
+                    tokensForRender.add(createSingleToken(it))
+                }
             }
         }
 
+
         return TokensListModel(
-                tokens = tokensForRender,
-                totalSum = totalSum,
-                dailyMoney = dailyMoney
+            tokens = tokensForRender,
+            totalSum = totalSum,
+            dailyMoney = dailyMoney
         )
     }
 }

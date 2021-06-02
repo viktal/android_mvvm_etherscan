@@ -1,5 +1,8 @@
 package main.src.etherscan.data.models
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class TokenTransModel(
     val timestamp: Int,
     val transactionHash: String,
@@ -10,6 +13,7 @@ data class TokenTransModel(
     val value: String
 )
 
+@JsonClass(generateAdapter = true)
 data class ListTokenTransModel(
     val operations: MutableList<TokenTransModel>
 )
