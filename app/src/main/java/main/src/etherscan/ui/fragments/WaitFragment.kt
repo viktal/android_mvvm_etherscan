@@ -19,7 +19,7 @@ import main.src.etherscan.viewmodels.WalletViewModel
 
 class WaitFragment : Fragment() {
 
-    private val ANIMATION_DURATION = 4L
+    private val ANIMATION_DURATION = 400L
 
     var upper_left_triangle: View? = null
     var upper_right_triangle: View? = null
