@@ -12,7 +12,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import main.src.etherscan.R
 import main.src.etherscan.adapters.LoginAdapter
-import ru.semper_viventem.backdrop.BackdropBehavior
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -25,36 +24,6 @@ class LoginActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-
-        //
-        //
-        // fun <T : CoordinatorLayout.Behavior<*>> View.findBehavior(): T = layoutParams.run {
-        //     if (this !is CoordinatorLayout.LayoutParams) throw IllegalArgumentException("View's layout params should be CoordinatorLayout.LayoutParams")
-        //
-        //     (layoutParams as CoordinatorLayout.LayoutParams).behavior as? T
-        //         ?: throw IllegalArgumentException("Layout's behavior is not current behavior")
-        // }
-        //
-        // foregroundContainer = findViewById(R.id.foregroundContainer)
-        // val backdropBehavior: BackdropBehavior = foregroundContainer.findBehavior() // find behavior
-        //
-        // with(backdropBehavior) {
-        //
-        //     // Attach your back layout to behavior.
-        //     // BackDropBehavior will find the toolbar itself.
-        //     attachBackLayout(R.id.backLayout)
-        //
-        //     // Set navigation icons for toolbar
-        //     // setClosedIcon(R.drawable.middle_left_triangle)
-        //     // setOpenedIcon(R.drawable.ic_close)
-        //
-        //     // Add listener
-        //     addOnDropListener(object : BackdropBehavior.OnDropListener {
-        //         override fun onDrop(dropState: BackdropBehavior.DropState, fromUser: Boolean) {
-        //             // TODO: handle listener
-        //         }
-        //     })
-        // }
         toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 

@@ -1,7 +1,6 @@
 package main.src.etherscan.adapters
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.Constants.imageAddress
+import main.src.etherscan.data.models.MainPageTokenModel
 import main.src.etherscan.data.models.TokensListModel
 
 class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,6 +48,8 @@ class WalletAdapter(
         holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
         if (model.tokens[position].dif.toDouble() < 0) {
             holder.mTokenDescriptionPercent.setTextColor(Color.RED)
+        } else {
+            holder.mTokenDescriptionPercent.setTextColor(Color.green(R.color.color_green))
         }
 
         val moneyCount = model.tokens[position].balance + " " + model.tokens[position].symbol
@@ -80,5 +82,19 @@ class WalletAdapter(
 
     override fun getItemCount(): Int {
         return mData!!.tokens.size
+    }
+
+    fun clear() {
+        mData!!.tokens.clear()
+        mData = null
+        notifyDataSetChanged()
+    }
+
+
+
+    fun addAll(newData: TokensListModel) {
+        mData = newData
+        mData!!.tokens.addAll(newData.tokens)
+        notifyDataSetChanged()
     }
 }

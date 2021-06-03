@@ -3,6 +3,7 @@ package main.src.etherscan.data.repositories
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import main.src.etherscan.PAGE_SIZE
 import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.EtherTransModel
 import main.src.etherscan.data.models.HistoryGroupEth
@@ -18,7 +19,7 @@ import ru.gildor.coroutines.okhttp.await
 class EthplorerRemoteStorage {
     private val url = "https://api.ethplorer.io"
     val apiType = "&type=transfer"
-    val apiLimit = "&limit=10"
+    val apiParams = "&limit=$PAGE_SIZE&timestamp="
     private val client = OkHttpClient()
     private val normaliser = NormalizeData()
 
@@ -43,9 +44,9 @@ class EthplorerRemoteStorage {
         return normaliser.normalizeTokens(clearResult!!)
     }
 
-    suspend fun getEtherTrans(address: String, rate: Double): TransactionListModel {
-        val apiLimit = "&limit=10"
-        val methodURL = "$url/getAddressTransactions/$address$apiLimit"
+    suspend fun getEtherTrans(address: String, rate: Double, timestamp: Int): TransactionListModel {
+        val apiParams = "$apiParams$timestamp"
+        val methodURL = "$url/getAddressTransactions/$address$apiParams"
 
         val request = Request.Builder()
             .url(methodURL)
@@ -65,9 +66,9 @@ class EthplorerRemoteStorage {
         return normaliser.normalizeEthTrans(clearResult!!, rate)
     }
 
-    suspend fun getTokenTrans(address: String, transAddress: String): TransactionListModel {
-
-        val methodURL = "$url/getAddressHistory/$address&token=$transAddress$apiType$apiLimit"
+    suspend fun getTokenTrans(address: String, transAddress: String, timestamp: Int): TransactionListModel {
+        val apiParams = "$apiParams$timestamp"
+        val methodURL = "$url/getAddressHistory/$address&token=$transAddress$apiType$apiParams"
 
         val request = Request.Builder()
             .url(methodURL)

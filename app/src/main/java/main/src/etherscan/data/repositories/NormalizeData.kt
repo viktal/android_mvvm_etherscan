@@ -35,6 +35,7 @@ class NormalizeData {
                     from = it.from,
                     to = it.to,
                     date = convertDate(it.timestamp),
+                    timestamp = it.timestamp,
                     dollars = (dollars).roundTo(2),
                     coins = (dollars * it.tokenInfo.price.rate).roundTo(2),
                     symbol = it.tokenInfo.symbol,
@@ -57,7 +58,7 @@ class NormalizeData {
                 from = it.from,
                 to = it.to,
                 date = convertDate(it.timestamp!!),
-                // TODO
+                timestamp = it.timestamp,
                 dollars = (rate * it.value).roundTo(2),
                 coins = it.value.roundTo(2),
                 symbol = "ETH",

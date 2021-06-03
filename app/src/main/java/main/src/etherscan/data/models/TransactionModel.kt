@@ -9,6 +9,7 @@ data class TransactionModel(
     var incomming: Boolean = false,
     val from: String,
     val date: String,
+    val timestamp: Int,
     val to: String,
     val dollars: String,
     val coins: String,

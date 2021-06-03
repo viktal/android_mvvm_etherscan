@@ -20,3 +20,6 @@ enum class TypeTrans {
 enum class TypeLogin {
     ADDRESS, MNEMONIC
 }
+
+const val PAGE_START = 1
+const val PAGE_SIZE = 10
