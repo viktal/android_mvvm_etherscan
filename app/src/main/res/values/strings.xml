@@ -15,4 +15,6 @@
     <string name="logout">Logout</string>
     <string name="transaction_details">Transaction Details</string>
     <string name="block">%s (%s Block Confirmations)</string>
+    <string name="total_usd">%s USD</string>
+    <string name="daily_usd">%s $</string>
 </resources>

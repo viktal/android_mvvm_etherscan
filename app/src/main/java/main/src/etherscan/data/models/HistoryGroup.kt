@@ -1,11 +1,10 @@
 package main.src.etherscan.data.models
 
-import com.beust.klaxon.Json
 import com.github.mikephil.charting.data.Entry
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class HistoryGroupEth (
+data class HistoryGroupEth(
     @Transient
     var countTxs: Array<Any>? = null,
     @Transient
@@ -15,13 +14,13 @@ data class HistoryGroupEth (
     var current: Current
 )
 
-data class ParsedHistoryGroupEth (
+data class ParsedHistoryGroupEth(
     val yArray: ArrayList<Entry>,
     val xLabel: ArrayList<String>,
     var totals: Totals
 )
 
-data class Totals (
+data class Totals(
     val tokens: Int,
     val tokensWithPrice: Int,
     val cap: Double,
@@ -31,7 +30,7 @@ data class Totals (
     val ts: Int
 )
 
-data class Current (
+data class Current(
     val rate: Double,
     val diff: Double,
     val diff7d: Double,
@@ -43,4 +42,4 @@ data class Current (
     val volDiff1: Double,
     val volDiff7: Double,
     val volDiff30: Double
-    )
+)

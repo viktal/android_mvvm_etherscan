@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +17,10 @@ import main.src.etherscan.api.AuthListener
 import main.src.etherscan.databinding.AccountLoginBinding
 import main.src.etherscan.ui.activity.MainActivity
 import main.src.etherscan.viewmodels.AuthViewModel
-import org.bitcoinj.crypto.HDUtils
-import org.bitcoinj.wallet.DeterministicKeyChain
-import org.bitcoinj.wallet.DeterministicSeed
-import org.web3j.crypto.Keys
-import org.web3j.crypto.Sign
+import org.web3j.crypto.Bip32ECKeyPair
+import org.web3j.crypto.Bip32ECKeyPair.HARDENED_BIT
+import org.web3j.crypto.Credentials
+import org.web3j.crypto.MnemonicUtils
 
 class AuthFragment : Fragment(), AuthListener {
     private lateinit var binding: AccountLoginBinding
@@ -46,13 +46,13 @@ class AuthFragment : Fragment(), AuthListener {
         val arguments = arguments
         if (arguments != null) {
             typeLogin = arguments.getString(BundleConstants.TYPELOGIN).toString()
-            when (typeLogin){
+            when (typeLogin) {
                 TypeLogin.ADDRESS.toString() -> {
                     inputAddress.visibility = View.VISIBLE
-                    inputMnemonic.visibility = View.GONE
+                    inputMnemonic.visibility = View.INVISIBLE
                 }
                 TypeLogin.MNEMONIC.toString() -> {
-                    inputAddress.visibility = View.GONE
+                    inputAddress.visibility = View.INVISIBLE
                     inputMnemonic.visibility = View.VISIBLE
                 }
             }
@@ -70,13 +70,36 @@ class AuthFragment : Fragment(), AuthListener {
         button?.setOnClickListener {
             if (typeLogin == TypeLogin.MNEMONIC.toString()) {
                 val mnemonic = binding.inputFieldMnemonic.text.toString()
-                val seed = DeterministicSeed(mnemonic, null, "", 1409478661L)
-                val chain = DeterministicKeyChain.builder().seed(seed).build()
-                val addrKey = chain.getKeyByPath(HDUtils.parsePath("M/44H/60H/0H/0/0"), true)
-                val walletAddress = Keys.getAddress(Sign.publicKeyFromPrivate(addrKey.privKey))
-                pressSubmit("0x$walletAddress")
+
+                if (!MnemonicUtils.validateMnemonic(mnemonic)) {
+                    Toast.makeText(
+                        context,
+                        "Enter correct BIP39 mnemonic!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+
+                val seed = MnemonicUtils.generateSeed(mnemonic, null)
+                val masterKeypair = Bip32ECKeyPair.generateKeyPair(seed)
+                val path = intArrayOf(44 or HARDENED_BIT, 60 or HARDENED_BIT, 0 or HARDENED_BIT, 0, 0)
+                val x = Bip32ECKeyPair.deriveKeyPair(masterKeypair, path)
+                val credentials: Credentials = Credentials.create(x)
+                val walletAddress = credentials.address
+                pressSubmit(walletAddress)
             } else {
-                viewModel.model.value?.address?.let { it1 -> pressSubmit(it1) }
+                val address = binding.inputFieldAddress.text.toString()
+                val regex = """0x[0-9a-fA-F]{40}""".toRegex()
+                if (!regex.matches(address)) {
+                    Toast.makeText(
+                        context,
+                        "Enter correct address!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.model.value!!.address = address
+                pressSubmit(viewModel.model.value!!.address)
             }
         }
     }

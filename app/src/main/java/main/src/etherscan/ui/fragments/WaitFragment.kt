@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.delay
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.viewmodels.WalletViewModel
 
 class WaitFragment : Fragment() {
 
-    //View animation deprecated
-
-    private val ANIMATION_DURATION = 400L
+    private val ANIMATION_DURATION = 4L
 
     var upper_left_triangle: View? = null
     var upper_right_triangle: View? = null
@@ -43,7 +43,9 @@ class WaitFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
-                findNavController().navigate(R.id.walletFragment, bundle)
+                Run.after(2000) {
+                    findNavController().navigate(R.id.walletFragment, bundle)
+                }
             }
         })
 
@@ -62,7 +64,7 @@ class WaitFragment : Fragment() {
         bottom_left_triangle = view.findViewById(R.id.bottom_left_triangle)
         bottom_right_triangle = view.findViewById(R.id.bottom_right_triangle)
 
-        val alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
+        val alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f)
 
         val moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 366f)
         val moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 825f)
@@ -94,7 +96,7 @@ class WaitFragment : Fragment() {
             alpha
         )
 
-        val animatorSet = AnimatorSet().setDuration(ANIMATION_DURATION);
+        val animatorSet = AnimatorSet().setDuration(ANIMATION_DURATION)
         animatorSet.playSequentially(
             UpperLeftAnim,
             UpperRightAnim,
@@ -102,8 +104,17 @@ class WaitFragment : Fragment() {
             MiddleLeftAnim,
             BottomRightAnim,
             BottomLeftAnim
-        );
+        )
         animatorSet.start()
     }
 }
 
+class Run {
+    companion object {
+        fun after(delay: Long, process: () -> Unit) {
+            Handler().postDelayed({
+                process()
+            }, delay)
+        }
+    }
+}

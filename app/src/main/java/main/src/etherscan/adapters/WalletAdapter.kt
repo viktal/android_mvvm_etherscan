@@ -1,6 +1,7 @@
 package main.src.etherscan.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mTokenTitle: TextView = itemView.findViewById(R.id.token_title)
     var mTokenMoneyCount: TextView = itemView.findViewById(R.id.money_count)
     var mTokenDescription: TextView = itemView.findViewById(R.id.description)
+    var mTokenDescriptionPercent: TextView = itemView.findViewById(R.id.description_percent)
     var mTokenMoneyCountDollar: TextView = itemView.findViewById(R.id.money_count_dollar)
     var mTokenImage: ImageView = itemView.findViewById(R.id.image)
     var mTokenItem: LinearLayout = itemView.findViewById(R.id.token_item)
@@ -40,10 +42,14 @@ class WalletAdapter(
         val model = mData
 //        val profit = model!!.dailyMoney.toDouble()*100/model.totalSum.toDouble()
 
-
-
         holder.mTokenTitle.text = model!!.tokens[position].name
-        holder.mTokenDescription.text = model.tokens[position].rate + "(" + model.tokens[position].dif + "%)"
+        holder.mTokenDescription.text = "$" + model.tokens[position].rate
+        holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
+        if (model.tokens[position].dif.toDouble() < 0) {
+            holder.mTokenDescriptionPercent.setTextColor(Color.RED)
+        } else {
+            holder.mTokenDescriptionPercent.setTextColor(Color.green(R.color.color_green))
+        }
 
         val moneyCount = model.tokens[position].balance + " " + model.tokens[position].symbol
         holder.mTokenMoneyCount.text = moneyCount
@@ -64,14 +70,28 @@ class WalletAdapter(
             var typeTrans = TypeTrans.TOKEN
             if (position == 0) {
                 typeTrans = TypeTrans.ETHER
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address, moneyCount, moneyCountDollar, "")
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address,
+                    moneyCount, moneyCountDollar, "", model.tokens[0].rate)
             } else {
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address, moneyCount, moneyCountDollar, imagePath)
+                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address,
+                    moneyCount, moneyCountDollar, imagePath)
             }
         }
     }
 
     override fun getItemCount(): Int {
         return mData!!.tokens.size
+    }
+
+    fun clear() {
+        mData!!.tokens.clear()
+        mData = null
+        notifyDataSetChanged()
+    }
+
+    fun addAll(newData: TokensListModel) {
+        mData = newData
+        mData!!.tokens.addAll(newData.tokens)
+        notifyDataSetChanged()
     }
 }

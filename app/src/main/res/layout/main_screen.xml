@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="walletViewModel"
             type="main.src.etherscan.viewmodels.WalletViewModel" />
     </data>
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragments.WalletFragment">
+    <!--    <FrameLayout-->
+    <!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--        xmlns:tools="http://schemas.android.com/tools"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        tools:context=".ui.fragments.WalletFragment">-->
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/wallet_coord_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -48,34 +56,57 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_bg_white"
                         android:layout_gravity="center"
-                        android:text="@{String.valueOf(walletViewModel.model.totalSum)}"
+                        android:text="@{@string/total_usd(String.valueOf(walletViewModel.model.totalSum))}"
                         tools:text="123 345 USD"
                         android:id="@+id/main_info_cash" />
 
-                    <TextView
-                        android:layout_marginTop="3dp"
+                    <LinearLayout
+                        android:layout_margin="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_bg_blue"
                         android:layout_gravity="center"
-                        android:text="@{String.valueOf(walletViewModel.model.dailyMoney)}"
-                        tools:text=" -$268.65 (-0.74%) "
-                        android:background="@drawable/daily_profit"
-                        android:id="@+id/daily_profit"
-                        android:textSize="@dimen/fs_token_one_d"
-                        app:drawableRightCompat="@drawable/baseline_arrow_upward_24" />
+                        android:background="@drawable/daily_profit">
+
+                        <TextView
+                            android:layout_margin="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_bg_blue"
+                            android:layout_gravity="center"
+                            android:text="@{@string/daily_usd(String.valueOf(walletViewModel.model.dailyMoney))}"
+                            tools:text=" -$268.65 (-0.74%) "
+                            android:id="@+id/daily_profit"
+                            android:textSize="@dimen/fs_token_one_d" />
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:background="@drawable/baseline_arrow_upward_24"
+                            android:background="@{walletViewModel.model.growth ? @drawable/baseline_arrow_upward_24 : @drawable/baseline_arrow_downward_24}" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_tokens"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listitem="@layout/token" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_bg_blue">
 
 
-    </FrameLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:background="@drawable/curved_toolbar"
+                    android:id="@+id/list_tokens"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:listitem="@layout/token" />
 
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

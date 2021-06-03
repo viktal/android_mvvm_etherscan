@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById<View>(R.id.toolbar_main) as Toolbar
-        toolbar.inflateMenu(R.menu.top_app_bar);
-        toolbar.setOnMenuItemClickListener(this);
+        toolbar.inflateMenu(R.menu.top_app_bar)
+        toolbar.setOnMenuItemClickListener(this)
 
         val extras = intent.extras
         var address = ""
@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
 
-
-
         navController = host.navController
         navController.navigate(R.id.waitFragment, bundle)
     }
@@ -57,7 +55,8 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         transAddress: String,
         moneyCount: String,
         moneyCountDollar: String,
-        imagePath: String
+        imagePath: String,
+        rate: String
     ) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, address)
@@ -68,12 +67,16 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
         bundle.putString(BundleConstants.IMAGEPATH, imagePath)
 
+        bundle.putString(BundleConstants.RATEETH, rate)
+
         navController.navigate(R.id.transactionFragment2, bundle)
     }
 
-    override fun pressTrans(hash: String) {
+    override fun pressTrans(hash: String, moneyCount: String, moneyCountDollar: String) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, hash)
+        bundle.putString(BundleConstants.MONEYCOUNT, moneyCount)
+        bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
         navController.navigate(R.id.transDetailsFragment, bundle)
     }
 
