@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.math.pow
+import kotlin.math.round
 import main.src.etherscan.data.models.AddressInfoModel
 import main.src.etherscan.data.models.EtherTransModel
 import main.src.etherscan.data.models.ListTokenTransModel
@@ -12,7 +13,6 @@ import main.src.etherscan.data.models.TokenBalanceModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.models.TransactionListModel
 import main.src.etherscan.data.models.TransactionModel
-import kotlin.math.round
 
 class NormalizeData {
     fun Double.roundTo(n: Int): String {

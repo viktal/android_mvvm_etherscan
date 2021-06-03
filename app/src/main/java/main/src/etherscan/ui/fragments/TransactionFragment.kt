@@ -58,8 +58,7 @@ class TransactionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.lifecycleOwner = viewLifecycleOwner
         mProgressBar = binding.root.findViewById(R.id.trans_progress_bar)
         swipeRefresh = binding.root.findViewById(R.id.swipeContainer)
-        swipeRefresh.setOnRefreshListener(this);
-
+        swipeRefresh.setOnRefreshListener(this)
 
         val moneyCount = binding.root.findViewById<TextView>(R.id.main_info_dollars)
         moneyCount.text = bundle.getString(BundleConstants.MONEYCOUNT, "")
@@ -138,9 +137,9 @@ class TransactionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onRefresh() {
-        itemCount = 0;
-        currentPage = PAGE_START;
-        isLastPage = false;
-        adapter.clear();
+        itemCount = 0
+        currentPage = PAGE_START
+        isLastPage = false
+        adapter.clear()
     }
 }

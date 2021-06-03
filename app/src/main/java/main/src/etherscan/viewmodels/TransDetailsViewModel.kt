@@ -16,10 +16,12 @@ class TransDetailsViewModel : ViewModel() {
 
     private val repo = EthplorerRepository()
 
-    fun pressTrans(address: String) {
+    fun pressTrans(address: String, moneyCount: String, moneyCountDollar: String) {
         _model.value = null
         viewModelScope.launch(Dispatchers.IO) {
             val value = repo.getTransDetails(address)
+            value.moneyCount = moneyCount
+            value.moneyCountDollar = moneyCountDollar
             _model.postValue(value)
         }
     }

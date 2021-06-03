@@ -72,9 +72,11 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         navController.navigate(R.id.transactionFragment2, bundle)
     }
 
-    override fun pressTrans(hash: String) {
+    override fun pressTrans(hash: String, moneyCount: String, moneyCountDollar: String) {
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, hash)
+        bundle.putString(BundleConstants.MONEYCOUNT, moneyCount)
+        bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
         navController.navigate(R.id.transDetailsFragment, bundle)
     }
 

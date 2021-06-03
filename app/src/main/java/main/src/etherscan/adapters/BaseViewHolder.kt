@@ -3,7 +3,6 @@ package main.src.etherscan.adapters
 import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import main.src.etherscan.R
 import main.src.etherscan.data.models.TransactionListModel
 
 abstract class BaseViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {

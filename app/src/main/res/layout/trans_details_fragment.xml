@@ -71,10 +71,11 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:id="@+id/trans_details_linear"
-                        android:layout_margin="9dp">
+                        android:layout_margin="9dp"
+                        android:paddingBottom="30dp">
 
                         <TextView
                             android:layout_marginStart="5dp"
@@ -265,9 +266,10 @@
                             android:textSize="@dimen/fs_token_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Value ETH" />
+                            android:text="Value USD" />
 
                         <TextView
+                            android:id="@+id/money_count_dollar"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginTop="5dp"
@@ -275,7 +277,30 @@
                             android:textSize="@dimen/default_font"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(transDetailsViewModel.model.value)}"
+                            android:text="@{String.valueOf(transDetailsViewModel.model.moneyCountDollar)}"
+                            tools:text="Success" />
+
+                        <TextView
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginTop="7dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_gray"
+                            android:textSize="@dimen/fs_token_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value" />
+
+                        <TextView
+                            android:id="@+id/money_count"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/color_gray"
+                            android:textSize="@dimen/default_font"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(transDetailsViewModel.model.moneyCount)}"
                             tools:text="Success" />
 
                         <TextView

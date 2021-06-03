@@ -15,5 +15,7 @@ data class TokenDetailsModel(
     val input: String,
     val gasLimit: Int,
     val gasUsed: Int,
+    var moneyCount: String = "",
+    var moneyCountDollar: String = "",
     val logs: Array<Any>
 )

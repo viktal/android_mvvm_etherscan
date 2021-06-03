@@ -41,7 +41,6 @@ class TransactionHolder(itemView: View) : BaseViewHolder(itemView) {
             )
             mTransDollars.text = "-$" + model.transaction[position].dollars
             mTransCoins.text = "-" + model.transaction[position].coins + model.transaction[position].symbol
-
         } else {
             mTransAddress.text = "from: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(
                 fromLen - 5,
@@ -128,7 +127,9 @@ class TransactionAdapter(
 
         holder.onBind(model!!, position, address)
         holder.mTokenItem.setOnClickListener {
-            listener.pressTrans(hash = model.transaction[position].hash)
+            listener.pressTrans(model.transaction[position].hash,
+                (model.transaction[position].coins + model.transaction[position].symbol),
+                model.transaction[position].dollars)
         }
     }
 

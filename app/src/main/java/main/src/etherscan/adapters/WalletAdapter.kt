@@ -14,7 +14,6 @@ import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.Constants.imageAddress
-import main.src.etherscan.data.models.MainPageTokenModel
 import main.src.etherscan.data.models.TokensListModel
 
 class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -89,8 +88,6 @@ class WalletAdapter(
         mData = null
         notifyDataSetChanged()
     }
-
-
 
     fun addAll(newData: TokensListModel) {
         mData = newData

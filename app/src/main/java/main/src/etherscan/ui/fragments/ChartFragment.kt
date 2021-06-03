@@ -14,23 +14,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.button.MaterialButtonToggleGroup
-import main.src.etherscan.ChartTimeDurations
 import java.text.SimpleDateFormat
 import kotlin.math.round
+import main.src.etherscan.ChartTimeDurations
 import main.src.etherscan.R
 import main.src.etherscan.data.models.HistoryGroupEth
 import main.src.etherscan.data.models.ParsedHistoryGroupEth
 import main.src.etherscan.databinding.ChartLayoutBinding
 import main.src.etherscan.viewmodels.ChartViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class ChartFragment : Fragment() {
     private lateinit var binding: ChartLayoutBinding
@@ -116,7 +113,7 @@ class ChartFragment : Fragment() {
         if (duration == ChartTimeDurations.Max)
             d = last
         else d = duration
-        for (i in (last-d)..last) {
+        for (i in (last - d)..last) {
             yArray.add(Entry(c, ((historyGroupEth.prices[i].open + historyGroupEth.prices[i].close) / 2).toFloat()))
             xLabel.add(historyGroupEth.prices[i].date)
             c += 1f

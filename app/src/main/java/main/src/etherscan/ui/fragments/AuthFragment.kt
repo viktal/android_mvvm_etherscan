@@ -14,7 +14,6 @@ import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeLogin
 import main.src.etherscan.api.AuthListener
-import main.src.etherscan.data.models.UserModel
 import main.src.etherscan.databinding.AccountLoginBinding
 import main.src.etherscan.ui.activity.MainActivity
 import main.src.etherscan.viewmodels.AuthViewModel
@@ -72,7 +71,7 @@ class AuthFragment : Fragment(), AuthListener {
             if (typeLogin == TypeLogin.MNEMONIC.toString()) {
                 val mnemonic = binding.inputFieldMnemonic.text.toString()
 
-                if (!MnemonicUtils.validateMnemonic(mnemonic)){
+                if (!MnemonicUtils.validateMnemonic(mnemonic)) {
                     Toast.makeText(
                         context,
                         "Enter correct BIP39 mnemonic!",

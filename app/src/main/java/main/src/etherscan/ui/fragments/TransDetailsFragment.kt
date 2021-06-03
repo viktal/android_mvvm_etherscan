@@ -3,7 +3,6 @@ package main.src.etherscan.ui.fragments
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,18 +12,16 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import jnr.ffi.Struct
+import java.text.SimpleDateFormat
+import java.util.Date
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.databinding.TransDetailsFragmentBinding
 import main.src.etherscan.viewmodels.TransDetailsViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class TransDetailsFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: TransDetailsFragmentBinding
@@ -43,10 +40,10 @@ class TransDetailsFragment : Fragment(), View.OnClickListener {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
-
-
         val bundle = this.requireArguments()
         val address = bundle.getString(BundleConstants.ADDRESS, "")
+        val moneyCount = bundle.getString(BundleConstants.MONEYCOUNT, "")
+        val moneyCountDollar = bundle.getString(BundleConstants.MONEYCOUNTDOLLAR, "")
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -63,8 +60,8 @@ class TransDetailsFragment : Fragment(), View.OnClickListener {
         copyTo.setOnClickListener(this)
         copyFrom.setOnClickListener(this)
 
-            viewModel = ViewModelProvider(this).get(TransDetailsViewModel::class.java)
-        viewModel.pressTrans(address)
+        viewModel = ViewModelProvider(this).get(TransDetailsViewModel::class.java)
+        viewModel.pressTrans(address, moneyCount, moneyCountDollar)
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
@@ -86,8 +83,8 @@ class TransDetailsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        var text  = ""
-        when(v!!.id){
+        var text = ""
+        when (v!!.id) {
             R.id.copy_hash -> text = binding.root.findViewById<TextView>(R.id.trans_hash).text as String
             R.id.copy_to -> text = binding.root.findViewById<TextView>(R.id.trans_to).text as String
             R.id.copy_from -> text = binding.root.findViewById<TextView>(R.id.trans_from).text as String
