@@ -9,4 +9,5 @@
     <dimen name="fs_token_mon_t">25sp</dimen>
     <dimen name="fs_token_info_small">31sp</dimen>
     <dimen name="fs_main_sum_usd">50sp</dimen>
+    <dimen name="chart_font">5sp</dimen>
 </resources>
