@@ -1,6 +1,8 @@
 package main.src.etherscan.data.repositories
 
 import main.src.etherscan.TypeTrans
+import main.src.etherscan.data.models.HistoryGroupEth
+import main.src.etherscan.data.models.TokenDetailsModel
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.models.TransactionListModel
 
@@ -12,11 +14,19 @@ class EthplorerRepository {
         return network.getAddressInfo(address + apiKey)
     }
 
-    suspend fun getTrans(address: String, typeTrans: TypeTrans, transAddress: String): TransactionListModel {
+    suspend fun getTrans(address: String, typeTrans: TypeTrans, transAddress: String, rate: Double, timestamp: Int): TransactionListModel {
         return if (typeTrans == TypeTrans.ETHER) {
-            network.getEtherTrans(address + apiKey)
+            network.getEtherTrans(address + apiKey, rate, timestamp)
         } else {
-            network.getTokenTrans(address + apiKey, transAddress)
+            network.getTokenTrans(address + apiKey, transAddress, timestamp)
         }
+    }
+
+    suspend fun getHistoryGrouped(): HistoryGroupEth {
+        return network.getHistoryGroupedEth()
+    }
+
+    suspend fun getTransDetails(trans_hash: String): TokenDetailsModel {
+        return network.getTxInfo(trans_hash + apiKey)
     }
 }

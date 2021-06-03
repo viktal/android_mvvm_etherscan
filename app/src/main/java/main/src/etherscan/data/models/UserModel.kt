@@ -1,6 +1,10 @@
 package main.src.etherscan.data.models
 
-data class UserModel(
-    val address: String? = null,
-    val mnemonic: String? = null
-)
+class UserModel(var address: String, var mnemonic: String = "") {
+    fun isAddressValid(): Boolean {
+        return true
+    }
+    fun isMnemonicValid(): Boolean {
+        return true
+    }
+}

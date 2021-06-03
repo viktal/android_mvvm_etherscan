@@ -6,21 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import main.src.etherscan.TypeTrans
-import main.src.etherscan.data.models.TransactionListModel
+import main.src.etherscan.data.models.TokenDetailsModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 
-class TransactionViewModel : ViewModel() {
-    private var _model = MutableLiveData<TransactionListModel?>()
-    val model: LiveData<TransactionListModel?>
+class TransDetailsViewModel : ViewModel() {
+    private var _model = MutableLiveData<TokenDetailsModel?>()
+    val model: LiveData<TokenDetailsModel?>
         get() = _model
 
     private val repo = EthplorerRepository()
 
-    fun clickEther(address: String, typeTrans: TypeTrans, transAddress: String, rate: Double, timestamp: Int) {
+    fun pressTrans(address: String, moneyCount: String, moneyCountDollar: String) {
         _model.value = null
         viewModelScope.launch(Dispatchers.IO) {
-            val value = repo.getTrans(address, typeTrans, transAddress, rate, timestamp)
+            val value = repo.getTransDetails(address)
+            value.moneyCount = moneyCount
+            value.moneyCountDollar = moneyCountDollar
             _model.postValue(value)
         }
     }

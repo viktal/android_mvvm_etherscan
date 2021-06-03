@@ -9,9 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_bg_blue">#FF120338</color>
     <color name="color_shadow_blue">#FF22075e</color>
-    <color name="color_green">#FF00FF00</color>
+    <color name="color_green">#FF018001</color>
     <color name="color_red">#FFFF0000</color>
     <color name="color_bg_white">#FFFFFFFF</color>
     <color name="color_light_dark">#8FFFFFFF</color>
     <color name="color_light_white">#FFd3adf7</color>
+    <color name="color_gray">#FF141414</color>
 </resources>
