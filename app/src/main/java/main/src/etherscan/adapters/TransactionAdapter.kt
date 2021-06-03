@@ -18,7 +18,7 @@ class TransactionHolder(itemView: View) : BaseViewHolder(itemView) {
     val mTransAddress: TextView = itemView.findViewById(R.id.address)
     val mTransDollars: TextView = itemView.findViewById(R.id.money_count_dollar)
     val mTransCoins: TextView = itemView.findViewById(R.id.money_count)
-    var mTokenItem: LinearLayout = itemView.findViewById(R.id.transaction_item)
+    override var mTokenItem: LinearLayout = itemView.findViewById(R.id.transaction_item)
     var mTokenArrow: ImageView = itemView.findViewById(R.id.arrow_image)
 
     init {
@@ -127,9 +127,9 @@ class TransactionAdapter(
         // }
 
         holder.onBind(model!!, position, address)
-        // holder.mTokenItem.setOnClickListener {
-        //     listener.pressTrans(hash = model.transaction[position].hash)
-        // }
+        holder.mTokenItem.setOnClickListener {
+            listener.pressTrans(hash = model.transaction[position].hash)
+        }
     }
 
     override fun getItemCount(): Int {
