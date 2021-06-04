@@ -1,27 +1,48 @@
 package main.src.etherscan.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.Flow
 import main.src.etherscan.TypeTrans
-import main.src.etherscan.data.models.TransactionListModel
+import main.src.etherscan.data.models.TransactionModel
 import main.src.etherscan.data.repositories.EthplorerRepository
 
 class TransactionViewModel : ViewModel() {
-    private var _model = MutableLiveData<TransactionListModel?>()
-    val model: LiveData<TransactionListModel?>
-        get() = _model
+    private var address: String? = null
+    private var typeTransaction: TypeTrans? = null
+    private var transactionAddress: String? = null
+    private var rate: Double? = null
+    private var timestamp: Int? = null
 
+    private var pagedTransactions: Flow<PagingData<TransactionModel>>? = null
     private val repo = EthplorerRepository()
 
-    fun clickEther(address: String, typeTrans: TypeTrans, transAddress: String, rate: Double, timestamp: Int) {
-        _model.value = null
-        viewModelScope.launch(Dispatchers.IO) {
-            val value = repo.getTrans(address, typeTrans, transAddress, rate, timestamp)
-            _model.postValue(value)
-        }
+    fun fetchTransactions(
+        address: String,
+        typeTransaction: TypeTrans,
+        transactionAddress: String,
+        rate: Double,
+        timestamp: Int
+    ): Flow<PagingData<TransactionModel>> {
+        if (
+            this.address == address && this.typeTransaction == typeTransaction &&
+            this.transactionAddress == transactionAddress && this.rate == rate &&
+            this.timestamp == timestamp
+        )
+            return pagedTransactions!!
+
+        this.address = address
+        this.typeTransaction = typeTransaction
+        this.transactionAddress = transactionAddress
+        this.rate = rate
+        this.timestamp = timestamp
+
+        pagedTransactions = repo.getPagedTransactionsStream(
+            address, typeTransaction, transactionAddress, rate, timestamp
+        ).cachedIn(viewModelScope)
+
+        return pagedTransactions!!
     }
 }

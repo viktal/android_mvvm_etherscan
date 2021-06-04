@@ -16,8 +16,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import java.text.SimpleDateFormat
 import java.util.Date
+import kotlinx.coroutines.CoroutineExceptionHandler
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.databinding.TransDetailsFragmentBinding
@@ -61,7 +63,12 @@ class TransDetailsFragment : Fragment(), View.OnClickListener {
         copyFrom.setOnClickListener(this)
 
         viewModel = ViewModelProvider(this).get(TransDetailsViewModel::class.java)
-        viewModel.pressTrans(address, moneyCount, moneyCountDollar)
+        viewModel.pressTrans(address, moneyCount, moneyCountDollar, CoroutineExceptionHandler { _, exception ->
+            Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_LONG).show()
+            val bundle = Bundle()
+            bundle.putString(BundleConstants.ADDRESS, address)
+            findNavController().navigate(R.id.walletFragment, bundle)
+        })
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {

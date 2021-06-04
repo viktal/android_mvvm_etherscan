@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="200dp"
+    android:height="160dp"
     android:width="200dp"
-    android:viewportHeight="300"
-    android:viewportWidth="300" >
+    android:viewportHeight="160"
+    android:viewportWidth="200" >
     <group
         android:name="triableGroup">
         <path
@@ -11,7 +11,7 @@
             android:strokeColor="@color/color_light_white"
             android:strokeWidth="2"
             android:fillColor="@color/color_shadow_blue"
-            android:pathData="M 0,200 L 200, 80 200,280 z"
+            android:pathData="M 0,80 L 200,0 200,160 z"
             android:layout_width="match_parent" />
     </group>
 </vector>

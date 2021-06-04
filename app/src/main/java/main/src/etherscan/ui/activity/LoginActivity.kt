@@ -2,12 +2,14 @@ package main.src.etherscan.ui.activity
 
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.adapters.LoginAdapter
 
@@ -19,9 +21,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var foregroundContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+
+        intent.extras?.let {
+            if (it.containsKey(BundleConstants.LOGIN_ERROR)) {
+                Toast.makeText(
+                    this, it.getString(BundleConstants.LOGIN_ERROR), Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
         toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 
