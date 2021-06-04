@@ -16,7 +16,7 @@ import main.src.etherscan.data.models.TransactionModel
 
 class NormalizeData {
     fun Double.roundTo(n: Int): String {
-        return "%.${n}f".format(this)
+        return this.round(n).toString()
     }
 
     fun Double.round(decimals: Int): Double {

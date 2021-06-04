@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         }
 
         val viewModelWallet = ViewModelProvider(this).get(WalletViewModel::class.java)
-        viewModelWallet.fetchAddressData(address, CoroutineExceptionHandler {_, exception ->
+        viewModelWallet.fetchAddressData(address, CoroutineExceptionHandler { _, exception ->
             val intent = Intent(this, LoginActivity::class.java)
             intent.putExtra(BundleConstants.LOGIN_ERROR, exception.message)
             startActivity(intent)

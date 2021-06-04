@@ -17,11 +17,6 @@
     <!--        tools:context=".ui.fragments.WalletFragment">-->
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/wallet_coord_layout"
             android:layout_width="match_parent"
@@ -108,5 +103,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

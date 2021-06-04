@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.compose.ui.res.colorResource
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -18,7 +16,6 @@ import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.WalletListener
 import main.src.etherscan.data.Constants.imageAddress
 import main.src.etherscan.data.models.TokensListModel
-import kotlin.coroutines.coroutineContext
 
 class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mTokenTitle: TextView = itemView.findViewById(R.id.token_title)
@@ -49,6 +46,7 @@ class WalletAdapter(
         holder.mTokenTitle.text = model!!.tokens[position].name
         holder.mTokenDescription.text = "$" + model.tokens[position].rate
         holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
+
         if (model.tokens[position].dif.toDouble() < 0) {
             holder.mTokenDescriptionPercent.setTextColor(Color.RED)
         } else {

@@ -16,11 +16,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.CoroutineExceptionHandler
 import java.text.SimpleDateFormat
 import java.util.Date
+import kotlinx.coroutines.CoroutineExceptionHandler
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.databinding.TransDetailsFragmentBinding
@@ -69,7 +68,6 @@ class TransDetailsFragment : Fragment(), View.OnClickListener {
             val bundle = Bundle()
             bundle.putString(BundleConstants.ADDRESS, address)
             findNavController().navigate(R.id.walletFragment, bundle)
-
         })
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->

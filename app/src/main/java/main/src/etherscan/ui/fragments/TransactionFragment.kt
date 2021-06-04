@@ -36,8 +36,11 @@ class TransactionFragment : Fragment() {
     private var fetchTransactionsJob: Job? = null
 
     private fun fetchTransactions(
-        address: String, typeTrans: TypeTrans,
-        transAddress: String, rate: Double, timestamp: Int
+        address: String,
+        typeTrans: TypeTrans,
+        transAddress: String,
+        rate: Double,
+        timestamp: Int
     ) {
         fetchTransactionsJob?.cancel()
         fetchTransactionsJob = lifecycleScope.launch {

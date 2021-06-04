@@ -3,6 +3,7 @@ package main.src.etherscan.ui.fragments
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.content.res.Resources.getSystem
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.delay
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.viewmodels.WalletViewModel
@@ -27,6 +27,10 @@ class WaitFragment : Fragment() {
     var middle_right_triangle: View? = null
     var bottom_left_triangle: View? = null
     var bottom_right_triangle: View? = null
+
+    private fun pxFromDp(dp: Float): Float {
+        return dp * getSystem().displayMetrics.density
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +48,7 @@ class WaitFragment : Fragment() {
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
                 Run.after(2000) {
-                    findNavController().navigate(R.id.walletFragment, bundle)
+                    findNavController().navigate(R.id.action_waitFragment_to_walletFragment, bundle)
                 }
             }
         })
@@ -66,10 +70,18 @@ class WaitFragment : Fragment() {
 
         val alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f)
 
-        val moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 366f)
-        val moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 825f)
-        val minusMoveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -366f)
-        val minusMoveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, -725f)
+        val windowWidth = getSystem().displayMetrics.widthPixels.toFloat()
+        val windowHeight = getSystem().displayMetrics.heightPixels.toFloat()
+
+        val centerX = windowWidth / 2
+        val centerY = windowHeight / 2
+
+        val offsetX = pxFromDp(73f)
+
+        val moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, centerX - offsetX)
+        val moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, centerY - pxFromDp(38f))
+        val minusMoveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -centerX + offsetX)
+        val minusMoveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, -centerY + pxFromDp(42f))
 
         val UpperLeftAnim =
             ObjectAnimator.ofPropertyValuesHolder(upper_left_triangle, moveX, moveY, alpha)
@@ -78,23 +90,23 @@ class WaitFragment : Fragment() {
 
         val MiddleLeftAnim = ObjectAnimator.ofPropertyValuesHolder(
             middle_left_triangle,
-            PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 625f),
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_X, centerX - pxFromDp(3f)),
             alpha
         )
         val MiddleRightAnim = ObjectAnimator.ofPropertyValuesHolder(
             middle_right_triangle,
-            PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -625f),
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -centerX + pxFromDp(3f)),
             alpha
         )
 
         val BottomLeftAnim =
-            ObjectAnimator.ofPropertyValuesHolder(bottom_left_triangle, moveX, minusMoveY, alpha)
-        val BottomRightAnim = ObjectAnimator.ofPropertyValuesHolder(
-            bottom_right_triangle,
-            minusMoveX,
-            minusMoveY,
-            alpha
-        )
+            ObjectAnimator.ofPropertyValuesHolder(
+                bottom_left_triangle, moveX, minusMoveY, alpha
+            )
+        val BottomRightAnim =
+            ObjectAnimator.ofPropertyValuesHolder(
+                bottom_right_triangle, minusMoveX, minusMoveY, alpha
+            )
 
         val animatorSet = AnimatorSet().setDuration(ANIMATION_DURATION)
         animatorSet.playSequentially(

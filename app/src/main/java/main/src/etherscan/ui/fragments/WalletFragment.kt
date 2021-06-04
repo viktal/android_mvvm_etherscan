@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.adapters.WalletAdapter
 import main.src.etherscan.api.WalletListener

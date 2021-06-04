@@ -20,8 +20,11 @@ class TransactionViewModel : ViewModel() {
     private val repo = EthplorerRepository()
 
     fun fetchTransactions(
-        address: String, typeTransaction: TypeTrans, transactionAddress: String,
-        rate: Double, timestamp: Int
+        address: String,
+        typeTransaction: TypeTrans,
+        transactionAddress: String,
+        rate: Double,
+        timestamp: Int
     ): Flow<PagingData<TransactionModel>> {
         if (
             this.address == address && this.typeTransaction == typeTransaction &&

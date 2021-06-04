@@ -7,7 +7,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import main.src.etherscan.R
 import main.src.etherscan.api.TransactionListener
-import main.src.etherscan.data.models.TransactionListModel
 import main.src.etherscan.data.models.TransactionModel
 
 class TransactionAdapter(

@@ -37,6 +37,7 @@ class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 "-" + transaction.coins + transaction.symbol
 
             mTransDollars.setTextColor(ContextCompat.getColor(itemView.context, R.color.color_red))
+            mTokenArrow.setBackgroundResource(R.drawable.baseline_north_east_24)
         } else {
             mTransAddress.text =
                 "from: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(

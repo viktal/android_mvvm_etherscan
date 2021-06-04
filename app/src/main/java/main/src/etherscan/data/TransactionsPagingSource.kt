@@ -2,10 +2,10 @@ package main.src.etherscan.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import java.io.IOException
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.data.models.TransactionModel
 import main.src.etherscan.data.repositories.EthplorerRepository
-import java.io.IOException
 
 class TransactionsPagingSource(
     private val address: String,
@@ -19,11 +19,15 @@ class TransactionsPagingSource(
         val timestamp = params.key ?: initTimestamp
         return try {
             val response = service.getTrans(address, typeTrans, transAddress, rate, timestamp)
-            val nextKey = response.transaction.last().timestamp
+            var nextKey: Int? = null
+            if (!response.transaction.isEmpty()) {
+                nextKey = response.transaction.last().timestamp
+                nextKey = if (nextKey == timestamp) null else nextKey
+            }
             LoadResult.Page(
                 data = response.transaction,
                 prevKey = null,
-                nextKey = if (nextKey == timestamp) null else nextKey
+                nextKey = nextKey
             )
         } catch (exception: IOException) {
             LoadResult.Error(exception)
