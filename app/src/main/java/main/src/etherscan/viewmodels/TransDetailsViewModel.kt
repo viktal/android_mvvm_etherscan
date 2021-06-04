@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.TokenDetailsModel
@@ -16,9 +17,9 @@ class TransDetailsViewModel : ViewModel() {
 
     private val repo = EthplorerRepository()
 
-    fun pressTrans(address: String, moneyCount: String, moneyCountDollar: String) {
+    fun pressTrans(address: String, moneyCount: String, moneyCountDollar: String, handler: CoroutineExceptionHandler) {
         _model.value = null
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(handler) {
             val value = repo.getTransDetails(address)
             value.moneyCount = moneyCount
             value.moneyCountDollar = moneyCountDollar

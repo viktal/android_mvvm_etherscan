@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import main.src.etherscan.data.models.TokensListModel
 import main.src.etherscan.data.repositories.EthplorerRepository
@@ -17,12 +17,11 @@ class WalletViewModel() : ViewModel() {
 
     private val repo = EthplorerRepository()
 
-    fun fetchAddressData(str: String) {
+    fun fetchAddressData(str: String, errorHandler: CoroutineExceptionHandler) {
         _model.value = null
-        viewModelScope.launch(Dispatchers.IO) {
-            val value = str?.let { repo.getAddressInfo(it) }!!
+        viewModelScope.launch(errorHandler) {
             _model.postValue(
-                value
+                repo.getAddressInfo(str)
             )
         }
     }

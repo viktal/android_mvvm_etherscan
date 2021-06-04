@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import kotlinx.coroutines.CoroutineExceptionHandler
 import main.src.etherscan.BundleConstants
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
@@ -33,11 +35,15 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         var address = ""
 
         if (extras != null) {
-            address = extras.getString("address").toString()
+            address = extras.getString(BundleConstants.ADDRESS).toString()
         }
 
         val viewModelWallet = ViewModelProvider(this).get(WalletViewModel::class.java)
-        viewModelWallet.fetchAddressData(address)
+        viewModelWallet.fetchAddressData(address, CoroutineExceptionHandler {_, exception ->
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(BundleConstants.LOGIN_ERROR, exception.message)
+            startActivity(intent)
+        })
 
         val bundle = Bundle()
         bundle.putString(BundleConstants.ADDRESS, address)

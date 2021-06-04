@@ -30,7 +30,6 @@ class EthplorerRemoteStorage {
         val request = Request.Builder()
             .url(methodURL)
             .build()
-
         val result = client.newCall(request).await()
         val json = result.body!!.string()
 

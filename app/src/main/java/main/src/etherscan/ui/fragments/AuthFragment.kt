@@ -99,7 +99,7 @@ class AuthFragment : Fragment(), AuthListener {
                     return@setOnClickListener
                 }
                 viewModel.model.value!!.address = address
-                pressSubmit(viewModel.model.value!!.address)
+                pressSubmit(address)
             }
         }
     }

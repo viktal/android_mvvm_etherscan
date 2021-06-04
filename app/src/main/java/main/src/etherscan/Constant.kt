@@ -6,6 +6,8 @@ object BundleConstants {
     const val TYPETRANS: String = "typeTrans"
     const val TRANSADDRESS: String = "transAddress"
 
+    const val LOGIN_ERROR: String = "loginError"
+
     const val MONEYCOUNT: String = "moneyCount"
     const val MONEYCOUNTDOLLAR: String = "moneyCountDollar"
     const val IMAGEPATH: String = "imagePath"

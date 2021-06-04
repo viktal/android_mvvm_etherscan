@@ -45,8 +45,7 @@ class NormalizeData {
             }
         }
         return TransactionListModel(
-            transaction = newArr,
-            prices = null
+            transaction = newArr
         )
     }
 
@@ -68,8 +67,7 @@ class NormalizeData {
         }
 
         return TransactionListModel(
-            transaction = newArr,
-            prices = null
+            transaction = newArr
         )
     }
 

@@ -16,6 +16,8 @@
         android:background="@color/color_bg_blue">
 
         <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/curved_login"
             android:layout_width="match_parent"
             android:layout_height="300dp"
