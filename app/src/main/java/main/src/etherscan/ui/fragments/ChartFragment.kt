@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -22,6 +24,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.text.SimpleDateFormat
 import kotlin.math.round
+import kotlinx.coroutines.CoroutineExceptionHandler
 import main.src.etherscan.ChartTimeDurations
 import main.src.etherscan.R
 import main.src.etherscan.data.models.HistoryGroupEth
@@ -50,7 +53,10 @@ class ChartFragment : Fragment() {
         mProgressBar = binding.root.findViewById(R.id.chart_progress_bar)
 
         viewModel = ViewModelProvider(this).get(ChartViewModel::class.java)
-        viewModel.fetchChartData()
+        viewModel.fetchChartData(CoroutineExceptionHandler { _, exception ->
+            Toast.makeText(activity, exception.message, Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.walletFragment)
+        })
 
         val layout: LinearLayout = binding.root.findViewById(R.id.chart_layout)
         lineChart = binding.root.findViewById(R.id.lineChart)

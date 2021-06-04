@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import main.src.etherscan.R
@@ -45,10 +46,12 @@ class WalletAdapter(
         holder.mTokenTitle.text = model!!.tokens[position].name
         holder.mTokenDescription.text = "$" + model.tokens[position].rate
         holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
+
         if (model.tokens[position].dif.toDouble() < 0) {
             holder.mTokenDescriptionPercent.setTextColor(Color.RED)
         } else {
-            holder.mTokenDescriptionPercent.setTextColor(Color.green(R.color.color_green))
+            holder.mTokenDescriptionPercent.setTextColor(getColor(holder.mTokenItem.context,
+                R.color.color_green))
         }
 
         val moneyCount = model.tokens[position].balance + " " + model.tokens[position].symbol

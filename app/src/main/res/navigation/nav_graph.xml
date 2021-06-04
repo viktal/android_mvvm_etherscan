@@ -37,7 +37,9 @@
         android:label="WaitFragment" >
         <action
             android:id="@+id/action_waitFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/chartFragment"
