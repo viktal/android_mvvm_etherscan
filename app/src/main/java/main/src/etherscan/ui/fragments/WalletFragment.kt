@@ -19,7 +19,6 @@ class WalletFragment : Fragment() {
     private lateinit var binding: MainScreenBinding
     private lateinit var viewModel: WalletViewModel
     private lateinit var adapter: WalletAdapter
-    // private lateinit var swipeContainer: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,23 +39,6 @@ class WalletFragment : Fragment() {
         recyclerView.adapter = adapter
 
         recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
-
-        // val address: String = requireArguments().getString(BundleConstants.ADDRESS)!!
-
-        // swipeContainer = binding.root.findViewById(R.id.swipeContainer)
-        // swipeContainer.setOnRefreshListener {
-        //     viewModel.fetchAddressData(address)
-        //     viewModel.model.observe(viewLifecycleOwner, Observer { model ->
-        //         if (model != null) {
-        //
-        //             adapter = WalletAdapter(viewModel.model.value, context as WalletListener)
-        //             recyclerView.adapter = adapter
-        //
-        //             binding.walletViewModel = viewModel
-        //             swipeContainer.isRefreshing = false
-        //         }
-        //     })
-        // }
 
         return binding.root
     }

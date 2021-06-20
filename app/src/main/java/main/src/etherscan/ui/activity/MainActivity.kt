@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById<View>(R.id.toolbar_main) as Toolbar
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
             .findFragmentById(R.id.base_fragment) as NavHostFragment? ?: return
 
         navController = host.navController
-        navController.navigate(R.id.waitFragment, bundle)
+        navController.navigate(R.id.action_authFragment_to_waitFragment, bundle)
     }
 
     override fun pressToken(
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
 
         bundle.putString(BundleConstants.RATEETH, rate)
 
-        navController.navigate(R.id.transactionFragment2, bundle)
+        navController.navigate(R.id.action_walletFragment_to_transactionFragment2, bundle)
     }
 
     override fun pressTrans(hash: String, moneyCount: String, moneyCountDollar: String) {
@@ -82,7 +84,7 @@ class MainActivity : AppCompatActivity(), WalletListener, TransactionListener, T
         bundle.putString(BundleConstants.ADDRESS, hash)
         bundle.putString(BundleConstants.MONEYCOUNT, moneyCount)
         bundle.putString(BundleConstants.MONEYCOUNTDOLLAR, moneyCountDollar)
-        navController.navigate(R.id.transDetailsFragment, bundle)
+        navController.navigate(R.id.action_transactionFragment2_to_transDetailsFragment, bundle)
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
