@@ -1,9 +1,9 @@
 package main.src.etherscan.ui.activity
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,10 +18,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: FragmentStateAdapter
-    private lateinit var foregroundContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.login_activity)
 
         intent.extras?.let {

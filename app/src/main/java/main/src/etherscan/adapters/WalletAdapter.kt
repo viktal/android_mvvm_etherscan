@@ -11,10 +11,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import main.src.etherscan.ETH_POS
+import main.src.etherscan.IMAGE_ADDRESS
 import main.src.etherscan.R
 import main.src.etherscan.TypeTrans
 import main.src.etherscan.api.WalletListener
-import main.src.etherscan.data.Constants.imageAddress
+import main.src.etherscan.data.models.MainPageTokenModel
 import main.src.etherscan.data.models.TokensListModel
 
 class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,11 +43,9 @@ class WalletAdapter(
     override fun onBindViewHolder(holder: WalletHolder, position: Int) {
 
         val model = mData
-//        val profit = model!!.dailyMoney.toDouble()*100/model.totalSum.toDouble()
-
         holder.mTokenTitle.text = model!!.tokens[position].name
-        holder.mTokenDescription.text = "$" + model.tokens[position].rate
-        holder.mTokenDescriptionPercent.text = "(" + model.tokens[position].dif + "%)"
+        holder.mTokenDescription.text = "$${model.tokens[position].rate}"
+        holder.mTokenDescriptionPercent.text = "(${model.tokens[position].dif}%)"
 
         if (model.tokens[position].dif.toDouble() < 0) {
             holder.mTokenDescriptionPercent.setTextColor(Color.RED)
@@ -54,47 +54,47 @@ class WalletAdapter(
                 R.color.color_green))
         }
 
-        val moneyCount = model.tokens[position].balance + " " + model.tokens[position].symbol
+        val moneyCount = "${model.tokens[position].balance} ${model.tokens[position].symbol}"
         holder.mTokenMoneyCount.text = moneyCount
 
-        val moneyCountDollar = '$' + model.tokens[position].price
+        val moneyCountDollar = "$${model.tokens[position].price}"
         holder.mTokenMoneyCountDollar.text = moneyCountDollar
-//        holder.mDailyProfit.text = model.dailyMoney.toString() + "(" + profit + "%)"
 
-        var imagePath = ""
-        if (position == 0) {
+        var imagePath: String? = null
+        if (position == ETH_POS) {
             holder.mTokenImage.setImageResource(R.drawable.ethereum)
         } else {
-            imagePath = imageAddress + model.tokens[position].logo
+            imagePath = IMAGE_ADDRESS + model.tokens[position].logo
             Picasso.get().load(imagePath).into(holder.mTokenImage)
         }
 
-        holder.mTokenItem.setOnClickListener {
-            var typeTrans = TypeTrans.TOKEN
-            if (position == 0) {
-                typeTrans = TypeTrans.ETHER
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[0].address,
-                    moneyCount, moneyCountDollar, "", model.tokens[0].rate)
+        holder.mTokenItem.setOnClickListener(
+            makeListener(position, model.tokens, moneyCount, moneyCountDollar, imagePath)
+        )
+    }
+
+    private fun makeListener(
+        position: Int,
+        tokens: MutableList<MainPageTokenModel>,
+        moneyCount: String,
+        moneyCountDollar: String,
+        imagePath: String?
+    ): View.OnClickListener {
+
+        val walletAddress = tokens[ETH_POS].address
+
+        return View.OnClickListener {
+            if (position == ETH_POS) {
+                listener.pressToken(walletAddress, TypeTrans.ETHER, tokens[ETH_POS].address,
+                    moneyCount, moneyCountDollar, "", tokens[ETH_POS].rate)
             } else {
-                listener.pressToken(model.tokens[0].address, typeTrans, model.tokens[position].address,
-                    moneyCount, moneyCountDollar, imagePath)
+                listener.pressToken(walletAddress, TypeTrans.TOKEN, tokens[position].address,
+                    moneyCount, moneyCountDollar, imagePath!!)
             }
         }
     }
 
     override fun getItemCount(): Int {
         return mData!!.tokens.size
-    }
-
-    fun clear() {
-        mData!!.tokens.clear()
-        mData = null
-        notifyDataSetChanged()
-    }
-
-    fun addAll(newData: TokensListModel) {
-        mData = newData
-        mData!!.tokens.addAll(newData.tokens)
-        notifyDataSetChanged()
     }
 }

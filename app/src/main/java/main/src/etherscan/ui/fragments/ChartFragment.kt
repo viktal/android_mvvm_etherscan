@@ -39,7 +39,6 @@ class ChartFragment : Fragment() {
     private lateinit var lineChart: LineChart
     private lateinit var toggleButton: MaterialButtonToggleGroup
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,44 +68,49 @@ class ChartFragment : Fragment() {
 
         viewModel.model.observe(viewLifecycleOwner, Observer { model ->
             if (model != null) {
-                binding.chartViewModel = viewModel
-                mProgressBar.visibility = View.GONE
-
-                val groupEth = viewModel.model.value!!
-                var chartData = parseHistoryGroupEth(groupEth, ChartTimeDurations.Year1)
-                setLineChartData(chartData.xLabel, chartData.yArray)
-                layout.visibility = View.VISIBLE
-                lineChart.animateX(1800, Easing.EaseInExpo)
-
-                val tokensCap = binding.root.findViewById<TextView>(R.id.tokens_cap)
-
-                val cap = round(groupEth.totals.cap / 1000000)
-                tokensCap.text = "Token capitalization\n$$cap billion"
-                val tokensTotal = binding.root.findViewById<TextView>(R.id.total_tokens)
-                tokensTotal.text = """Total tokens: ${groupEth.totals.tokensWithPrice}"""
-
-                toggleButton = binding.root.findViewById(R.id.toggleButton)
-                toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
-                    if (isChecked) {
-                        chartData = when (checkedId) {
-                            R.id.m1 -> parseHistoryGroupEth(model, ChartTimeDurations.Month1)
-                            R.id.m3 -> parseHistoryGroupEth(model, ChartTimeDurations.Month3)
-                            R.id.m6 -> parseHistoryGroupEth(model, ChartTimeDurations.Month6)
-                            R.id.y1 -> parseHistoryGroupEth(model, ChartTimeDurations.Year1)
-                            R.id.y3 -> parseHistoryGroupEth(model, ChartTimeDurations.Year3)
-                            R.id.max -> parseHistoryGroupEth(model, ChartTimeDurations.Max)
-                            else -> parseHistoryGroupEth(model, ChartTimeDurations.Year1)
-                        }
-
-                        setLineChartData(chartData.xLabel, chartData.yArray)
-                        lineChart.notifyDataSetChanged()
-                        lineChart.invalidate()
-                    }
-                }
+                createViewByModel(model, layout)
             }
         })
 
         return binding.root
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun createViewByModel(model: HistoryGroupEth, layout: LinearLayout) {
+        binding.chartViewModel = viewModel
+        mProgressBar.visibility = View.GONE
+
+        val groupEth = viewModel.model.value!!
+        var chartData = parseHistoryGroupEth(groupEth, ChartTimeDurations.Year1)
+        setLineChartData(chartData.xLabel, chartData.yArray)
+        layout.visibility = View.VISIBLE
+        lineChart.animateX(1800, Easing.EaseInExpo)
+
+        val tokensCap = binding.root.findViewById<TextView>(R.id.tokens_cap)
+
+        val cap = round(groupEth.totals.cap / 1000000)
+        tokensCap.text = "Token capitalization\n$$cap billion"
+        val tokensTotal = binding.root.findViewById<TextView>(R.id.total_tokens)
+        tokensTotal.text = "Total tokens: ${groupEth.totals.tokensWithPrice}"
+
+        toggleButton = binding.root.findViewById(R.id.toggleButton)
+        toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                chartData = when (checkedId) {
+                    R.id.m1 -> parseHistoryGroupEth(model, ChartTimeDurations.Month1)
+                    R.id.m3 -> parseHistoryGroupEth(model, ChartTimeDurations.Month3)
+                    R.id.m6 -> parseHistoryGroupEth(model, ChartTimeDurations.Month6)
+                    R.id.y1 -> parseHistoryGroupEth(model, ChartTimeDurations.Year1)
+                    R.id.y3 -> parseHistoryGroupEth(model, ChartTimeDurations.Year3)
+                    R.id.max -> parseHistoryGroupEth(model, ChartTimeDurations.Max)
+                    else -> parseHistoryGroupEth(model, ChartTimeDurations.Year1)
+                }
+
+                setLineChartData(chartData.xLabel, chartData.yArray)
+                lineChart.notifyDataSetChanged()
+                lineChart.invalidate()
+            }
+        }
     }
 
     private fun parseHistoryGroupEth(historyGroupEth: HistoryGroupEth, duration: Int): ParsedHistoryGroupEth {

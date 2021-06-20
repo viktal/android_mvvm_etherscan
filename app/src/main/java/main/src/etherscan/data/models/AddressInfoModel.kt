@@ -6,10 +6,6 @@ import com.squareup.moshi.JsonClass
 data class AddressInfoModel(
     val address: String,
     val ETH: ETHModel,
-    // @Json(ignored = true)
-    // val contractInfo: ContractInfoModel?,
-    // val tokenInfo: TokenInfoModel,
-    // @Json(serializeNull = false)
     val tokens: MutableList<TokenBalanceModel>? = null,
     val countTxs: Int
 )

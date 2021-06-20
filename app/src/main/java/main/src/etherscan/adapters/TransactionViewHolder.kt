@@ -28,22 +28,20 @@ class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         mTransDate.text = transaction.date
 
         if (from == address) {
-            mTransAddress.text = "to: " + to.subSequence(0, 5).toString() + ".." + to.subSequence(
+            mTransAddress.text = "to: ${to.subSequence(0, 5)}..${to.subSequence(
                 toLen - 5,
                 toLen - 1
-            )
-            mTransDollars.text = "-$" + transaction.dollars
-            mTransCoins.text =
-                "-" + transaction.coins + transaction.symbol
+            )}"
+            mTransDollars.text = "-$${transaction.dollars}"
+            mTransCoins.text = "-${transaction.coins}${transaction.symbol}"
 
             mTransDollars.setTextColor(ContextCompat.getColor(itemView.context, R.color.color_red))
             mTokenArrow.setBackgroundResource(R.drawable.baseline_north_east_24)
         } else {
-            mTransAddress.text =
-                "from: " + from.subSequence(0, 5).toString() + ".." + from.subSequence(
+            mTransAddress.text = "from: ${from.subSequence(0, 5)}..${from.subSequence(
                     fromLen - 5,
                     fromLen - 1
-                )
+                )}"
             transaction.incomming = true
             mTransDollars.setTextColor(
                 ContextCompat.getColor(
@@ -52,7 +50,7 @@ class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 )
             )
             mTokenArrow.setBackgroundResource(R.drawable.baseline_south_west_24)
-            mTransDollars.text = "$" + transaction.dollars
+            mTransDollars.text = "$${transaction.dollars}"
             mTransCoins.text = transaction.coins + transaction.symbol
         }
     }
