@@ -2,10 +2,11 @@
 
 Криптокошелек для просмотра информации об эфире и токенах: 
 - собранный [apk файл](https://drive.google.com/file/d/1kgd37yrOL8-k99702fCtS_PeBKPIPjdL/view?usp=sharing) 
-- краткая [презентация приложения](./presentation.html)
+- краткая [презентация приложения](https://vik_tal.slides.com/vik_tal/deck-2b88fa/fullscreen)  
 
 Кошелек использует открытое API [etherscan](https://github.com/EverexIO/Ethplorer/wiki/ethplorer-api).  
-<img src="https://user-images.githubusercontent.com/56442323/122788944-7ba61300-d2bf-11eb-998b-39b3cfccf463.gif" width="250"/>
+
+https://user-images.githubusercontent.com/56442323/122793588-0e48b100-d2c4-11eb-8f6d-565d2d198904.mp4
 
 **Экраны:**  
 - Вход 
