@@ -1,13 +1,9 @@
-# android_mvvm_etherscan
+# YourWallet
 
-## Команда mvvm
+Криптокошелек для просмотра информации об эфире и токенах. Использовано открытое апи [etherscan](https://github.com/EverexIO/Ethplorer/wiki/ethplorer-api)
 
-**Состав:**
-* Маргарита Шуляк ([Margot07008](https://github.com/Margot07008))
-* Виктория Талмаза ([viktal](https://github.com/viktal/))
-* Константин Павлов ([Kostikans](https://github.com/Kostikans))
-* Владислав Амелин ([H-b-IO-T-O-H](https://github.com/H-b-IO-T-O-H))
+![video_2021-06-05_11-47-29](https://user-images.githubusercontent.com/56442323/122763178-b51e5480-d2a6-11eb-94c6-91f00857b94f.gif)
+
 
 **Проект:**
-Криптокошелек https://etherscan.io/. Работа с открытым апи [etherscan](https://github.com/EverexIO/Ethplorer/wiki/ethplorer-api).
-[Техническое задание](https://docs.google.com/document/d/1Gyg4S3UPjcNNSy70kV_nBE0nquozzMRA3lrWz7Wcx5w/edit#)
+
