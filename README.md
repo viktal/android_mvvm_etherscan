@@ -1,13 +1,15 @@
 # YourWallet
 
-Криптокошелек для просмотра информации об эфире и токенах:
-собранный [apk файл](https://drive.google.com/file/d/1kgd37yrOL8-k99702fCtS_PeBKPIPjdL/view?usp=sharing),
-краткая [презентация приложения](./presentation.html).
+Криптокошелек для просмотра информации об эфире и токенах: 
+- собранный [apk файл](https://drive.google.com/file/d/1kgd37yrOL8-k99702fCtS_PeBKPIPjdL/view?usp=sharing) 
+- краткая [презентация приложения](https://vik_tal.slides.com/vik_tal/deck-2b88fa/fullscreen)  
 
-Кошелек основан на открытом API [etherscan](https://github.com/EverexIO/Ethplorer/wiki/ethplorer-api).
+Кошелек использует открытое API [etherscan](https://github.com/EverexIO/Ethplorer/wiki/ethplorer-api).  
 
-**Экраны:**
-- Вход
+https://user-images.githubusercontent.com/56442323/122793588-0e48b100-d2c4-11eb-8f6d-565d2d198904.mp4
+
+**Экраны:**  
+- Вход 
 - Список токенов и эфира
 - Список транзакций
 - Детали транзакций
