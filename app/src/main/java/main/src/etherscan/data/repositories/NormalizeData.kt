@@ -94,7 +94,7 @@ class NormalizeData {
                 balance = itemBalance.roundTo(2),
                 price = tmpPrice.roundTo(2),
                 logo = itemInfo.image,
-                // go to trans
+                // send to trans
                 rate = itemPrice.rate.roundTo(2),
                 dif = itemPrice.diff.roundTo(2)
             )
