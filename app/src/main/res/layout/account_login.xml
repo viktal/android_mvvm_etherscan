@@ -1,109 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <variable
-            name="AuthViewModel"
-            type="main.src.etherscan.viewmodels.AuthViewModel" />
-    </data>
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg_blue">
 
     <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/curved_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_bg_blue">
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/curved_login"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/frame">
+            <LinearLayout
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center_vertical"
+                android:visibility="visible"
+                android:id="@+id/input_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:gravity="start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address_info"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:id="@+id/textInfoAddress" />
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/input_field_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address_default"
+                    android:textColor="@color/black"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="20dp"
                 android:layout_gravity="center_vertical"
-                android:id="@+id/frame">
-                <LinearLayout
-                    android:layout_marginStart="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:visibility="visible"
-                    android:id="@+id/input_address"
+                android:visibility="invisible"
+                android:id="@+id/input_mnemonic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:gravity="start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:paddingTop="30dp">
+                    android:text="@string/mnemonic_info"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:id="@+id/textInfoMnemonic" />
 
-                    <TextView
-                        android:gravity="start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address_info"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:id="@+id/textInfoAddress" />
-
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:layout_gravity="center_vertical"
-                        android:id="@+id/input_field_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@={AuthViewModel.model.address}"
-                        android:textColor="@color/black"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginStart="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:visibility="invisible"
-                    android:id="@+id/input_mnemonic"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/input_field_mnemonic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:paddingTop="30dp">
-
-                    <TextView
-                        android:gravity="start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mnemonic_info"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:id="@+id/textInfoMnemonic" />
-
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/input_field_mnemonic"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:text="@={AuthViewModel.model.mnemonic}"
-                        android:textColor="@color/black"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                </LinearLayout>
-            </FrameLayout>
+                    android:layout_height="100dp"
+                    android:text="@string/mnemonic_default"
+                    android:textColor="@color/black"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+        </FrameLayout>
 
 
-            <Button
-                android:id="@+id/submit_button"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:text="@string/login_screen_btn_name"
-                android:layout_below="@id/frame"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                />
-
-        </RelativeLayout>
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="@string/login_screen_btn_name"
+            android:layout_below="@id/frame"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            />
 
     </RelativeLayout>
 
-</layout>
+</RelativeLayout>

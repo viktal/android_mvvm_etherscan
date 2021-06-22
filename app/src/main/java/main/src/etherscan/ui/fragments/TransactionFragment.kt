@@ -28,11 +28,7 @@ import main.src.etherscan.viewmodels.TransactionViewModel
 class TransactionFragment : Fragment() {
     private lateinit var binding: TransactionsBinding
     private lateinit var viewModel: TransactionViewModel
-    // private lateinit var mProgressBar: ProgressBar
-
-    // private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var adapter: TransactionAdapter
-
     private var fetchTransactionsJob: Job? = null
 
     private fun fetchTransactions(

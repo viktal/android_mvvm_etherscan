@@ -25,7 +25,6 @@ data class Totals(
     val tokensWithPrice: Int,
     val cap: Double,
     val capPrevious: Double,
-    // val volume24: Double,
     val volumePrevious: Double,
     val ts: Int
 )

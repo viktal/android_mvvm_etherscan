@@ -1,5 +1,8 @@
 package main.src.etherscan
 
+const val IMAGE_ADDRESS = "https://ethplorer.io"
+const val ETH_POS = 0
+
 object BundleConstants {
     const val ADDRESS: String = "address"
     const val TYPELOGIN: String = "typeLogin"
@@ -34,3 +37,9 @@ enum class TypeLogin {
 
 const val PAGE_START = 1
 const val PAGE_SIZE = 10
+
+object PlaceHolders {
+    const val addressPlaceHolder: String = "0xF33ddB3EB90a88E1ebE3f0994A02EF2db4EfE397"
+    const val mnemonicPlaceHolder: String =
+        "crop truly stuff sing course hour six rescue mass aunt invest dose will local empower"
+}

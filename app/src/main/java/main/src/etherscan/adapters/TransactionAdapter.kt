@@ -1,6 +1,5 @@
 package main.src.etherscan.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -23,7 +22,6 @@ class TransactionAdapter(
         )
     }
 
-    @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = getItem(position)
         if (transaction != null) {
