@@ -38,18 +38,13 @@
                     android:orientation="vertical"
                     android:paddingTop="10sp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="85dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
                         <ImageView
+                            android:layout_gravity="center"
+                            android:padding="5dp"
                             android:id="@+id/image"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             tools:background="@color/color_bg_blue" />
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/main_info_cash"
@@ -74,7 +69,7 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity">
@@ -92,21 +87,14 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_gravity="center" />
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/retry_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/retry"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/retry"/>
+        </FrameLayout>
     </LinearLayout>
 </layout>
