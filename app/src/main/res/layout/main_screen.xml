@@ -9,98 +9,87 @@
             type="main.src.etherscan.viewmodels.WalletViewModel" />
     </data>
 
-    <!--    <FrameLayout-->
-    <!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--        xmlns:tools="http://schemas.android.com/tools"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        tools:context=".ui.fragments.WalletFragment">-->
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/wallet_coord_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/wallet_coord_layout"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:menu="@menu/top_app_bar">
 
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:menu="@menu/top_app_bar">
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingBottom="10sp">
 
-
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:text="@string/total_wallet"
+                    android:textColor="@color/color_bg_white"
                     android:layout_gravity="center"
-                    android:paddingBottom="10sp">
+                    android:textSize="@dimen/fs_token_name"
+                    android:id="@+id/toolbar_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_bg_white"
+                    android:layout_gravity="center"
+                    android:text="@{@string/total_usd(String.valueOf(walletViewModel.model.totalSum))}"
+                    tools:text="123 345 USD"
+                    android:id="@+id/main_info_cash" />
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/daily_profit">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_wallet"
-                        android:textColor="@color/color_bg_white"
-                        android:layout_gravity="center"
-                        android:textSize="@dimen/fs_token_name"
-                        android:id="@+id/toolbar_title" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_bg_white"
-                        android:layout_gravity="center"
-                        android:text="@{@string/total_usd(String.valueOf(walletViewModel.model.totalSum))}"
-                        tools:text="123 345 USD"
-                        android:id="@+id/main_info_cash" />
-
-                    <LinearLayout
                         android:layout_margin="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/color_bg_blue"
                         android:layout_gravity="center"
-                        android:background="@drawable/daily_profit">
+                        android:text="@{@string/daily_usd(String.valueOf(walletViewModel.model.dailyMoney))}"
+                        tools:text=" -$268.65 (-0.74%) "
+                        android:id="@+id/daily_profit"
+                        android:textSize="@dimen/fs_token_one_d" />
 
-                        <TextView
-                            android:layout_margin="3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_bg_blue"
-                            android:layout_gravity="center"
-                            android:text="@{@string/daily_usd(String.valueOf(walletViewModel.model.dailyMoney))}"
-                            tools:text=" -$268.65 (-0.74%) "
-                            android:id="@+id/daily_profit"
-                            android:textSize="@dimen/fs_token_one_d" />
-
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:background="@drawable/baseline_arrow_upward_24"
-                            android:background="@{walletViewModel.model.growth ? @drawable/baseline_arrow_upward_24 : @drawable/baseline_arrow_downward_24}" />
-
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:background="@drawable/baseline_arrow_upward_24"
+                        android:background="@{walletViewModel.model.growth ? @drawable/baseline_arrow_upward_24 : @drawable/baseline_arrow_downward_24}" />
 
                 </LinearLayout>
-            </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_blue">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:background="@drawable/curved_toolbar"
+                android:id="@+id/list_tokens"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_bg_blue">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/token" />
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:background="@drawable/curved_toolbar"
-                    android:id="@+id/list_tokens"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:listitem="@layout/token" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 </layout>

@@ -3,8 +3,8 @@ package main.src.etherscan.adapters
 import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import main.src.etherscan.R
@@ -15,7 +15,7 @@ class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     private val mTransAddress: TextView = itemView.findViewById(R.id.address)
     private val mTransDollars: TextView = itemView.findViewById(R.id.money_count_dollar)
     private val mTransCoins: TextView = itemView.findViewById(R.id.money_count)
-    var mTokenItem: LinearLayout = itemView.findViewById(R.id.transaction_item)
+    var mTokenItem: ConstraintLayout = itemView.findViewById(R.id.transaction_item)
     private var mTokenArrow: ImageView = itemView.findViewById(R.id.arrow_image)
 
     @SuppressLint("SetTextI18n")

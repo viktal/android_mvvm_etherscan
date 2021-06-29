@@ -6,6 +6,4 @@
     android:id="@+id/toolBar"
     android:elevation="4dp"
     android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
-
 </androidx.appcompat.widget.Toolbar>

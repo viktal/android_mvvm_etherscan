@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -26,7 +26,7 @@ class WalletHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mTokenDescriptionPercent: TextView = itemView.findViewById(R.id.description_percent)
     var mTokenMoneyCountDollar: TextView = itemView.findViewById(R.id.money_count_dollar)
     var mTokenImage: ImageView = itemView.findViewById(R.id.image)
-    var mTokenItem: LinearLayout = itemView.findViewById(R.id.token_item)
+    var mTokenItem: ConstraintLayout = itemView.findViewById(R.id.token_item)
 }
 
 class WalletAdapter(

@@ -4,7 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="chartViewModel"
             type="main.src.etherscan.viewmodels.ChartViewModel" />
@@ -42,17 +41,18 @@
                         android:orientation="vertical"
                         android:paddingTop="10sp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="90dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_gravity="center">-->
 
                             <ImageView
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
                                 android:layout_width="70dp"
-                                android:layout_height="70dp"
                                 android:src="@drawable/ethereum" />
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
                         <TextView
                             android:id="@+id/tokens_cap"
@@ -77,6 +77,7 @@
                     </LinearLayout>
                 </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>
+
             <com.github.mikephil.charting.charts.LineChart
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="7dp"
@@ -92,54 +93,53 @@
                 android:layout_gravity="center"
                 app:singleSelection="true"
                 app:selectionRequired="true">
+
                 <Button
                     android:id="@+id/m1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1M"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
+
                 <Button
                     android:id="@+id/m3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3M"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
+
                 <Button
                     android:id="@+id/m6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6M"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
+
                 <Button
                     android:id="@+id/y1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1Y"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
+
                 <Button
                     android:id="@+id/y3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3Y"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
+
                 <Button
                     android:id="@+id/max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MAX"
-                    style="@style/Widget.App.Button.OutlinedButton.TextOnly"
-                    />
+                    style="@style/Widget.App.Button.OutlinedButton.TextOnly" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
+        </LinearLayout>
 
-
-</LinearLayout>
         <ProgressBar
             android:layout_gravity="center"
             android:id="@+id/chart_progress_bar"
