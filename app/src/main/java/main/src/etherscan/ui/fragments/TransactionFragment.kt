@@ -13,6 +13,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -39,7 +40,7 @@ class TransactionFragment : Fragment() {
         timestamp: Int
     ) {
         fetchTransactionsJob?.cancel()
-        fetchTransactionsJob = lifecycleScope.launch {
+        fetchTransactionsJob = lifecycleScope.launch(Dispatchers.IO) {
             viewModel.fetchTransactions(address, typeTrans, transAddress, rate, timestamp).collect {
                 adapter.submitData(it)
             }
